@@ -7,8 +7,10 @@ KernelLaunchInfo类为开发者提供创建和管理下发给Device的任务接�
 ## 需要包含的头文件
 
 ```cpp
-#include "graph/kernel_launch_info.h"
+#include <graph/kernel_launch_info.h>
 ```
+
+该头文件由GE（Graph Engine）组件随CANN Toolkit安装到`${INSTALL_DIR}/include/graph/`，不属于metadef仓库源码中的头文件。
 
 ## Public成员函数
 
@@ -17,6 +19,8 @@ static KernelLaunchInfo LoadFromData(const gert::ExeResGenerationContext *contex
 static KernelLaunchInfo CreateAicpuKfcTask(const gert::ExeResGenerationContext *context, const char *so_name, const char *kernel_name)
 static KernelLaunchInfo CreateHcomRecordTask(const gert::ExeResGenerationContext *context, const char *group_name = "group")
 static KernelLaunchInfo CreateHcomWaitTask(const gert::ExeResGenerationContext *context, const char *group_name = "group")
+static KernelLaunchInfo CreateFusionTask(const gert::ExeResGenerationContext *context, const std::vector<KernelLaunchInfo> &sub_tasks)
+static KernelLaunchInfo CreateCcuTask(const gert::ExeResGenerationContext *context, const std::vector<std::string> &groups)
 std::vector<uint8_t> Serialize()
 uint32_t GetStreamId() const
 void SetStreamId(uint32_t stream_id)

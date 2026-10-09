@@ -4,6 +4,14 @@
 
 注册自定义算子动态库的初始化函数。
 
+## 需要包含的头文件
+
+```cpp
+#include <register/op_lib_register.h>
+```
+
+该头文件由GE（Graph Engine）组件随CANN Toolkit安装到`${INSTALL_DIR}/include/register/`，不属于metadef仓库源码中的头文件。`REGISTER_OP_LIB`宏由该头文件提供。
+
 ## 函数原型
 
 ```cpp
@@ -22,7 +30,7 @@ OpLibRegister &RegOpLibInit(OpLibInitFunc func)
 
 ## 约束说明
 
-无。
+该接口为内部关联接口，供自定义算子工程框架注册自定义算子动态库的初始化函数使用，算子开发者无需关注。
 
 ## 调用示例
 

@@ -57,6 +57,7 @@
 | graph/ascend_string.h | AscendString字符串接口。 | libmetadef.so |
 | graph/types.h | Format、DataType、TensorType等公共类型接口。 | libmetadef.so |
 | graph/utils/type_utils.h | Format/DataType字符串转换和合法性检查。 | libmetadef.so |
+| graph/kernel_launch_info.h | Device任务Launch信息的创建、序列化和读写。 | libregister.so（实现位于GE/Air） |
 | utils/extern_math_util.h | 整数加减乘除溢出检查工具。 | Header-only工具头 |
 | ge/ge_allocator.h | GE内存块和分配器抽象接口。 | Header-only抽象接口；主要消费库libgert.so（实现位于GE/Air） |
 | external/ge_common/ge_api_types.h | GE公共枚举、状态和模型数据结构。 | Header-only定义头 |
@@ -114,6 +115,7 @@
 | register/tilingdata_base.h | TilingData字段定义、序列化和类工厂。 | libopp_registry.so（Device侧同时编入 libtilingdata_base.a） |
 | register/device_op_impl_registry.h | Device侧算子Tiling函数注册。 | 无对应SO；libdevice_register.a |
 | register/register.h | 自定义算子解析、Framework和映射函数注册。 | libregister.so（实现位于GE/Air） |
+| register/op_lib_register.h | 自定义算子动态库初始化函数注册。 | libregister.so（实现位于GE/Air） |
 | register/asc/op_config_registry.h | 算子AICore配置注册。 | libopp_registry.so |
 | register/asc/op_def_factory.h | 算子定义创建、查询和Tiling Sink注册。 | libopp_registry.so |
 | register/asc/op_def.h | 算子输入、输出、属性和执行能力定义。 | libopp_registry.so |
