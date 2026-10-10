@@ -147,6 +147,12 @@ TEST_F(UtestAscendString, with_terminal) {
   ASSERT_GT(with_terminal.GetLength(), without_terminal.GetLength());
   std::string re_build_str(with_terminal.GetString(), with_terminal.GetLength());
   ASSERT_EQ(re_build_str, with_terminal_str);
+
+  AscendString same_content("abc\0def", 7);
+  EXPECT_TRUE(with_terminal == same_content);
+  EXPECT_FALSE(with_terminal != same_content);
+  EXPECT_FALSE(with_terminal == "abc");
+  EXPECT_TRUE(with_terminal != "abc");
 }
 
 TEST_F(UtestAscendString, find) {
