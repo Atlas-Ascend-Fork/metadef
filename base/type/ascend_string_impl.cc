@@ -139,7 +139,7 @@ bool AscendStringImpl::Eq(const AscendString &obj, const char_t *const other) {
   } else if ((obj.name_ == nullptr) || (other == nullptr)) {
     return false;
   } else {
-    return (strcmp((*(obj.name_)).c_str(), other) == 0);
+    return (*(obj.name_) == other);
   }
 }
 
@@ -149,7 +149,7 @@ bool AscendStringImpl::Ne(const AscendString &obj, const char_t *const other) {
   } else if ((obj.name_ == nullptr) || (other == nullptr)) {
     return true;
   } else {
-    return (strcmp((*(obj.name_)).c_str(), other) != 0);
+    return (*(obj.name_) != other);
   }
 }
 

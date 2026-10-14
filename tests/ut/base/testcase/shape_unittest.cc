@@ -29,4 +29,14 @@ TEST_F(ShapeUT, SetDimDoesNotChangeRank) {
   EXPECT_EQ(shape.GetDimNum(), 3);
   EXPECT_EQ(shape.GetDim(2), 11);
 }
+
+TEST_F(ShapeUT, EmptyShapeSizeIsIndependentOfDimensionOrder) {
+  const Shape overflow_before_zero{256, 256, 256, 256, 256, 256, 256, 256, 0};
+  const Shape zero_before_overflow{0, 256, 256, 256, 256, 256, 256, 256, 256};
+  const Shape overflowing_nonempty{256, 256, 256, 256, 256, 256, 256, 256};
+
+  EXPECT_EQ(overflow_before_zero.GetShapeSize(), 0);
+  EXPECT_EQ(zero_before_overflow.GetShapeSize(), 0);
+  EXPECT_EQ(overflowing_nonempty.GetShapeSize(), Shape::kInvalidDimValue);
+}
 }  // namespace gert

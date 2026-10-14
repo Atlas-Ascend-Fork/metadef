@@ -109,6 +109,12 @@ struct Shape {
    * @return shape-size，在发生溢出时，返回`kInvalidDimValue`
    */
   int64_t GetShapeSize() const {
+    for (size_t i = 0; i < dim_num_; ++i) {
+      if (dims_[i] == 0) {
+        return 0;
+      }
+    }
+
     int64_t shape_size = 1;
     for (size_t i = 0; i < dim_num_; ++i) {
       if (ge::MulOverflow(shape_size, dims_[i], shape_size)) {
