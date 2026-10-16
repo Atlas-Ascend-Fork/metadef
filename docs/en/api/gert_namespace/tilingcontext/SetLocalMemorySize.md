@@ -1,0 +1,40 @@
+# SetLocalMemorySize
+
+<!-- md-trans-meta sourceCommit=ea046bd50b7a6b8b6ef9ddbedb3c55664c72b8ae translatedAt=2026-10-09T04:51:34.190Z pushedAt=2026-10-15T03:48:05.103Z -->
+
+## Function
+
+Sets the size of the Dynamic Unified Buffer to be used for a SIMT operator. If not set, the default value is **0**, meaning that the operator does not need to use the Dynamic Unified Buffer.
+
+**This API is deprecated and will be removed in a later version. Use [SetDynUBufSize](SetDynUBufSize.md) to set the required Dynamic Unified Buffer size.**
+
+## Function Prototype
+
+```cpp
+ge::graphStatus SetLocalMemorySize(const uint32_t local_memory_size)
+```
+
+## Parameters
+
+|Parameter|Input/Output|Description|
+|--|--|--|
+|local_memory_size|Input|Local Memory size.|
+
+## Return Value
+
+Returns **ge::GRAPH\_SUCCESS** on success.
+
+For the definition of **graphStatus**, see [ge::graphStatus](../../ge_namespace/ge-graphStatus.md).
+
+## Constraints
+
+None
+
+## Example
+
+```cpp
+ge::graphStatus Tiling4XXX(TilingContext* context) {
+    // ...
+    auto ret = context->SetLocalMemorySize(1024 * 128);
+}
+```
