@@ -112,7 +112,10 @@ class TilingData {
     if (data_ptr == nullptr) {
       return ge::GRAPH_FAILED;
     }
-    *reinterpret_cast<T *>(data_ptr) = data;
+    if (memcpy_s(data_ptr, sizeof(data), &data, sizeof(data)) != EOK) {
+      data_size_ -= sizeof(data);
+      return ge::GRAPH_FAILED;
+    }
     return ge::GRAPH_SUCCESS;
   }
 
