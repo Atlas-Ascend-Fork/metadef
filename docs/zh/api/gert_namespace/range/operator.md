@@ -2,7 +2,7 @@
 
 ## 函数功能
 
-判断与另外一个range对象是否相等，如果两个range的上下界的地址相同，或者上下界的值相同，这两个对象相等。
+判断与另外一个range对象是否相等，如果两个range的上下界的地址相同，或者上下界的值相同，这两个对象相等。若任一端点为空指针，除非两端点地址完全相同（例如两个默认构造的range），否则两者不相等，且不会解引用空指针。
 
 ## 函数原型
 
@@ -36,4 +36,10 @@ Range<int> range3(&min, &max2); // 上界为1024，下界为0
 
 auto ret1 = range1 == range2; // true
 auto ret2 = range1 == range3; // true
+
+Range<int> empty1; // 上下界均为nullptr
+Range<int> empty2; // 上下界均为nullptr
+auto ret3 = empty1 == empty2; // true，两端点地址相同
+auto ret4 = empty1 == range1; // false，存在空指针端点，不会解引用
+auto ret5 = range1 == empty1; // false，反向比较同样安全
 ```
