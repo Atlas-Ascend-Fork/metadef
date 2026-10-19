@@ -144,7 +144,7 @@ int32_t CreateDirectory(const std::string &directory_path) {
   return CreateDir(directory_path);
 }
 
-std::unique_ptr<ge::char_t[]> GetBinFromFile(std::string &path, uint32_t &data_len) {
+std::unique_ptr<ge::char_t[]> GetBinFromFile(const std::string &path, uint32_t &data_len) {
   return GetBinDataFromFile(path, data_len);
 }
 
@@ -220,7 +220,7 @@ ge::graphStatus GetBinFromFile(const std::string &path, ge::char_t *buffer, size
   return ge::GRAPH_SUCCESS;
 }
 
-ge::graphStatus WriteBinToFile(std::string &path, ge::char_t *data, uint32_t &data_len) {
+ge::graphStatus WriteBinToFile(const std::string &path, const ge::char_t *const data, uint32_t data_len) {
   GE_ASSERT_TRUE(!path.empty());
   std::string dir_path;
   std::string file_name;

@@ -26,7 +26,6 @@ class OpInferShapeContextBuilderImpl : public ContextBuilderImpl {
     GE_ASSERT_NOTNULL(holder, "Create ContextHolderImpl failed.");
     GE_ASSERT_SUCCESS(CreateComputeNodeInfo(*holder), "Create compute node info failed.");
     (void)input_values_.emplace_back(std::make_pair(nullptr, nullptr));  // FindInferShapeFunc
-    std::vector<std::pair<void *, gert::Chain::Deleter>> tmp_outputs;
     static auto shape_deleter = [](void *p) {
       if (p == nullptr) {
         return;

@@ -54,7 +54,7 @@ int32_t CreateDir(const std::string &directory_path, uint32_t mode);
  */
 int32_t CreateDirectory(const std::string &directory_path);
 
-std::unique_ptr<ge::char_t[]> GetBinFromFile(std::string &path, uint32_t &data_len);
+std::unique_ptr<ge::char_t[]> GetBinFromFile(const std::string &path, uint32_t &data_len);
 
 std::unique_ptr<ge::char_t[]> GetBinDataFromFile(const std::string &path, uint32_t &data_len);
 
@@ -68,7 +68,7 @@ std::unique_ptr<ge::char_t[]> GetBinDataFromFile(const std::string &path, uint32
  */
 std::unique_ptr<char[]> GetBinFromFile(const std::string &path, size_t offset, size_t data_len);
 
-ge::graphStatus WriteBinToFile(std::string &path, ge::char_t *data, uint32_t &data_len);
+ge::graphStatus WriteBinToFile(const std::string &path, const ge::char_t *const data, uint32_t data_len);
 
 /**
  * @ingroup domi_common

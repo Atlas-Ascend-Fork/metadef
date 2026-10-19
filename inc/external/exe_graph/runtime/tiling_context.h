@@ -23,7 +23,9 @@ class PlatFormInfos;
 
 namespace gert {
 struct Dim3 {
-  uint32_t x, y, z;
+  uint32_t x;
+  uint32_t y;
+  uint32_t z;
 
   Dim3(const uint32_t dim3_x, const uint32_t dim3_y = 1, const uint32_t dim3_z = 1) : x(dim3_x), y(dim3_y), z(dim3_z) {}
 };

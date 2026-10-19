@@ -22,13 +22,13 @@
 namespace optiling {
 class TilingDefImpl {
  public:
-  static void SaveToBuffer(TilingDef &host, void *pdata, size_t capacity);
-  static std::vector<FieldInfo> GetFieldInfo(const TilingDef &host);
-  static const char *GetTilingClassName(const TilingDef &host);
-  static size_t GetDataSize(const TilingDef &host);
-  static void SetDataPtr(TilingDef &host, void *dataPtr);
-  static void CheckAlignAndGenPlaceHolder(TilingDef &host, const char *name, size_t typeSize);
-  static void InitData(TilingDef &host);
+  static void SaveToBuffer(TilingDef &tiling, void *pdata, size_t capacity);
+  static std::vector<FieldInfo> GetFieldInfo(const TilingDef &tiling);
+  static const char *GetTilingClassName(const TilingDef &tiling);
+  static size_t GetDataSize(const TilingDef &tiling);
+  static void SetDataPtr(TilingDef &tiling, void *dataPtr);
+  static void CheckAlignAndGenPlaceHolder(TilingDef &tiling, const char *name, size_t typeSize);
+  static void InitData(TilingDef &tiling);
   static void GeLogError(const std::string &str);
 };
 
