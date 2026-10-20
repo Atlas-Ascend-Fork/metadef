@@ -17,6 +17,7 @@ TensorAddress GetAddr() const
 ## 返回值说明
 
 tensor地址。
+manager 地址查询回调返回非 `ge::GRAPH_SUCCESS` 时，返回 `nullptr`；回调成功时，返回回调设置的地址。
 
 ## 约束说明
 
