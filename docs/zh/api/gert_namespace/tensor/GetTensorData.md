@@ -31,5 +31,5 @@ StorageShape sh({1, 2, 3}, {1, 2, 3});
 Tensor t = {sh, {ge::FORMAT_ND, ge::FORMAT_FRACTAL_NZ, {}}, kOnHost, ge::DT_FLOAT, nullptr};
 auto a = reinterpret_cast<void *>(10);
 t.MutableTensorData() = TensorData{a, nullptr}; // 设置新tensordata
-auto td = t.GetTensorData(); // TensorData{a, nullptr}
+const auto &td = t.GetTensorData(); // TensorData{a, nullptr}
 ```
