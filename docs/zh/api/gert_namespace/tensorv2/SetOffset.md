@@ -2,7 +2,7 @@
 
 ## 函数功能
 
-设置Tensor中的offset。
+设置Tensor中的offset，offset以Tensor元素为单位。
 
 ## 函数原型
 
@@ -12,7 +12,7 @@ void SetOffset(const int64_t offset)
 
 ## 参数说明
 
-Tensor的offset。
+Tensor的offset，以Tensor元素为单位。
 
 ## 返回值说明
 
