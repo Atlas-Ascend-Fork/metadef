@@ -107,9 +107,9 @@ ge::graphStatus WriteBinToFile(const int32_t fd, const ge::char_t *const data, s
 /**
  * @ingroup domi_common
  * @brief  Save data to file
+ * @param [in] data char[] used to write to file
+ * @param [in] length store write size
  * @param [in] file_path  file path.
- * @param [in] data char[] used to store file data
- * @param [in] length store read size
  * @return graphStatus GRAPH_SUCCESS: success, OTHERS: fail.
  */
 ge::graphStatus SaveBinToFile(const char *const data, size_t length, const std::string &file_path);
