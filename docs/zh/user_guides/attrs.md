@@ -35,10 +35,10 @@ AttrUtils::SetInt(op_desc, "i", 20); // 共享语义：attrs中的属性i的值�
 // attr_value 是GeAttrValue的一个实例
 auto value_type = attr_value.GetValueType();
 switch (value_type) {
-  case GeAttrValue::VT_STR:
+  case GeAttrValue::VT_STRING:
     // do something...
     break;
-  case GeAttrValue::LIST_INT:
+  case GeAttrValue::VT_LIST_INT:
     // do something...
     break;
 }
@@ -100,7 +100,7 @@ class GeIrAttrSerializer {
 
 ```c++
 class TypeAGeIrAttrSerializer : public GeIrAttrSerializer {
-  // 属性序列化、反序列化的实现  
+  // 属性序列化、反序列化的实现
 };
 
 REG_GEIR_ATTR_SERIALIZER(TypeAGeIrAttrSerializer, GetTypeId<int64_t>, "protobuf-type");
@@ -110,7 +110,7 @@ REG_GEIR_ATTR_SERIALIZER(TypeAGeIrAttrSerializer, GetTypeId<int64_t>, "protobuf-
 
 * value_case()方式
 * GetTypeId<>()方式
-* 
+*
 
 
 
