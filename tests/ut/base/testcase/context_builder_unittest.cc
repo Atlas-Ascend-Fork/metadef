@@ -182,6 +182,23 @@ TEST_F(UtestContextBuilder, CreateInferShapeContextFailed) {
   EXPECT_EQ(ctx_compute_node_info->GetOutputsNum(), 1);
 }
 
+TEST_F(UtestContextBuilder, IONumTakesPrecedenceOverIOInstanceNum) {
+  OpInferShapeContextBuilder ctx_builder;
+  gert::Tensor tensor;
+  auto holder = ctx_builder.OpType("DIY")
+                    .OpName("diy_1")
+                    .IONum(2, 1)
+                    .IOInstanceNum({1}, {1})
+                    .InputTensors({&tensor, &tensor})
+                    .Build();
+  auto ctx = holder.GetContext();
+  ASSERT_NE(ctx, nullptr);
+  const auto *compute_node_info = ctx->GetComputeNodeInfo();
+  ASSERT_NE(compute_node_info, nullptr);
+  EXPECT_EQ(compute_node_info->GetIrInputsNum(), 2);
+  EXPECT_EQ(compute_node_info->GetInputsNum(), 2);
+}
+
 TEST_F(UtestContextBuilder, CreateInferShapeContextOK) {
   OpInferShapeContextBuilder ctx_builder;
   StorageShape shape0 = {{1, 2, 3, 4}, {4, 3, 2, 1}};
