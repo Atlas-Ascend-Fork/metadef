@@ -165,7 +165,7 @@ class OpExecutePrepareContext : public ExtendedKernelContext {
   /**
    * 设置传递给Launch阶段的参数结构体
    * @param param 指向数据的指针
-   * @param deleter 释放数据的接口，空指针的含义为不需要释放
+   * @param deleter 释放数据的接口，必须非空；空指针或输出链不存在时返回ge::GRAPH_FAILED
    * @return 设置结果
    */
   ge::graphStatus SetOpApiParams(void *const params, const Chain::Deleter deleter) {

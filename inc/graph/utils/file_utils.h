@@ -54,7 +54,7 @@ int32_t CreateDir(const std::string &directory_path, uint32_t mode);
  */
 int32_t CreateDirectory(const std::string &directory_path);
 
-std::unique_ptr<ge::char_t[]> GetBinFromFile(std::string &path, uint32_t &data_len);
+std::unique_ptr<ge::char_t[]> GetBinFromFile(const std::string &path, uint32_t &data_len);
 
 std::unique_ptr<ge::char_t[]> GetBinDataFromFile(const std::string &path, uint32_t &data_len);
 
@@ -68,7 +68,7 @@ std::unique_ptr<ge::char_t[]> GetBinDataFromFile(const std::string &path, uint32
  */
 std::unique_ptr<char[]> GetBinFromFile(const std::string &path, size_t offset, size_t data_len);
 
-ge::graphStatus WriteBinToFile(std::string &path, ge::char_t *data, uint32_t &data_len);
+ge::graphStatus WriteBinToFile(const std::string &path, const ge::char_t *const data, uint32_t data_len);
 
 /**
  * @ingroup domi_common
@@ -107,9 +107,9 @@ ge::graphStatus WriteBinToFile(const int32_t fd, const ge::char_t *const data, s
 /**
  * @ingroup domi_common
  * @brief  Save data to file
+ * @param [in] data char[] used to write to file
+ * @param [in] length store write size
  * @param [in] file_path  file path.
- * @param [in] data char[] used to store file data
- * @param [in] length store read size
  * @return graphStatus GRAPH_SUCCESS: success, OTHERS: fail.
  */
 ge::graphStatus SaveBinToFile(const char *const data, size_t length, const std::string &file_path);

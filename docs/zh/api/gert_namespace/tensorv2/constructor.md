@@ -25,7 +25,7 @@ TensorV2(const StorageShape &storage_shape, const StorageFormat &storage_format,
 |addr|输入|指定tensor的实际数据所存储的内存地址。TensorAddress类型，定义如下：using TensorAddress = void *;|
 |manager|输入|tensor data的管理函数，若manager为空，则认为addr就是tensor的数据地址，且此数据不需要被释放。using TensorAddrManager = ge::graphStatus (*)(TensorAddress addr, TensorOperateType operate_type, void **out);enum TensorOperateType {  kGetTensorAddress,  ///< 获取Tensor的地址    kFreeTensor,        ///< 释放Tensor    kPlusShareCount,    ///< 共享Tensor    kTensorOperateType};|
 |stride|输入|指定tensor的步长信息。Stride类型。|
-|offset|输入|指定tensor的偏移信息。int64_t类型。|
+|offset|输入|指定tensor的偏移信息，以Tensor元素为单位。int64_t类型。|
 
 ## 返回值说明
 

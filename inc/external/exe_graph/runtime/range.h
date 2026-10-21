@@ -46,16 +46,18 @@ class Range {
 
   /**
    * 判断与另外一个range对象是否相等，如果两个range的最小和最大元素指针分别相等，那么认为两个range相等，
-   * 如果存在指针不相等的情况，再对比T对象是否分别相等
+   * 如果存在指针不相等的情况，再对比T对象是否分别相等；若任一端点为空指针，则两者不相等
    * @param rht 另一个Range对象
    * @return true/false
    */
   bool operator==(const Range<T> &rht) const {
     if ((this->min_ == rht.min_) && (this->max_ == rht.max_)) {
       return true;
-    } else {
-      return (*this->min_ == *rht.min_) && (*this->max_ == *rht.max_);
     }
+    if ((this->min_ == nullptr) || (rht.min_ == nullptr) || (this->max_ == nullptr) || (rht.max_ == nullptr)) {
+      return false;
+    }
+    return (*this->min_ == *rht.min_) && (*this->max_ == *rht.max_);
   }
 
   /**

@@ -16,7 +16,7 @@ OpTilingContextBuilder &TilingDataSize(size_t tiling_data_size)
 
 |参数|输入/输出|说明|
 |--|--|--|
-|tiling_data_size|输出|Tiling数据大小。|
+|tiling_data_size|输入|TilingData最大容量，单位为字节。|
 
 ## 返回值说明
 

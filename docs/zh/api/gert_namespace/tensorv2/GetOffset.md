@@ -2,7 +2,7 @@
 
 ## 函数功能
 
-获取Tensor中的offset。
+获取Tensor中的offset。offset以Tensor元素为单位。
 
 ## 函数原型
 
@@ -16,7 +16,7 @@ int64_t GetOffset() const
 
 ## 返回值说明
 
-Tensor中的offset。
+Tensor中的offset，以Tensor元素为单位。
 
 ## 约束说明
 

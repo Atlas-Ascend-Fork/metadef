@@ -137,4 +137,22 @@ TEST_F(UtestFileUtils, GetSanitizedNameCase0) {
   std::string file_name = "ge_proto_a/b\\c";
   ASSERT_EQ(GetRegulatedName(file_name), "ge_proto_a_b_c");
 }
+
+TEST_F(UtestFileUtils, SaveBinToFileWriteDataToFilePath) {
+  std::string so_bin = "./save_bin_to_file.so";
+  const char data[4] = {'a', 'b', 'c', 'd'};
+  const size_t length = 4;
+  ASSERT_EQ(SaveBinToFile(data, length, so_bin), ge::GRAPH_SUCCESS);
+
+  uint32_t read_len = 0;
+  std::unique_ptr<ge::char_t[]> read_data = GetBinFromFile(so_bin, read_len);
+  ASSERT_NE(read_data, nullptr);
+  ASSERT_EQ(read_len, length);
+  ASSERT_EQ(read_data.get()[0], 'a');
+  ASSERT_EQ(read_data.get()[1], 'b');
+  ASSERT_EQ(read_data.get()[2], 'c');
+  ASSERT_EQ(read_data.get()[3], 'd');
+
+  system(("rm -f " + so_bin).c_str());
+}
 }  // namespace metadef

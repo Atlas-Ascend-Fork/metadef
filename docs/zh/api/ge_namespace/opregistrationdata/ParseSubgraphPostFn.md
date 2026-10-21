@@ -37,4 +37,4 @@ Status ParseSubgraphFuncV2(const ge::AscendString &subgraph_name, const ge::Grap
 |参数|输入/输出|说明|
 |--|--|--|
 |subgraph_name|输入|子图名字。|
-|graph|输出|构造的子图。|
+|graph|输入|已构造的子图，用于建立子图输入输出节点与算子输入输出的对应关系。|
