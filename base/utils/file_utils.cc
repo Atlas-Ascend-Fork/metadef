@@ -11,6 +11,8 @@
 #include <cerrno>
 #include <fstream>
 #include <algorithm>
+#include <cstdint>
+#include <limits>
 #include "graph/types.h"
 #include "common/ge_common/debug/ge_log.h"
 #include "common/ge_common/scope_guard.h"
@@ -159,7 +161,14 @@ std::unique_ptr<ge::char_t[]> GetBinDataFromFile(const std::string &path, uint32
   }
 
   (void)ifs.seekg(0, std::ifstream::end);
-  const uint32_t len = static_cast<uint32_t>(ifs.tellg());
+  const std::streamoff file_size = static_cast<std::streamoff>(ifs.tellg());
+  if ((file_size < 0) || (static_cast<std::uintmax_t>(file_size) > std::numeric_limits<uint32_t>::max())) {
+    data_len = 0U;
+    GELOGE(ge::FAILED, "File size is invalid or exceeds uint32_t range, path:%s", path.c_str());
+    ifs.close();
+    return nullptr;
+  }
+  const uint32_t len = static_cast<uint32_t>(file_size);
   (void)ifs.seekg(0, std::ifstream::beg);
   auto bin_data = std::unique_ptr<ge::char_t[]>(new (std::nothrow) ge::char_t[len]);
   if (bin_data == nullptr) {

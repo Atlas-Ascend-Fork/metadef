@@ -9,6 +9,9 @@
  */
 
 #include <string.h>
+#include <cstdio>
+#include <fstream>
+#include <limits>
 #include "graph/utils/file_utils.h"
 #include <gtest/gtest.h>
 #include "graph/debug/ge_util.h"
@@ -80,6 +83,26 @@ TEST_F(UtestFileUtils, GetBinFileFromFileSuccess) {
   ASSERT_EQ(so_data.get()[2], '3');
 
   system(("rm -f " + so_bin).c_str());
+}
+
+TEST_F(UtestFileUtils, GetBinDataFromFileRejectsSizeOverflow) {
+  const std::string so_bin = "./get_bin_data_size_overflow_test.bin";
+  std::ofstream ofs(so_bin, std::ios::binary | std::ios::trunc);
+  ASSERT_TRUE(ofs.is_open());
+
+  const std::streamoff file_size = static_cast<std::streamoff>(std::numeric_limits<uint32_t>::max()) + 5;
+  ofs.write("data", 4);
+  ofs.seekp(file_size - 1, std::ios::beg);
+  ofs.put('x');
+  ASSERT_TRUE(ofs.good());
+  ofs.close();
+
+  uint32_t data_len = 123U;
+  const auto data = GetBinDataFromFile(so_bin, data_len);
+  const int remove_result = std::remove(so_bin.c_str());
+  EXPECT_EQ(data, nullptr);
+  EXPECT_EQ(data_len, 0U);
+  EXPECT_EQ(remove_result, 0);
 }
 
 TEST_F(UtestFileUtils, GetBinFileFromFileSuccess_offset) {
