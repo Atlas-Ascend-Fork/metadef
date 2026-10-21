@@ -24,7 +24,7 @@ static AscendString DataTypeToAscendString(const DataType &data_type)
 
 ## 返回值说明
 
-转换后的DataType字符串，[AscendString](../ascendstring/AscendString.md)类型。
+转换后的DataType字符串，[AscendString](../ascendstring/AscendString.md)类型；传入未映射的DataType值（例如`DT_MAX`）时返回`UNDEFINED`。
 
 ## 约束说明
 
