@@ -693,8 +693,6 @@
     - [GetDataTypeLength](ge_namespace/typeutils/GetDataTypeLength.md)
 
   - [AddOverflow](ge_namespace/AddOverflow.md)
-  - [ConvertToAscendString](ge_namespace/ConvertToAscendString.md)
-  - [ConvertToListAscendString](ge_namespace/ConvertToListAscendString.md)
   - [GetC0Format](ge_namespace/GetC0Format.md)
   - [GetC0Value](ge_namespace/GetC0Value.md)
   - [GetFormatFromC0](ge_namespace/GetFormatFromC0.md)

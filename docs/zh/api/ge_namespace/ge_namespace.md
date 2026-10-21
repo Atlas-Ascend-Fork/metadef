@@ -19,8 +19,6 @@
 - [Tensor](tensor/Tensor.md)
 - [TypeUtils](typeutils/TypeUtils.md)
 - [AddOverflow](AddOverflow.md)
-- [ConvertToAscendString](ConvertToAscendString.md)
-- [ConvertToListAscendString](ConvertToListAscendString.md)
 - [GetC0Format](GetC0Format.md)
 - [GetC0Value](GetC0Value.md)
 - [GetFormatFromC0](GetFormatFromC0.md)
