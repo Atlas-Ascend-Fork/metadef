@@ -16,7 +16,7 @@ DataType GetOriginDataType() const
 
 ## 返回值
 
-[DataType](../DataType.md)类型，TensorDesc所描述的Tensor的原始数据类型。
+[DataType](../DataType.md)类型，TensorDesc所描述的Tensor的原始数据类型。未设置原始数据类型时返回`DT_UNDEFINED`。
 
 ## 异常处理
 
