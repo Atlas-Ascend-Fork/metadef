@@ -21,7 +21,7 @@ void Init(const size_t ir_inputs_num, const size_t ir_outputs_num, const size_t 
 |**node_name**|输入|节点名称。|
 |**node_type**|输入|节点类型（算子原型名称）。|
 |**ir_outputs_num**|输入|算子原型输出的个数。|
-|**attr_size**|输入|属性个数。|
+|**attr_size**|输入|RuntimeAttrs 运行时属性序列化缓冲区所占的字节数。|
 
 ## 返回值说明
 
