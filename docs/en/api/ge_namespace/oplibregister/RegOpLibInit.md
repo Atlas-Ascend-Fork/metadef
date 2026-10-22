@@ -1,10 +1,18 @@
 # RegOpLibInit
 
-<!-- md-trans-meta sourceCommit=ea046bd50b7a6b8b6ef9ddbedb3c55664c72b8ae translatedAt=2026-10-09T01:37:15.257Z pushedAt=2026-10-15T03:48:04.716Z -->
+<!-- md-trans-meta sourceCommit=21edba955d3763e74f48b491a55c2a66ccde83c9 translatedAt=2026-10-16T01:37:58.304Z pushedAt=2026-10-16T02:00:17.874Z -->
 
 ## Function
 
 Registers the initialization function of a custom operator dynamic library.
+
+## Header File to Include
+
+```cpp
+#include <register/op_lib_register.h>
+```
+
+This header file is installed by the GE (Graph Engine) component to `${INSTALL_DIR}/include/register/` along with CANN Toolkit, and it is not a header file in the metadef repository source code. The `REGISTER_OP_LIB` macro is provided by this header file.
 
 ## Function Prototype
 
@@ -24,7 +32,7 @@ Returns an **OpLibRegister** object that newly registers the **OpLibInitFunc** f
 
 ## Constraints
 
-None
+This is an internal associated API used by the custom operator project framework to register the initialization function of a custom operator dynamic library. Operator developers do not need to be concerned with it.
 
 ## Example
 

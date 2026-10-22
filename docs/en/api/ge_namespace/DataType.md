@@ -1,6 +1,6 @@
 # DataType
 
-<!-- md-trans-meta sourceCommit=cdbc9c4d39cd01c05bdab061f37f405c9cabab90 translatedAt=2026-10-09T01:07:33.388Z pushedAt=2026-10-15T03:48:04.671Z -->
+<!-- md-trans-meta sourceCommit=430be1708da12becf5b9ad820ae1b46890d29413 translatedAt=2026-10-16T01:36:53.910Z pushedAt=2026-10-16T02:00:17.871Z -->
 
 The **DataType** enumeration values are defined as follows:
 
@@ -55,7 +55,7 @@ enum DataType {
 ```
 
 <!-- npu="950" id1 -->
-DT\_HIFLOAT8, DT\_FLOAT8\_E5M2, DT\_FLOAT8\_E4M3FN, DT\_FLOAT8\_E8M0, DT\_FLOAT6\_E3M2, DT\_FLOAT6\_E2M3, DT\_FLOAT4\_E2M1, DT\_FLOAT4\_E1M2: Supported only on Ascend 950PR/Ascend 950DT.
+DT\_HIFLOAT8, DT\_FLOAT8\_E5M2, DT\_FLOAT8\_E4M3FN, DT\_FLOAT8\_E8M0, DT\_FLOAT6\_E3M2, DT\_FLOAT6\_E2M3, DT\_FLOAT4\_E2M1, DT\_FLOAT4\_E1M2: Supported only on Ascend 950PR&950DT products.
 <!-- end id1 -->
 
 <!-- npu="IPV350" id2 -->

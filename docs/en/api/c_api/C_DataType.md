@@ -1,6 +1,6 @@
 # C\_DataType
 
-<!-- md-trans-meta sourceCommit=cdbc9c4d39cd01c05bdab061f37f405c9cabab90 translatedAt=2026-10-09T01:00:53.032Z pushedAt=2026-10-15T03:48:04.663Z -->
+<!-- md-trans-meta sourceCommit=430be1708da12becf5b9ad820ae1b46890d29413 translatedAt=2026-10-16T01:36:02.770Z pushedAt=2026-10-16T02:00:17.869Z -->
 
 The enumeration values of **C\_DataType** are defined as follows:
 
@@ -55,7 +55,7 @@ typedef enum {
 ```
 
 <!-- npu="950" id1 -->
-C\_DT\_HIFLOAT8, C\_DT\_FLOAT8\_E5M2, C\_DT\_FLOAT8\_E4M3FN, C\_DT\_FLOAT8\_E8M0, C\_DT\_FLOAT6\_E3M2, C\_DT\_FLOAT6\_E2M3, C\_DT\_FLOAT4\_E2M1, C\_DT\_FLOAT4\_E1M2: Only Ascend 950PR/Ascend 950DT supports this type.
+C\_DT\_HIFLOAT8, C\_DT\_FLOAT8\_E5M2, C\_DT\_FLOAT8\_E4M3FN, C\_DT\_FLOAT8\_E8M0, C\_DT\_FLOAT6\_E3M2, C\_DT\_FLOAT6\_E2M3, C\_DT\_FLOAT4\_E2M1, C\_DT\_FLOAT4\_E1M2: Only Ascend 950PR&950DT products support this type.
 <!-- end id1 -->
 <!-- npu="IPV350" id2 -->
 IPV350: C_DT_HIFLOAT8, C_DT_FLOAT8_E5M2, C_DT_FLOAT8_E4M3FN, C_DT_FLOAT8_E8M0, C_DT_FLOAT6_E3M2, C_DT_FLOAT6_E2M3, C_DT_FLOAT4_E2M1, C_DT_FLOAT4_E1M2: The current version does not support this type.

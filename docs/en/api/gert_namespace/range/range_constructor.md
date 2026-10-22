@@ -1,6 +1,6 @@
 # Range Constructor
 
-<!-- md-trans-meta sourceCommit=ea046bd50b7a6b8b6ef9ddbedb3c55664c72b8ae translatedAt=2026-10-09T03:52:02.250Z pushedAt=2026-10-15T03:48:04.980Z -->
+<!-- md-trans-meta sourceCommit=1bfbd0f0dd6167ab870bed0b96c0f83575d5fca8 translatedAt=2026-10-16T01:39:07.817Z pushedAt=2026-10-16T02:00:17.878Z -->
 
 ## Function
 

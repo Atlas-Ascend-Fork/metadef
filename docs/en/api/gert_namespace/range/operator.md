@@ -4,7 +4,7 @@
 
 ## Function
 
-Checks whether this range object is equal to another range object. Two objects are equal if the addresses of their upper and lower bounds are the same, or if the values of their upper and lower bounds are the same. If any endpoint is a null pointer, the two objects are not equal unless the addresses of the endpoints are exactly the same (for example, two default-constructed ranges), and no null pointer is dereferenced.
+Checks whether this range object is equal to another range object. Two objects are equal if the addresses of their upper and lower bounds are the same, or if the values of their upper and lower bounds are the same.
 
 ## Function Prototype
 
@@ -38,10 +38,4 @@ Range<int> range3(&min, &max2); // The upper bound is 1024, and the lower bound 
 
 auto ret1 = range1 == range2; // true
 auto ret2 = range1 == range3; // true
-
-Range<int> empty1; // Both the lower and upper bounds are nullptr.
-Range<int> empty2; // Both the lower and upper bounds are nullptr.
-auto ret3 = empty1 == empty2; // true, the endpoint addresses are the same.
-auto ret4 = empty1 == range1; // false, a null endpoint exists and is not dereferenced.
-auto ret5 = range1 == empty1; // false, the reversed comparison is equally safe.
 ```

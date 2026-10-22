@@ -1,6 +1,6 @@
 # Header Files and Library Files
 
-<!-- md-trans-meta sourceCommit=e644a5b0043dce46383ff72574dad115120b2ba7 translatedAt=2026-10-09T01:00:51.156Z pushedAt=2026-10-15T03:48:04.664Z -->
+<!-- md-trans-meta sourceCommit=21edba955d3763e74f48b491a55c2a66ccde83c9 translatedAt=2026-10-16T01:36:21.866Z pushedAt=2026-10-16T02:00:17.872Z -->
 
 The basic data structures and structure header files are located in the following directories:
 
@@ -59,6 +59,7 @@ The library files are located in the `${INSTALL_DIR}/lib64/` directory. Replace 
 | graph/ascend_string.h | AscendString string API. | libmetadef.so |
 | graph/types.h | Common type APIs such as **Format**, **DataType**, and **TensorType**. | libmetadef.so |
 | graph/utils/type_utils.h | **Format**/**DataType** string conversion and validity check. | libmetadef.so |
+| graph/kernel_launch_info.h | Creation, serialization, and read/write of device task launch information. | **libregister.so** (implementation located in GE/Air) |
 | utils/extern_math_util.h | Integer addition, subtraction, multiplication, and division overflow check utilities. | Header-only utility header |
 | ge/ge_allocator.h | GE memory block and allocator abstract API. | Header-only abstract API; primary consumption library **libgert.so** (implementation located in GE/Air) |
 | external/ge_common/ge_api_types.h | GE common enums, status, and model data structures. | Header-only definition header |
@@ -116,6 +117,7 @@ The library files are located in the `${INSTALL_DIR}/lib64/` directory. Replace 
 | register/tilingdata_base.h | **TilingData** field definition, serialization, and class factory. | **libopp_registry.so** (also compiled into **libtilingdata_base.a** on the device side) |
 | register/device_op_impl_registry.h | Registration of device-side operator tiling functions. | No corresponding SO; **libdevice_register.a** |
 | register/register.h | Registration of custom operator parsing, framework, and mapping functions. | **libregister.so** (implementation located in GE/Air) |
+| register/op_lib_register.h | Registration of the initialization function for the custom operator dynamic library. | **libregister.so** (implementation located in GE/Air) |
 | register/asc/op_config_registry.h | Registration of operator AI Core configurations. | libopp_registry.so |
 | register/asc/op_def_factory.h | Operator definition creation, query, and Tiling Sink registration. | libopp_registry.so |
 | register/asc/op_def.h | Definition of operator inputs, outputs, attributes, and execution capabilities. | libopp_registry.so |
