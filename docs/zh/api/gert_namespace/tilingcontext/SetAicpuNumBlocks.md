@@ -18,7 +18,7 @@ ge::graphStatus SetAicpuNumBlocks(uint32_t num_blocks)
 
 |参数|输入/输出|说明|
 |--|--|--|
-|SetAicpuNumBlocks|输入|可以调度的AI CPU核数。|
+|num_blocks|输入|可以调度的AI CPU核数。|
 
 ## 返回值说明
 
