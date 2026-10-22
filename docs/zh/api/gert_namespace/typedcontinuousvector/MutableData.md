@@ -29,6 +29,6 @@ T *MutableData()
 ```cpp
 size_t capacity = 100U;
 auto cv_holder = ContinuousVector::Create<int64_t>(capacity);
-auto cv = reinterpret_cast<TypedContinuousVector *>(cv_holder.get());
-auto cap = cv->MutableData<int64_t>();
+auto cv = reinterpret_cast<TypedContinuousVector<int64_t> *>(cv_holder.get());
+auto cap = cv->MutableData();
 ```
