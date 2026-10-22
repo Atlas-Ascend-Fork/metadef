@@ -19,7 +19,7 @@ int64_t GetSizeInBytes(int64_t element_count, DataType data_type)
 
 ## 返回值
 
-如果传入个数为非法值或传入不支持的数据类型，返回-1。
+如果传入个数为非法值、传入不支持的数据类型，或计算元素总字节数时发生整数溢出，返回-1。
 
 ## 异常处理
 
