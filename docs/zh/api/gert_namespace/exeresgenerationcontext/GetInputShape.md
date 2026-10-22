@@ -27,9 +27,9 @@ const gert::StorageShape* GetInputShape(int64_t index) const
 ## 调用示例
 
 ```cpp
-gert::StorageShape* GetInputShape(ExeResGenerationContext* context) {
+const gert::StorageShape* GetInputShape(ExeResGenerationContext* context) {
   int64_t index = 9;
-  gert::StorageShape* shape = context->GetInputShape(index);
+  const gert::StorageShape* shape = context->GetInputShape(index);
   ...
 }
 ```
