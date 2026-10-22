@@ -16,7 +16,7 @@ int64_t GetShapeSize() const
 
 ## 返回值
 
-返回所有维度大小的累乘结果。
+返回所有维度大小的累乘结果；如果计算过程中发生乘法溢出，返回`kInvalidDimValue`（`INT64_MIN`）。
 
 ## 约束说明
 
