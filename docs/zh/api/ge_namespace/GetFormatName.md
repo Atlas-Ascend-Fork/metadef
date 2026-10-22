@@ -18,7 +18,7 @@ const char_t *GetFormatName(Format format)
 
 ## 返回值
 
-该Format所对应的字符串描述，若Format不合法或不被识别，则返回nullptr。
+该Format所对应的字符串描述。对于未识别的格式或大于等于 `FORMAT_END` 的值，返回 `"UNKNOWN"`；函数不会返回 `nullptr`。
 
 ## 异常处理
 
