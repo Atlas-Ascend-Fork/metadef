@@ -28,5 +28,5 @@ manager 地址查询回调返回非 `ge::GRAPH_SUCCESS` 时，返回 `nullptr`�
 ```cpp
 auto addr = reinterpret_cast<void *>(0x10);
 TensorData td(addr, nullptr);
-auto addr = td.GetAddr(); // 0x10
+auto tensor_addr = td.GetAddr(); // 0x10
 ```
