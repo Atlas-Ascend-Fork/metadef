@@ -29,6 +29,9 @@ const Range<Shape> *GetOptionalInputShapeRange(const size_t ir_index) const
 ```cpp
 const auto infer_shape_range_func = [](gert::InferShapeRangeContext *context) -> graphStatus {
   auto input_shape_range = context->GetOptionalInputShapeRange(0U);
+  if (input_shape_range == nullptr) {
+    return GRAPH_FAILED;
+  }
   auto output_shape_range = context->GetOutputShapeRange(0U);
   output_shape_range->SetMin(const_cast<gert::Shape *>(input_shape_range->GetMin()));
   output_shape_range->SetMax(const_cast<gert::Shape *>(input_shape_range->GetMax()));
