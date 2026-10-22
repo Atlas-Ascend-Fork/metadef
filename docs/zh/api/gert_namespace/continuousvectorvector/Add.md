@@ -31,5 +31,5 @@ template<typename T> ContinuousVector *Add(size_t inner_vector_capacity)
 ...
 // 增加元素
 size_t inner_vector_capacity = 2;
-auto cv = cvv->Add(inner_vector_capacity);
+auto cv = cvv->Add<float>(inner_vector_capacity);
 ```
