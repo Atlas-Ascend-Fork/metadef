@@ -28,7 +28,7 @@ T *GetMax()
 ```cpp
 int min = -1;
 int max = 1024;
-Range<int> range(&min, &max);
+gert::Range<int> range(&min, &max);
 
 auto ret = range.GetMax(); // ret指针指向max
 ```
