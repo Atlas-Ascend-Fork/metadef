@@ -27,9 +27,9 @@ const gert::StorageShape* GetOutputShape(int64_t index) const
 ## 调用示例
 
 ```cpp
-gert::StorageShape* GetOutputShape(OpCheckContext* context) {
+const gert::StorageShape* GetOutputShape(OpCheckContext* context) {
   int64_t index = 9;
-  gert::StorageShape* shape = context->GetOutputShape(index);
+  const gert::StorageShape* shape = context->GetOutputShape(index);
   ...
 }
 ```

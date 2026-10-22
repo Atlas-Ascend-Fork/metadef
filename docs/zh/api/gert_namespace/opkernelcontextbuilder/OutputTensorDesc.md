@@ -14,7 +14,7 @@ OpKernelContextBuilder &OutputTensorDesc(size_t index, ge::DataType dtype, ge::F
 
 |参数|输入/输出|说明|
 |--|--|--|
-|index|输入|算子输入实例索引。|
+|index|输入|算子输出实例索引。|
 |dtype|输入|输出Tensor的数据类型。|
 |origin_format|输入|输出Tensor的原始格式。|
 |storage_format|输入|输出Tensor的存储格式。|

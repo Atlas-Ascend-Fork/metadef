@@ -27,4 +27,4 @@ virtual MemBlock *MallocAdvise(size_t size, void *addr)
 
 ## 约束说明
 
-虚函数需要用户实现，如若未实现，默认同[Malloc](Malloc.md)功能相同。
+默认实现忽略`addr`，并将`size`传给[Malloc](Malloc.md)。若需自定义建议地址的处理方式，可在派生类中重写此接口。

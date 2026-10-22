@@ -31,10 +31,10 @@ Original approach:
 // attr_value is an instance of GeAttrValue
 auto value_type = attr_value.GetValueType();
 switch (value_type) {
-  case GeAttrValue::VT_STR:
+  case GeAttrValue::VT_STRING:
     // do something...
     break;
-  case GeAttrValue::LIST_INT:
+  case GeAttrValue::VT_LIST_INT:
     // do something...
     break;
 }
@@ -241,4 +241,3 @@ After GeAttrValue(AnyValue) replaces the original implementation, performance co
    - During migration, pay attention to behavioral differences between sharing semantic and copying semantic.
    - Ensure unit tests cover original sharing semantic scenarios.
    - Monitor changes in memory usage patterns, especially the impact of small object optimization.
-   

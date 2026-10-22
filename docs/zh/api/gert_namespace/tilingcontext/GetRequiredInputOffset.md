@@ -21,7 +21,7 @@ int64_t GetRequiredInputOffset(const size_t ir_index) const
 
 ## 返回值说明
 
-指定的输入Tensor的offset。当输入ir\_index非法或Tensor不携带非连续描述信息时，返回-1。
+指定的输入Tensor的offset。当输入ir\_index非法、该INPUT没有实例化或Tensor不携带非连续描述信息时，返回-1。
 
 ## 约束说明
 
