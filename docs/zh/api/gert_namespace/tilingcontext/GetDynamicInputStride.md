@@ -32,7 +32,11 @@ const Stride *GetDynamicInputStride(const size_t ir_index, const size_t relative
 
 ```cpp
 ge::graphStatus TilingForMul(TilingContext *context) {
-  auto dynamic_input_stride_0 = *context->GetDynamicInputStride(0);
+  const auto *dynamic_input_stride_0 = context->GetDynamicInputStride(0, 0);
+  if (dynamic_input_stride_0 == nullptr) {
+    return ge::GRAPH_FAILED;
+  }
+  // 使用 dynamic_input_stride_0->GetDimNum() 等接口读取Stride。
   ...
 }
 ```

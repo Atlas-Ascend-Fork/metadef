@@ -33,7 +33,11 @@ const Stride *GetRequiredInputStride(const size_t ir_index) const
 
 ```cpp
 ge::graphStatus TilingForMul(TilingContext *context) {
-  auto required_input_stride_0 = *context->GetRequiredInputStride(0);
+  const auto *required_input_stride_0 = context->GetRequiredInputStride(0);
+  if (required_input_stride_0 == nullptr) {
+    return ge::GRAPH_FAILED;
+  }
+  // 使用 required_input_stride_0->GetDimNum() 等接口读取Stride。
   ...
 }
 ```
