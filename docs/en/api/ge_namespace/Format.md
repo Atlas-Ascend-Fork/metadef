@@ -1,0 +1,108 @@
+# Format
+
+<!-- md-trans-meta sourceCommit=ac9522831b670ac6296373bdfa9808cf41daf8e3 translatedAt=2026-10-15T06:13:52.485Z pushedAt=2026-10-15T07:29:17.894Z -->
+
+```cpp
+enum Format {
+  FORMAT_NCHW = 0,   // NCHW
+  FORMAT_NHWC,       // NHWC
+  FORMAT_ND,         // ND Tensor
+  FORMAT_NC1HWC0,    // NC1HWC0
+  FORMAT_FRACTAL_Z,  // FRACTAL_Z
+  FORMAT_NC1C0HWPAD = 5,
+  FORMAT_NHWC1C0,
+  FORMAT_FSR_NCHW,
+  FORMAT_FRACTAL_DECONV,
+  FORMAT_C1HWNC0,
+  FORMAT_FRACTAL_DECONV_TRANSPOSE = 10,
+  FORMAT_FRACTAL_DECONV_SP_STRIDE_TRANS,
+  FORMAT_NC1HWC0_C04,    // NC1HWC0, C0 is 4
+  FORMAT_FRACTAL_Z_C04,  // FRACTAL_Z, C0 is 4
+  FORMAT_CHWN,
+  FORMAT_FRACTAL_DECONV_SP_STRIDE8_TRANS = 15,
+  FORMAT_HWCN,
+  FORMAT_NC1KHKWHWC0,  // KH,KW kernel h& kernel w maxpooling max output format
+  FORMAT_BN_WEIGHT,
+  FORMAT_FILTER_HWCK,  // filter input tensor format
+  FORMAT_HASHTABLE_LOOKUP_LOOKUPS = 20,
+  FORMAT_HASHTABLE_LOOKUP_KEYS,
+  FORMAT_HASHTABLE_LOOKUP_VALUE,
+  FORMAT_HASHTABLE_LOOKUP_OUTPUT,
+  FORMAT_HASHTABLE_LOOKUP_HITS,
+  FORMAT_C1HWNCoC0 = 25,
+  FORMAT_MD,
+  FORMAT_NDHWC,
+  FORMAT_FRACTAL_ZZ,
+  FORMAT_FRACTAL_NZ,
+  FORMAT_NCDHW = 30,
+  FORMAT_DHWCN,  // 3D filter input tensor format
+  FORMAT_NDC1HWC0,
+  FORMAT_FRACTAL_Z_3D,
+  FORMAT_CN,
+  FORMAT_NC = 35,
+  FORMAT_DHWNC,
+  FORMAT_FRACTAL_Z_3D_TRANSPOSE, // 3D filter(transpose) input tensor format
+  FORMAT_FRACTAL_ZN_LSTM,
+  FORMAT_FRACTAL_Z_G,
+  FORMAT_RESERVED = 40,
+  FORMAT_ALL,
+  FORMAT_NULL,
+  FORMAT_ND_RNN_BIAS,
+  FORMAT_FRACTAL_ZN_RNN,
+  FORMAT_NYUV = 45,
+  FORMAT_NYUV_A,
+  FORMAT_NCL,
+  FORMAT_FRACTAL_Z_WINO,
+  FORMAT_C1HWC0,
+  FORMAT_FRACTAL_NZ_C0_16,  // FORMAT_FRACTAL_NZ_C0_[M], a special fractal data layout used internally, where [M] represents the value of C0. Currently supported values are (2, 4, 8, 16, 32). Users do not need to use it for now.
+  FORMAT_FRACTAL_NZ_C0_32,  //
+  FORMAT_FRACTAL_NZ_C0_2,   //
+  FORMAT_FRACTAL_NZ_C0_4,   //
+  FORMAT_FRACTAL_NZ_C0_8,   //
+  // Add new formats definition here
+  FORMAT_END,
+  // FORMAT_MAX defines the max value of Format.
+  // Any Format should not exceed the value of FORMAT_MAX.
+  // ** Attention ** : FORMAT_MAX stands for the SPEC of enum Format and almost SHOULD NOT be used in code.
+  //                   If you want to judge the range of Format, you can use FORMAT_END.
+  FORMAT_MAX = 0xff
+};
+```
+
+<!-- npu="950" id1 -->
+FORMAT\_FRACTAL\_NZ\_C0\_16, FORMAT\_FRACTAL\_NZ\_C0\_32, FORMAT\_FRACTAL\_NZ\_C0\_2, FORMAT\_FRACTAL\_NZ\_C0\_4, FORMAT\_FRACTAL\_NZ\_C0\_8: Supported only on Ascend 950PR&950DT products.
+
+<!-- end id1 -->
+
+<!-- @ref: metadef/res/docs/api/Format_res.md#id1 -->
+
+The sequence numbers corresponding to the above format enumeration values start from 0 and increase sequentially.
+
+IR graph construction does not support the following format values as input:
+
+```cpp
+FORMAT_NC1HWC0
+FORMAT_FRACTAL_Z
+FORMAT_NC1C0HWPAD
+FORMAT_NHWC1C0
+FORMAT_FRACTAL_DECONV
+FORMAT_C1HWNC0
+FORMAT_FRACTAL_DECONV_TRANSPOSE
+FORMAT_FRACTAL_DECONV_SP_STRIDE_TRANS
+FORMAT_NC1HWC0_C04
+FORMAT_FRACTAL_Z_C04
+FORMAT_FRACTAL_DECONV_SP_STRIDE8_TRANS
+FORMAT_NC1KHKWHWC0
+FORMAT_C1HWNCoC0
+FORMAT_FRACTAL_ZZ
+FORMAT_FRACTAL_NZ
+FORMAT_NDC1HWC0
+FORMAT_FRACTAL_Z_3D
+FORMAT_FRACTAL_Z_3D_TRANSPOSE
+FORMAT_FRACTAL_ZN_LSTM
+FORMAT_FRACTAL_Z_G
+FORMAT_ND_RNN_BIAS
+FORMAT_FRACTAL_ZN_RNN
+FORMAT_NYUV
+FORMAT_NYUV_A
+```
