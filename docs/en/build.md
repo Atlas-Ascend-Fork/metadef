@@ -116,6 +116,10 @@ The `metadef` repository provides one-click compilation execution for developer 
 bash tests/run_test.sh -u
 ```
 
+> [!NOTE] Note
+> `run_test.sh` uses `build_gcov` as the UT build directory (different from the `build` directory used by `build.sh` in section 4.3), and downloads/installs third-party dependency libraries into `output/third_party/lib_cache` during the build.
+> If the `output` directory was manually cleaned after a previous successful build, stale caches in `build_gcov` may incorrectly assume the third-party libraries are already installed and skip reinstalling them, causing link failures (e.g. `cannot find .../libascend_protobuf.so`). `run_test.sh` can detect this situation and automatically remove the stale build directory to rebuild; for other cache anomalies, manually run `rm -rf build_gcov` and retry.
+
 ### 4.5 Installation and Uninstallation
 
 - Installation

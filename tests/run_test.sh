@@ -133,6 +133,17 @@ build_metadef() {
   fi
 
   BUILD_PATH="${BASEPATH}/${BUILD_RELATIVE_PATH}/"
+
+  # 若上次构建成功后 output/third_party/lib_cache 被清理, 构建目录中残留的 ExternalProject
+  # stamp 会误判三方库已安装而跳过重装, 导致链接失败(如 cannot find libascend_protobuf.so)。
+  # 此时删除过期构建目录, 强制全量重建三方库。
+  local protobuf_shared_lib="${CANN_3RD_LIB_PATH}/lib_cache/protobuf_shared/lib/libascend_protobuf.so"
+  if [[ -d "${BUILD_PATH}" && ! -f "${protobuf_shared_lib}" && ! -f "${ASCEND_INSTALL_PATH}/lib64/libascend_protobuf.so" ]]; then
+    echo "Warning: '${protobuf_shared_lib}' not found, third-party libraries may have been cleaned."
+    echo "         Removing stale build directory '${BUILD_PATH}' to force a full rebuild."
+    rm -rf "${BUILD_PATH}"
+  fi
+
   CMAKE_ARGS="-D GE_ONLY=$GE_ONLY \
               -D ENABLE_OPEN_SRC=True \
               -D ENABLE_METADEF_UT=${ENABLE_METADEF_UT} \
@@ -169,7 +180,7 @@ main() {
   g++ -v
   mk_dir ${OUTPUT_PATH}
   echo "---------------- Metadef llt build start ----------------"
-  build_metadef || { echo "Metadef llt build failed."; exit 1; }
+  build_metadef || { echo "Metadef llt build failed, please check the make output above for the root cause."; exit 1; }
   echo "---------------- Metadef llt build finished ----------------"
 
   if [[ "X$ENABLE_METADEF_UT" = "Xon" || "X$ENABLE_METADEF_COV" = "Xon" ]]; then
