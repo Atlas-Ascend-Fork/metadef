@@ -247,6 +247,13 @@ inline bool AppendAttr(const ge::AnyValue &attr, std::vector<std::vector<uint8_t
   }
 }
 
+inline bool AlignAttrOffset(const size_t offset, size_t &aligned_offset) {
+  constexpr size_t kAttrAlignment = alignof(size_t);
+  const size_t remainder = offset % kAttrAlignment;
+  const size_t padding = (remainder == 0U) ? 0U : (kAttrAlignment - remainder);
+  return !ge::AddOverflow(offset, padding, aligned_offset);
+}
+
 inline std::unique_ptr<uint8_t[]> CreateAttrBuffer(const std::vector<std::vector<uint8_t>> &attrs, size_t &total_size) {
   total_size = sizeof(RuntimeAttrsDef);
   size_t offset_size = 0U;
@@ -258,28 +265,54 @@ inline std::unique_ptr<uint8_t[]> CreateAttrBuffer(const std::vector<std::vector
     GELOGE(ge::FAILED, "Failed to create attr buffer, total size overflow, attrs offset may invalid %zu", offset_size);
     return nullptr;
   }
+  size_t current_offset = total_size;
   for (const auto &attr : attrs) {
-    if (ge::AddOverflow(total_size, attr.size(), total_size)) {
-      GELOGE(ge::FAILED,
-             "Failed to create attr buffer, total size overflow, attr size may invalid %zu, current total size %zu",
-             attr.size(), total_size);
+    size_t aligned_offset = 0U;
+    if (!AlignAttrOffset(current_offset, aligned_offset)) {
+      GELOGE(ge::FAILED, "Failed to create attr buffer, aligned attr offset overflow, current offset %zu",
+             current_offset);
       return nullptr;
     }
+    size_t next_offset = 0U;
+    if (ge::AddOverflow(aligned_offset, attr.size(), next_offset)) {
+      GELOGE(ge::FAILED,
+             "Failed to create attr buffer, total size overflow, attr size may invalid %zu, current total size %zu",
+             attr.size(), aligned_offset);
+      return nullptr;
+    }
+    current_offset = next_offset;
   }
+  size_t aligned_total_size = 0U;
+  if (!AlignAttrOffset(current_offset, aligned_total_size)) {
+    GELOGE(ge::FAILED, "Failed to create attr buffer, aligned total size overflow, current size %zu", current_offset);
+    return nullptr;
+  }
+  total_size = aligned_total_size;
   auto attr_holder = ge::ComGraphMakeUnique<uint8_t[]>(total_size);
   GE_ASSERT_NOTNULL(attr_holder);
   auto attr_def = ge::PtrToPtr<uint8_t, RuntimeAttrsDef>(attr_holder.get());
   attr_def->attr_num = attrs.size();
   GE_ASSERT_EQ(memset_s(attr_def->reserved_, sizeof(attr_def->reserved_), 0, sizeof(attr_def->reserved_)), EOK);
-  size_t current_offset = sizeof(RuntimeAttrsDef) + sizeof(size_t) * attr_def->attr_num;
+  current_offset = sizeof(RuntimeAttrsDef) + sizeof(size_t) * attr_def->attr_num;
   auto attr_pos = attr_holder.get();
   for (size_t i = 0; i < attrs.size(); ++i) {
+    size_t aligned_offset = 0U;
+    GE_ASSERT_TRUE(AlignAttrOffset(current_offset, aligned_offset), "Failed to align attr offset");
+    const size_t padding_size = aligned_offset - current_offset;
+    if (padding_size > 0U) {
+      GE_ASSERT_EQ(memset_s(attr_pos + current_offset, padding_size, 0, padding_size), EOK);
+    }
+    current_offset = aligned_offset;
     attr_def->offset[i] = current_offset;
     const auto ret =
         ge::GeMemcpy(attr_pos + current_offset, total_size - current_offset, attrs[i].data(), attrs[i].size());
     GE_ASSERT_TRUE((ret == ge::SUCCESS), "memcpy_s failed, copy size is %zu, dst size is %zu", attrs[i].size(),
                    total_size - current_offset);
     current_offset += attrs[i].size();
+  }
+  const size_t padding_size = total_size - current_offset;
+  if (padding_size > 0U) {
+    GE_ASSERT_EQ(memset_s(attr_pos + current_offset, padding_size, 0, padding_size), EOK);
   }
   return attr_holder;
 }

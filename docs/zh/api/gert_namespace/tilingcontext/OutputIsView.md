@@ -34,7 +34,7 @@ bool OutputIsView(const size_t index) const
 
 ```cpp
 ge::graphStatus TilingForMul(TilingContext *context) {
-  auto output_is_view_0 = context->InputIsView(0);
+  auto output_is_view_0 = context->OutputIsView(0);
   ...
 }
 ```

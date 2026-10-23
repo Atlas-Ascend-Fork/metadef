@@ -39,4 +39,15 @@ TEST_F(ShapeUT, EmptyShapeSizeIsIndependentOfDimensionOrder) {
   EXPECT_EQ(zero_before_overflow.GetShapeSize(), 0);
   EXPECT_EQ(overflowing_nonempty.GetShapeSize(), Shape::kInvalidDimValue);
 }
+
+TEST_F(ShapeUT, SetDimNumRejectsOutOfRange) {
+  Shape shape({1, 2, 3});
+  shape.SetDimNum(Shape::kMaxDimNum + 1);
+  EXPECT_EQ(shape.GetDimNum(), 3);
+
+  shape.SetDimNum(Shape::kMaxDimNum);
+  EXPECT_EQ(shape.GetDimNum(), Shape::kMaxDimNum);
+  shape.SetDimNum(Shape::kMaxDimNum + 1);
+  EXPECT_EQ(shape.GetDimNum(), Shape::kMaxDimNum);
+}
 }  // namespace gert

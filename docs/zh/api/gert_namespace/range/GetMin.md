@@ -17,7 +17,7 @@ T *GetMin()
 
 ## 返回值说明
 
-返回最小的T对象指针。
+当最小值指针为nullptr时（例如默认构造Range对象或调用SetMin(nullptr)后），返回nullptr；否则返回指向最小T对象的指针。
 
 ## 约束说明
 

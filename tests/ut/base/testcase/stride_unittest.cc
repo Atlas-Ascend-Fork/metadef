@@ -92,4 +92,15 @@ TEST_F(StrideUT, SetStrideDoesNotChangeRank) {
   EXPECT_EQ(stride.GetStride(2), 11);
 }
 
+TEST_F(StrideUT, SetDimNumRejectsOutOfRange) {
+  Stride stride({1, 2, 3});
+  stride.SetDimNum(Stride::kMaxDimNum + 1);
+  EXPECT_EQ(stride.GetDimNum(), 3);
+
+  stride.SetDimNum(Stride::kMaxDimNum);
+  EXPECT_EQ(stride.GetDimNum(), Stride::kMaxDimNum);
+  stride.SetDimNum(Stride::kMaxDimNum + 1);
+  EXPECT_EQ(stride.GetDimNum(), Stride::kMaxDimNum);
+}
+
 }  // namespace gert
