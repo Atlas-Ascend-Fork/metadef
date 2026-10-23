@@ -51,7 +51,7 @@ Status  ParseOpToGraphFunc(const ge::Operator &op,  ge::Graph &graph)
 实现Add算子到PartitionedCall算子的映射函数示例如下所示：
 
 ```cpp
-Status ParseParams(const ge::Operator &op_src, ge::Operator& op_dest)
+domi::Status ParseParams(const ge::Operator &op_src, ge::Operator& op_dest)
 {
     ...
     op_dest.SetAttr("original_type", "ai.onnx::11::Add");
@@ -61,17 +61,17 @@ Status ParseParams(const ge::Operator &op_src, ge::Operator& op_dest)
 一对多子图构造函数实现示例如下所示：
 
 ```cpp
-static Status ParseOpToGraph(const Operator &op, Graph &graph) {
-  auto data_0 = op::Data().set_attr_index(0);
-  auto data_1 = op::Data().set_attr_index(1);
-  auto addn = op::AddN("addn_sum").create_dynamic_input_x(2)
+static domi::Status ParseOpToGraph(const ge::Operator &op, ge::Graph &graph) {
+  auto data_0 = ge::op::Data().set_attr_index(0);
+  auto data_1 = ge::op::Data().set_attr_index(1);
+  auto addn = ge::op::AddN("addn_sum").create_dynamic_input_x(2)
       .set_dynamic_input_x(0, data_0)
       .set_dynamic_input_x(1, data_1)
       .set_attr_N(2);
-  auto abs = op::Abs("abs_sum").set_input_x(addn);
-  std::vector<Operator> inputs{data_0, data_1};
-  std::vector<std::pair<Operator, std::vector<size_t>>> output_indexs;
-  output_indexs.emplace_back(abs, vector<std::size_t>{0});
+  auto abs = ge::op::Abs("abs_sum").set_input_x(addn);
+  std::vector<ge::Operator> inputs{data_0, data_1};
+  std::vector<std::pair<ge::Operator, std::vector<std::size_t>>> output_indexs;
+  output_indexs.emplace_back(abs, std::vector<std::size_t>{0});
   graph.SetInputs(inputs).SetOutputs(output_indexs);
   return domi::SUCCESS;
 }
