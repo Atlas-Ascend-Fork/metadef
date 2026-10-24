@@ -19,10 +19,11 @@ template<typename T> ContinuousVector *Add(size_t inner_vector_capacity)
 ## 返回值说明
 
 新增ContinuousVector元素的首地址。
+容量已满或计算内层向量长度时发生整数溢出则返回 `nullptr`；调用方应检查返回值后再访问新增元素。
 
 ## 约束说明
 
-无。
+新增元素数量不能超过初始化时设置的容量；容量耗尽后不能继续添加。
 
 ## 调用示例
 
