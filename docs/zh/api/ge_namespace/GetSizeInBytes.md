@@ -2,7 +2,7 @@
 
 ## 函数功能
 
-根据传入的element\_count和data\_type，获取element\_count个该data\_type所占用的内存总大小。
+根据传入的element\_count和data\_type，获取element\_count个该data\_type所占用的内存总大小。对于按 bit 存储的数据类型，计算结果按字节向上取整，例如 9 个 `DT_INT4` 元素返回 5 字节。
 
 ## 函数原型
 
