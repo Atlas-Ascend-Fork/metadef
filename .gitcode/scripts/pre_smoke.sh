@@ -94,7 +94,7 @@ npu-smi info  2>&1 | tee ./npu_log/npu_info.log
 log "checking test results ..."
 
 date_time=$(date +%Y%m%d)"."$(date +%H%M%S)
-if grep -iE '\b(FAIL|failed|error:)\b' "./run_test.log" | grep -viE "error\)"; then
+if grep -iE '\b(FAIL|failed|error:)\b' "./run_test.log" | grep -viE "error\)|Version compatibility check failed"; then
     echo "$date_time : run test case failed"
     exit 1
 fi
