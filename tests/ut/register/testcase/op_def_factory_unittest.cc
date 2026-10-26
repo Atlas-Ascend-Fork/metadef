@@ -15,6 +15,7 @@
 #include "register/op_config_registry.h"
 #include "register/device_op_impl_registry.h"
 #include "base/asc/opdef/op_config_registry_impl.h"
+#include "base/asc/opdef/op_def_factory_impl.h"
 
 namespace ops {
 namespace {
@@ -80,6 +81,13 @@ TEST_F(OpDefFactoryUT, OpDefFactoryTest) {
     OpDef opDef = OpDefFactory::OpDefCreate(ops[0].GetString());
     EXPECT_EQ(opDef.GetOpType(), "AddAscendC");
   }
+
+  auto &factory = OpDefFactoryImpl::GetInstance();
+  const auto op_count = factory.GetAllOp().size();
+  const OpDefCreator creator = [](const char *name) { return OpDef(name); };
+  EXPECT_EQ(factory.OpDefRegister("AddAscendC", creator), 0);
+  EXPECT_EQ(factory.OpDefRegisterV2("AddAscendC", [](const char *name) { return OpDef(name); }), 0);
+  EXPECT_EQ(factory.GetAllOp().size(), op_count);
 }
 
 TEST_F(OpDefFactoryUT, RegisterOpAICoreConfigTest) {
@@ -95,7 +103,7 @@ TEST_F(OpDefFactoryUT, RegisterOpAICoreConfigTest) {
   EXPECT_EQ(aicfgs.size(), 1);
   OpAICoreConfig config = aicfgs["ascendxxxy"];
   std::map<ge::AscendString, ge::AscendString> cfgs = config.GetCfgInfo();
-  // shoud be default config
+  // should be default config
   EXPECT_EQ(cfgs["dynamicCompileStatic.flag"], "true");
   EXPECT_EQ(cfgs["dynamicFormat.flag"], "true");
   EXPECT_EQ(cfgs["dynamicRankSupport.flag"], "true");
