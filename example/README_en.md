@@ -14,7 +14,13 @@ This directory provides runnable samples of the `metadef` repository, used to ve
 
 - CANN Toolkit installed (default path `/usr/local/Ascend/cann`). If installed elsewhere, set the `ASCEND_HOME_PATH` environment variable to the actual install directory before running.
 - NPU driver and firmware installed, and the NPU device accessible from the current environment. For device mounting in container scenarios, see [Quick Install · Scenario 2](../docs/en/quick_install.md).
-- Python3 and the Python packages required by CANN installed (GE loads op-compilation components at runtime, which depend on the Python environment). The official CANN container image includes them by default.
+- Python3 and the Python packages required by CANN installed (GE loads op-compilation components at runtime, which `import` the following packages layer by layer). A bare self-built environment (e.g. a plain Debian/Ubuntu container) usually lacks them; missing packages make the sample fail (exit code `255`, no obvious error on stdout, `No module named 'xxx'` in the plog logs). Install them before running:
+
+  ```bash
+  pip3 install numpy decorator sympy scipy attrs psutil
+  ```
+
+  The official CANN container image includes them by default, so this step can be skipped there.
 
 ## Run the Sample
 
@@ -31,4 +37,4 @@ The script performs: load CANN environment -> build the sample (generates `tc_ge
 - Failure: process exit code is `255` (i.e. `-1`). Troubleshoot as follows:
   1. Check the last lines of stdout to locate the failing stage (graph build / load / execute / finalize);
   2. Build failure: ensure the CANN install path (`ASCEND_HOME_PATH` or the default) contains `compiler/include`, `lib64`, `opp/built-in/op_graph/inc`, etc.;
-  3. Run failure: ensure the driver and firmware are installed and device files are mounted (container scenarios), and check the plog logs under `~/ascend/log/` for detailed error codes.
+  3. Run failure: ensure the driver and firmware are installed and device files are mounted (container scenarios), and check the plog logs under `~/ascend/log/` for detailed error codes; if the plog shows `No module named 'xxx'`, Python packages are missing — install them with `pip3 install` as described in "Prerequisites" above and retry.
