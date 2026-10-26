@@ -30,5 +30,5 @@ void *Expand(size_t size)
 auto td_buf = TilingData::CreateCap(100U);
 auto td = reinterpret_cast<TilingData *>(td_buf.get());
 auto ptr = td->Expand(64U);
-size_t cap = td->GetCapacity(); // 64U
+size_t cap = td->GetCapacity(); // 100U
 ```
