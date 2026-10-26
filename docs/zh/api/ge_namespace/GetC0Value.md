@@ -18,7 +18,7 @@ inline int64_t GetC0Value(int32_t format)
 
 ## 返回值
 
-- 如果包含C0 format，返回实际format中包含的C0 format。
+- 如果包含C0 format，提取编码字段值 `x` 并返回对应的 C0 值 `2^(x-1)`；例如字段值 `5` 返回 `16`。
 - 如果不包含C0 format，返回-1。
 
 ## 异常处理
@@ -27,4 +27,4 @@ inline int64_t GetC0Value(int32_t format)
 
 ## 约束说明
 
-设置实际format格式时，第一个字节低四位的C0 format的范围只支持x=\(0001\~1111\)，实际获取的C0 value为2^x-1。
+设置实际format格式时，第一个字节低四位的C0 format字段值 `x` 范围为1至15；`GetC0Value` 返回 `2^(x-1)`。未设置C0 format时返回-1。

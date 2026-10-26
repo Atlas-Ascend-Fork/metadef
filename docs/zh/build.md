@@ -115,6 +115,10 @@ bash build.sh
 bash tests/run_test.sh -u
 ```
 
+> [!NOTE] 注意
+> `run_test.sh` 使用 `build_gcov` 作为 UT 构建目录（区别于 4.3 中 `build.sh` 使用的 `build` 目录），构建过程中会将第三方依赖库下载并安装到 `output/third_party/lib_cache`。
+> 若在上次构建成功后手动清理了 `output` 目录，`build_gcov` 中残留的构建缓存会误判第三方库已安装而跳过重装，导致链接失败（如 `cannot find .../libascend_protobuf.so`）。`run_test.sh` 已能自动检测该情况并清理过期构建目录后重建；如遇其他缓存异常，也可手动执行 `rm -rf build_gcov` 后重试。
+
 ### 4.5 安装与卸载
 
 - 安装

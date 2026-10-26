@@ -32,7 +32,10 @@ const CompileTimeTensorDesc *GetOptionalInputDesc(const size_t ir_index) const
 // 假设已存在KernelContext *context
 auto extend_context = reinterpret_cast<ExtendedKernelContext *>(context);
 // case 1假设某个算子的IR原型的第0个输入是可选输入，且实际有1个输入
-auto optional_input_td = extend_context->GetOptionalInputDesc(0); // 拿到第0个可选输入的tensor描述
+auto optional_input_td_with_instance = extend_context->GetOptionalInputDesc(0); // 拿到第0个可选输入的tensor描述
 // case 2假设某个算子的IR原型的第0个输入是可选输入，且实际没有输入
-auto optional_input_td = extend_context->GetOptionalInputDesc(0); // nullptr
+auto optional_input_td_without_instance = extend_context->GetOptionalInputDesc(0);
+if (optional_input_td_without_instance == nullptr) {
+  // 该可选输入未实例化。
+}
 ```

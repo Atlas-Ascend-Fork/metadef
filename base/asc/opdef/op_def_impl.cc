@@ -434,7 +434,8 @@ void OpDefImpl::Construct(OpDef *parent_this, const char *type) {
            it->first.GetString());
     if (it->second == nullptr) {
       GELOGE(ge::PARAM_INVALID,
-             "Aicore func of op[%s] at socVersion[%s] registered by REGISTER_OP_AICORE_CONFIG is nullptr.");
+             "Aicore func of op[%s] at socVersion[%s] registered by REGISTER_OP_AICORE_CONFIG is nullptr.", type,
+             it->first.GetString());
       return;
     }
     auto config = it->second();

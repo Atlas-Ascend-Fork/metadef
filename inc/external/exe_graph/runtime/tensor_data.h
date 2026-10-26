@@ -173,6 +173,9 @@ class TensorData {
    * @param manager tensor的管理函数
    */
   ge::graphStatus SetAddr(const ConstTensorAddressPtr addr, TensorAddrManager manager) {
+    if (addr_ == addr && manager_ == manager) {
+      return ge::GRAPH_SUCCESS;
+    }
     const auto ret = Free();
     if (ret != ge::GRAPH_SUCCESS) {
       return ret;

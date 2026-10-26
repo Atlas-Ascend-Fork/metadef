@@ -14,7 +14,7 @@ OpImplRegisterV2 &OpSelectFormat(OP_CHECK_FUNC_V2 op_select_format_func)
 
 |参数|输入/输出|说明|
 |--|--|--|
-|select_format_func|输入|待注册的OP_CHECK_FUNC_V2函数。OP_CHECK_FUNC_V2类型定义如下：<br>`using OP_CHECK_FUNC_V2 = ge::graphStatus (*)(const OpCheckContext *context, ge::AscendString &result);`|
+|op_select_format_func|输入|待注册的OP_CHECK_FUNC_V2函数。OP_CHECK_FUNC_V2类型定义如下：<br>`using OP_CHECK_FUNC_V2 = ge::graphStatus (*)(const OpCheckContext *context, ge::AscendString &result);`|
 
 ## 返回值说明
 

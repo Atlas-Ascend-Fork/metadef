@@ -427,10 +427,12 @@ class AttrTable {
   }
 
   AppendAttrFunc Find(AttrDataType src, AttrDataType dst) const {
-    if (src >= SRC || dst >= DST) {
+    const auto src_index = static_cast<size_t>(src);
+    const auto dst_index = static_cast<size_t>(dst);
+    if (src_index >= static_cast<size_t>(SRC) || dst_index >= static_cast<size_t>(DST)) {
       return nullptr;
     }
-    return elements[static_cast<size_t>(src)][static_cast<size_t>(dst)];
+    return elements[src_index][dst_index];
   }
 
   AttrTable &Add(AttrDataType src, AttrDataType dst, AppendAttrFunc func) {

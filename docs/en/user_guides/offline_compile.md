@@ -53,9 +53,8 @@ Go to the repository root directory and adjust directories through the following
   ```bash
   # Move files under opensource directory to metadef repository
   cd metadef
-  mkdir output output/third_party
-  cp -r ../opensource/* output/third_party
-  rm -rf ../opensource
+  mkdir -p output/third_party
+  cp -r ../opensource/* output/third_party && rm -rf ../opensource
   ```
 
 After adjustment, the project structure is as follows:
@@ -82,7 +81,7 @@ After completion, return to the [Build Verification - Compilation](../build.md#4
   ```bash
   # Create output/third_party directory
   cd metadef
-  mkdir output output/third_party
+  mkdir -p output/third_party
   ```
 
 After adjustment, the project structure is as follows:

@@ -1,6 +1,6 @@
 # Introduction
 
-<!-- md-trans-meta sourceCommit=ea046bd50b7a6b8b6ef9ddbedb3c55664c72b8ae translatedAt=2026-10-09T01:29:43.159Z pushedAt=2026-10-15T03:48:04.704Z -->
+<!-- md-trans-meta sourceCommit=21edba955d3763e74f48b491a55c2a66ccde83c9 translatedAt=2026-10-16T01:37:12.404Z pushedAt=2026-10-16T02:00:17.872Z -->
 
 The **KernelLaunchInfo** class provides developers with APIs for creating and managing tasks delivered to the device, allowing developers to set or obtain the launch information related to the current task to be delivered to the device.
 
@@ -9,8 +9,10 @@ This class supports creating new launch tasks or modifying launch tasks already 
 ## Header Files to Include
 
 ```cpp
-#include "graph/kernel_launch_info.h"
+#include <graph/kernel_launch_info.h>
 ```
+
+This header file is installed by the GE (Graph Engine) component to `${INSTALL_DIR}/include/graph/` along with CANN Toolkit, and is not part of the header files in the metadef repository source code.
 
 ## Public Member Functions
 
@@ -19,6 +21,8 @@ static KernelLaunchInfo LoadFromData(const gert::ExeResGenerationContext *contex
 static KernelLaunchInfo CreateAicpuKfcTask(const gert::ExeResGenerationContext *context, const char *so_name, const char *kernel_name)
 static KernelLaunchInfo CreateHcomRecordTask(const gert::ExeResGenerationContext *context, const char *group_name = "group")
 static KernelLaunchInfo CreateHcomWaitTask(const gert::ExeResGenerationContext *context, const char *group_name = "group")
+static KernelLaunchInfo CreateFusionTask(const gert::ExeResGenerationContext *context, const std::vector<KernelLaunchInfo> &sub_tasks)
+static KernelLaunchInfo CreateCcuTask(const gert::ExeResGenerationContext *context, const std::vector<std::string> &groups)
 std::vector<uint8_t> Serialize()
 uint32_t GetStreamId() const
 void SetStreamId(uint32_t stream_id)

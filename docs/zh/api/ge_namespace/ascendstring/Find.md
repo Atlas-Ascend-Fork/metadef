@@ -22,4 +22,4 @@ size_t Find(const AscendString &ascend_string) const
 
 ## 返回值
 
-子串的起始位置。
+找到时返回子串的起始位置；未找到时返回 `std::string::npos`。默认构造的 `AscendString` 对象参与搜索时也返回 `std::string::npos`。

@@ -16,7 +16,7 @@ OpKernelContextBuilder &OutputTensorDesc(size_t index, ge::DataType dtype, ge::F
 
 |Parameter|Input/Output|Description|
 |--|--|--|
-|index|Input|Operator output instance index.|
+|index|Input|Operator input instance index.|
 |dtype|Input|Data type of the output tensor.|
 |origin_format|Input|Original format of the output tensor.|
 |storage_format|Input|Storage format of the output tensor.|

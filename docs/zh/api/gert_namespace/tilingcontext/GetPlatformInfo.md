@@ -16,7 +16,7 @@ fe::PlatFormInfos *GetPlatformInfo() const
 
 ## 返回值说明
 
-PlatformInfos指针承载的是内部的硬件平台信息，这个信息作为PlatformAscendC的输入，开发者通过PlatformAscendC提供的方法获取硬件平台信息。
+返回内部硬件平台信息的指针，供PlatformAscendC获取硬件平台信息；若无法获取计算节点信息、对应输入，或该输入中保存的平台信息指针为空，则返回nullptr。
 
 PlatformAscendC接口详细说明请参见《[Ascend C API](https://gitcode.com/cann/asc-devkit/blob/master/docs/zh/api/README.md)》。
 
@@ -28,7 +28,11 @@ PlatformAscendC接口详细说明请参见《[Ascend C API](https://gitcode.com/
 
 ```cpp
 ge::graphStatus TilingXXX(gert::TilingContext* context) {
-    auto ascendcPlatform = platform_ascendc::PlatformAscendC(context->GetPlatformInfo());
+    auto platformInfo = context->GetPlatformInfo();
+    if (platformInfo == nullptr) {
+        return ge::GRAPH_FAILED;
+    }
+    auto ascendcPlatform = platform_ascendc::PlatformAscendC(platformInfo);
     auto coreNum = ascendcPlatform.GetCoreNum();
     // ... 根据核数自行设计Tiling策略
     context->SetBlockDim(coreNum);

@@ -105,6 +105,7 @@ Select different startup methods according to usage scenario:
   > - Scenario 1 is suitable for compilation build only of metadef, without NPU device support
   >
   > - Scenario 2 is suitable for running samples or performing NPU-related tests, requires host machine already installed NPU driver and firmware
+  > - Sample code is located in the [example](../../example) directory of the repository. For how to run samples and check results, see [example/README_en.md](../../example/README_en.md)
   > - If using other model chips (such as 950, Atlas A3 series products), please accordingly adjust device names in `--device` parameter
 
 4.**Initialize Environment**

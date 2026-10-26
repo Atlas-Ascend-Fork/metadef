@@ -14,11 +14,11 @@ graphStatus GetExpandDimsRule(AscendString &expand_dims_rule) const
 
 |参数名|输入/输出|描述|
 |--|--|--|
-|expand_dims_rule|输入|函数待返回的expand_dims_rule补维规则，采用字符串形式表示补维。|
+|expand_dims_rule|输出|获取到的expand_dims_rule补维规则，采用字符串形式表示补维。|
 
 ## 返回值
 
-graphStatus类型：设置成功返回GRAPH\_SUCCESS，否则，返回GRAPH\_FAILED。
+graphStatus类型：获取成功返回GRAPH\_SUCCESS，否则，返回GRAPH\_FAILED。
 
 ## 异常处理
 

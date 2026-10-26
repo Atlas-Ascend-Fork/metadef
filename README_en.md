@@ -66,6 +66,8 @@ Typically, developers do not need to directly modify the metadef repository, bec
 
 To quickly build this project, visit [Source Code Build](docs/en/build.md) to learn how to compile, install, and perform basic verification tests.
 
+To run samples in a real NPU environment, see [example/README_en.md](example/README_en.md).
+
 ## Learning Tutorials
 
 ### Developer Guide

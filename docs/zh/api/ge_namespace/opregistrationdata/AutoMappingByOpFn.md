@@ -34,7 +34,7 @@ REGISTER_CUSTOM_OP("SoftplusGrad")
 原始TensorFlow算子与适配AI处理器的算子属性无法一一映射的场景：
 
 ```cpp
-Status ParseResizeArea(const ge::Operator &op_src, ge::Operator& op)
+domi::Status ParseResizeArea(const ge::Operator &op_src, ge::Operator& op)
   {
     AutoMappingByOpFn(op_src, op);
 
@@ -43,16 +43,16 @@ Status ParseResizeArea(const ge::Operator &op_src, ge::Operator& op)
     input_tensor.SetFormat(ge::FORMAT_NHWC);
     auto ret = op.UpdateInputDesc("images", input_tensor);
     if(ret != ge::GRAPH_SUCCESS){
-        return FAILED;
+        return domi::FAILED;
     }
     ge::TensorDesc output_tensor = op.GetOutputDesc("y");
     output_tensor.SetOriginFormat(ge::FORMAT_NHWC);
     output_tensor.SetFormat(ge::FORMAT_NHWC);
     auto ret_output = op.UpdateOutputDesc("y", output_tensor);
     if(ret_output != ge::GRAPH_SUCCESS){
-        return FAILED;
+        return domi::FAILED;
     }
-    return SUCCESS;
+    return domi::SUCCESS;
   }
 // register ResizeArea op to GE
 REGISTER_CUSTOM_OP("ResizeArea")

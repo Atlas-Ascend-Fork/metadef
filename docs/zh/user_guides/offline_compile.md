@@ -50,9 +50,8 @@ bash scripts/download_third_party_source.sh
   ```bash
   # 将opensource目录下的文件移动至metadef仓
   cd metadef
-  mkdir output output/third_party
-  cp -r ../opensource/* output/third_party
-  rm -rf ../opensource
+  mkdir -p output/third_party
+  cp -r ../opensource/* output/third_party && rm -rf ../opensource
   ```
 
 调整后的项目结构如下：
@@ -77,7 +76,7 @@ bash scripts/download_third_party_source.sh
   ```bash
   # 创建output/third_party目录
   cd metadef
-  mkdir output output/third_party
+  mkdir -p output/third_party
   ```
 
 调整后的项目结构如下：

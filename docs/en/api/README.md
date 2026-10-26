@@ -1,6 +1,6 @@
 # Basic Data Structures and Interfaces
 
-<!-- md-trans-meta sourceCommit=3546dd3f154857d3da51573eb7cca3d0cb68702a translatedAt=2026-10-09T01:02:32.366Z pushedAt=2026-10-15T03:48:04.675Z -->
+<!-- md-trans-meta sourceCommit=8b5164d75f42e58bd209bb99c57c31bf6435f6c0 translatedAt=2026-10-16T01:36:17.533Z pushedAt=2026-10-16T02:00:17.870Z -->
 
 - [Header Files and Library Files](header_and_library_files_description.md)
 - [Overview](overview.md)
@@ -513,6 +513,7 @@
   - [TensorPlacement](gert_namespace/TensorPlacement.md)
   - [TensorVersion](gert_namespace/TensorVersion.md)
   - [Internal Associated APIs](gert_namespace/internal_interface.md)
+  - [IMPL_OP](gert_namespace/IMPL_OP.md)
 
 - [ge Namespace](ge_namespace/ge_namespace.md)
   - [Allocator](ge_namespace/allocator/Allocator.md)

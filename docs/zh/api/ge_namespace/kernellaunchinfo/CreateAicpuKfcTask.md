@@ -40,7 +40,7 @@ graphStatus Mc2GenTaskCallback(const gert::ExeResGenerationContext *context,
   GE_ASSERT_TRUE(!stream_infos.empty());
   const int64_t attach_stream_id = stream_infos[0].stream_id;
   // 往AI CPU KFC的任务中添加信息
-  aicpu_task->SetStreamId(attach_stream_id);
+  aicpu_task.SetStreamId(attach_stream_id);
   ...
 }
 ```

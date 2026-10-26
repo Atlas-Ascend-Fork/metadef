@@ -1,6 +1,6 @@
 # C\_Format
 
-<!-- md-trans-meta sourceCommit=be935a2e3ccf85ec208a4650797dabe60fc68a79 translatedAt=2026-10-09T01:02:12.655Z pushedAt=2026-10-15T03:48:04.665Z -->
+<!-- md-trans-meta sourceCommit=430be1708da12becf5b9ad820ae1b46890d29413 translatedAt=2026-10-16T01:36:02.400Z pushedAt=2026-10-16T02:00:17.869Z -->
 
 ```c
 typedef enum {
@@ -70,7 +70,7 @@ typedef enum {
 ```
 
 <!-- npu="950" id1 -->
-C\_FORMAT\_FRACTAL\_NZ\_C0\_16, C\_FORMAT\_FRACTAL\_NZ\_C0\_32, C\_FORMAT\_FRACTAL\_NZ\_C0\_2, C\_FORMAT\_FRACTAL\_NZ\_C0\_4, C\_FORMAT\_FRACTAL\_NZ\_C0\_8: Only Ascend 950PR/Ascend 950DT supports this type.
+C\_FORMAT\_FRACTAL\_NZ\_C0\_16, C\_FORMAT\_FRACTAL\_NZ\_C0\_32, C\_FORMAT\_FRACTAL\_NZ\_C0\_2, C\_FORMAT\_FRACTAL\_NZ\_C0\_4, C\_FORMAT\_FRACTAL\_NZ\_C0\_8: Only Ascend 950PR&950DT products support this type.
 <!-- end id1 -->
 <!-- npu="IPV350" id2 -->
 IPV350: C_FORMAT_FRACTAL_NZ_C0_16, C_FORMAT_FRACTAL_NZ_C0_32, C_FORMAT_FRACTAL_NZ_C0_2, C_FORMAT_FRACTAL_NZ_C0_4, C_FORMAT_FRACTAL_NZ_C0_8: The current version does not support this type.

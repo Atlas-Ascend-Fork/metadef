@@ -9,6 +9,7 @@
  */
 
 #include <gtest/gtest.h>
+#include <cstdint>
 #include <memory>
 #include <cmath>
 #include "base/context_builder/context_holder.h"
@@ -427,6 +428,7 @@ TEST_F(UtestContextBuilder, CreateTilingContextOK) {
                     .AppendAttr(std::vector<float>({0.1, 0.2, 0.3}))
                     .AppendAttr(std::vector<AscendString>({"123", "234"}))
                     .AppendAttr(std::vector<std::vector<int64_t>>({{1, 2, 3}, {4, 5, 6}}))
+                    .AppendAttr(bool(false))
                     .TilingData(reinterpret_cast<gert::TilingData *>(tmp_tiling_data.get()))
                     .Workspace(ws_ptr)
                     .CompileInfo(tmp_compile_info)
@@ -475,7 +477,14 @@ TEST_F(UtestContextBuilder, CreateTilingContextOK) {
   EXPECT_EQ(ctx->GetSimtGridDim()->z, block_dim.z);
   EXPECT_EQ(*(ctx->GetAttrs()->GetInt(0)), 1);
   EXPECT_EQ(*(ctx->GetAttrs()->GetBool(1)), true);
-  EXPECT_FLOAT_EQ(*(ctx->GetAttrs()->GetFloat(2)), 0.3);
+  const auto float_attr = ctx->GetAttrs()->GetFloat(2);
+  EXPECT_EQ(reinterpret_cast<std::uintptr_t>(float_attr) % alignof(float), static_cast<std::uintptr_t>(0U));
+  EXPECT_FLOAT_EQ(*float_attr, 0.3);
+  EXPECT_EQ(*(ctx->GetAttrs()->GetBool(9)), false);
+  const auto output_instance_info = ctx_compute_node_info->GetOutputInstanceInfo(0);
+  EXPECT_NE(output_instance_info, nullptr);
+  EXPECT_EQ(reinterpret_cast<std::uintptr_t>(output_instance_info) % alignof(AnchorInstanceInfo),
+            static_cast<std::uintptr_t>(0U));
   auto str_ptr = ctx->GetAttrs()->GetStr(3);
   EXPECT_EQ(strcmp(str_ptr, "my_info"), 0);
   auto bool_vec = ctx->GetAttrs()->GetAttrPointer<TypedContinuousVector<bool>>(4);

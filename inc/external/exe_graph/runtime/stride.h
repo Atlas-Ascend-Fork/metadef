@@ -116,8 +116,12 @@ struct Stride {
   /**
    * 设置dim num
    * @param dim_num
+   * 超出最大维度数时保持当前dim num不变
    */
   void SetDimNum(const size_t dim_num) {
+    if (dim_num > kMaxDimNum) {
+      return;
+    }
     this->dim_num_ = dim_num;
   }
 

@@ -1971,6 +1971,9 @@ TEST_F(TilingDataUT, AppendAttrSrcTypeInvalid) {
             ge::GRAPH_FAILED);
   EXPECT_EQ(tiling_data->AppendConvertedAttrVal(context->GetAttrs(), 7, AttrDataType::kListInt64, AttrDataType::kInt32),
             ge::GRAPH_FAILED);
+  EXPECT_EQ(
+      tiling_data->AppendConvertedAttrVal(context->GetAttrs(), 7, static_cast<AttrDataType>(-1), AttrDataType::kInt32),
+      ge::GRAPH_FAILED);
 }
 
 TEST_F(TilingDataUT, AppendAttrDstTypeInvalid) {
@@ -1984,6 +1987,9 @@ TEST_F(TilingDataUT, AppendAttrDstTypeInvalid) {
       ge::GRAPH_FAILED);
   EXPECT_EQ(tiling_data->AppendConvertedAttrVal(context->GetAttrs(), 7, AttrDataType::kBool, AttrDataType::kString),
             ge::GRAPH_FAILED);
+  EXPECT_EQ(
+      tiling_data->AppendConvertedAttrVal(context->GetAttrs(), 7, AttrDataType::kBool, static_cast<AttrDataType>(-1)),
+      ge::GRAPH_FAILED);
 }
 
 TEST_F(TilingDataUT, AppendListOverCapacity) {

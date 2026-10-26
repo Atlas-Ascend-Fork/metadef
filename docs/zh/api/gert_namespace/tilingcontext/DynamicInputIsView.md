@@ -35,7 +35,7 @@ bool DynamicInputIsView(const size_t ir_index, const size_t relative_index) cons
 
 ```cpp
 ge::graphStatus TilingForMul(TilingContext *context) {
-  bool dynamic_input_is_view_0 = context->DynamicInputIsView(0);
+  bool dynamic_input_is_view_0 = context->DynamicInputIsView(0, 0);
   ...
 }
 ```

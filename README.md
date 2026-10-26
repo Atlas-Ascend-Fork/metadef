@@ -66,6 +66,8 @@ flowchart TD
 
 若您希望快速构建本项目，请访问[源码构建](docs/zh/build.md)，了解如何编译、安装本项目，并进行基础测试验证。
 
+若需在真实 NPU 环境运行样例，请参见 [example/README.md](example/README.md)。
+
 ## 📖 学习教程
 
 ### 开发者指南

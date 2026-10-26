@@ -32,7 +32,7 @@ int64_t GetDynamicInputOffset(const size_t ir_index, const size_t relative_index
 
 ```cpp
 ge::graphStatus TilingForMul(TilingContext *context) {
-  auto dynamic_input_offset_0 = context->GetDynamicInputOffset(0);
+  auto dynamic_input_offset_0 = context->GetDynamicInputOffset(0, 0);
   ...
 }
 ```

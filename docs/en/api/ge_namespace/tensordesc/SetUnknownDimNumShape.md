@@ -1,6 +1,6 @@
 # SetUnknownDimNumShape
 
-<!-- md-trans-meta sourceCommit=ea046bd50b7a6b8b6ef9ddbedb3c55664c72b8ae translatedAt=2026-10-09T02:13:43.674Z pushedAt=2026-10-15T03:48:04.774Z -->
+<!-- md-trans-meta sourceCommit=1bfbd0f0dd6167ab870bed0b96c0f83575d5fca8 translatedAt=2026-10-16T01:38:40.638Z pushedAt=2026-10-16T02:00:17.876Z -->
 
 ## Function
 
@@ -18,7 +18,7 @@ None
 
 ## Return Value
 
-**graphStatus** type: If successful, the value is GRAPH\_SUCCESS\(that is, 0\); other values indicate an execution failure.
+**graphStatus** type: On success, the value is **GRAPH\_SUCCESS** (that is, **0**); other values indicate a failure.
 
 ## Exception Handling
 

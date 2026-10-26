@@ -33,7 +33,11 @@ index非法或者Tensor不携带非连续描述信息时返回空指针。
 
 ```cpp
 ge::graphStatus TilingForMul(TilingContext *context) {
-  auto input_stride_0 = *context->GetInputStride(0);
+  const auto *input_stride_0 = context->GetInputStride(0);
+  if (input_stride_0 == nullptr) {
+    return ge::GRAPH_FAILED;
+  }
+  // 使用 input_stride_0->GetDimNum() 等接口读取Stride。
   ...
 }
 ```

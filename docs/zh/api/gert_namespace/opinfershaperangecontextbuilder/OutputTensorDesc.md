@@ -15,6 +15,7 @@ OpInferShapeRangeContextBuilder &OutputTensorDesc(size_t index, ge::DataType dty
 |参数|输入/输出|说明|
 |--|--|--|
 |index|输入|算子输出实例索引。|
+|dtype|输入|输出Tensor的数据类型。|
 |origin_format|输入|输出Tensor的原始格式。|
 |storage_format|输入|输出Tensor的存储格式。|
 |expand_dims_type|输入|输出Tensor的补维规则ExpandDimsType，默认值为{}。|
