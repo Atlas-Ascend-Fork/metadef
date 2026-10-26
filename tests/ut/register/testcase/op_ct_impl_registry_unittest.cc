@@ -43,6 +43,11 @@ class OpCtImplRegistryUT : public testing::Test {
   }
 };
 
+TEST_F(OpCtImplRegistryUT, EmptyRegistryReturnsSuccess) {
+  EXPECT_EQ(GetRegisteredOpCtNum(), 0U);
+  EXPECT_EQ(GetOpCtImplFunctions(nullptr, 0U), ge::GRAPH_SUCCESS);
+}
+
 TEST_F(OpCtImplRegistryUT, Register_Success_RegisterAll) {
   auto funcs = gert::OpCtImplRegistry::GetInstance().GetOpImpl("TestFoo");
   ASSERT_EQ(funcs, nullptr);

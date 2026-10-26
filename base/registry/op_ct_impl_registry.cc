@@ -158,6 +158,9 @@ int32_t GetOpCtImplFunctions(TypesToCtImpl *impl, size_t impl_num) {
            types_to_impl.size());
     return static_cast<int32_t>(ge::GRAPH_FAILED);
   }
+  if (types_to_impl.empty()) {
+    return static_cast<int32_t>(ge::GRAPH_SUCCESS);
+  }
   const auto first_st = types_to_impl.cbegin();
   const size_t real_size = impl[0].funcs.st_size;
   const size_t op_size = first_st->second.st_size;
