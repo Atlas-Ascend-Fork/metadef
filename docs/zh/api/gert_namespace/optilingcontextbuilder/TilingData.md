@@ -24,4 +24,5 @@ OpTilingContextBuilder对象本身，用于链式调用。
 ## 约束说明
 
 - 在调用Build方法之前，必须设置TilingData或TilingDataSize，否则构造出的TilingContext将包含未定义数据。
-- 通过指针传入的参数（void\*），其内存所有权归调用者所有；调用者必须确保指针在ContextHolder对象的生命周期内有效。
+- 未传入deleter时，tiling_data为借用指针，内存由调用者管理；调用者须确保其在ContextHolder生命周期内有效，并在Holder销毁前不释放该内存。
+- 显式传入deleter时，ContextHolder负责调用该删除器释放tiling_data，调用者不得再自行释放同一对象。若在Build前再次设置TilingData或TilingDataSize，旧指针对应的非空deleter会在替换时调用。
