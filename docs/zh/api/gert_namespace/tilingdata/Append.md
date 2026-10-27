@@ -23,7 +23,8 @@ template<typename T, typename std::enable_if<std::is_standard_layout<T>::value, 
 ## 返回值说明
 
 - 成功返回ge::GRAPH\_SUCCESS。
-- 失败返回ge::GRAPH\_FAILED。
+- Append(const T &data)失败时返回ge::GRAPH\_FAILED。
+- Append(const T *data, size_t append\_num)失败时：sizeof(T)与append\_num的乘积溢出返回ge::GRAPH\_MUL\_OVERFLOW；长度相加溢出或添加后超过容量返回ge::GRAPH\_ADD\_OVERFLOW。
 
 ## 约束说明
 
@@ -51,5 +52,5 @@ auto ret = td->Append<int32_t>(td, append_num); // ge::GRAPH_SUCCESS
 // 3
 size_t append_num = 50;
 int32_t *td = new int32_t[append_num];
-auto ret = td->Append<int32_t>(td, append_num); // ge::GRAPH_FAILED
+auto ret = td->Append<int32_t>(td, append_num); // ge::GRAPH_ADD_OVERFLOW
 ```

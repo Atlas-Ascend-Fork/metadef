@@ -25,7 +25,8 @@ template<typename T, typename std::enable_if<std::is_standard_layout<T>::value, 
 ## Return Value
 
 - Returns **ge::GRAPH\_SUCCESS** on success.
-- Returns **ge::GRAPH\_FAILED** on failure.
+- **Append(const T &data)** returns **ge::GRAPH\_FAILED** on failure.
+- **Append(const T *data, size_t append_num)** returns **ge::GRAPH\_MUL\_OVERFLOW** if the product of **sizeof(T)** and **append_num** overflows, and **ge::GRAPH\_ADD\_OVERFLOW** if the length addition overflows or the appended length exceeds the capacity.
 
 ## Constraints
 
@@ -53,5 +54,5 @@ auto ret = td->Append<int32_t>(td, append_num); // ge::GRAPH_SUCCESS
 // 3
 size_t append_num = 50;
 int32_t *td = new int32_t[append_num];
-auto ret = td->Append<int32_t>(td, append_num); // ge::GRAPH_FAILED
+auto ret = td->Append<int32_t>(td, append_num); // ge::GRAPH_ADD_OVERFLOW
 ```
