@@ -20,7 +20,7 @@ const CompileTimeTensorDesc *GetRequiredInputDesc(const size_t ir_index) const
 
 ## Return Value
 
-**CompileTimeTensorDesc** pointer. A null pointer is returned when **index** is invalid.
+**CompileTimeTensorDesc** pointer. A null pointer is returned when **index** is invalid or the input is not instantiated.
 
 For the definition of **CompileTimeTensorDesc**, see [CompileTimeTensorDesc](../compiletimetensordesc/CompileTimeTensorDesc.md).
 
@@ -34,5 +34,5 @@ None
 // Assume that KernelContext *context already exists.
 auto extend_context = reinterpret_cast<ExtendedKernelContext *>(context);
 // Assume that the 0th input of the operator's IR prototype is a normal input, and there is actually one input.
-auto optional_input_td = extend_context->GetRequiredInputDesc(0); // Obtain the tensor description of the 0th input.
+auto required_input_td = extend_context->GetRequiredInputDesc(0); // Obtain the tensor description of the 0th input.
 ```
