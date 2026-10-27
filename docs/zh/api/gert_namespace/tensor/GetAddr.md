@@ -26,10 +26,11 @@ void *GetAddr()
 ## 调用示例
 
 ```cpp
-Tensor tensor{{{8, 3, 224, 224}, {16, 3, 224, 224}},       // shape
-              {ge::FORMAT_ND, ge::FORMAT_FRACTAL_NZ, {}},  // format
-              kFollowing,                                  // placement
-              ge::DT_FLOAT16,                              //dt
-              nullptr};
-auto addr = tensor.GetAddr(); // &tensor + 1
+float data = 0.0F;
+Tensor tensor{{{1}, {1}},                              // shape
+              {ge::FORMAT_ND, ge::FORMAT_ND, {}},      // format
+              kOnHost,                                 // placement
+              ge::DT_FLOAT,                            // dt
+              &data};
+auto addr = tensor.GetAddr(); // &data
 ```

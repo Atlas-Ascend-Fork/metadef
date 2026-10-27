@@ -8,6 +8,7 @@
  * See LICENSE in the root of the software repository for the full text of the License.
  */
 
+#include <algorithm>
 #include "base/asc/opdef/op_def_factory_impl.h"
 
 namespace ops {
@@ -17,14 +18,20 @@ OpDefFactoryImpl &OpDefFactoryImpl::GetInstance() {
 }
 
 int OpDefFactoryImpl::OpDefRegister(const char *name, OpDefCreator creator) {
+  const ge::AscendString op_type(name);
   g_opsdef_creator.emplace(name, creator);
-  g_ops_list.emplace_back(name);
+  if (std::find(g_ops_list.begin(), g_ops_list.end(), op_type) == g_ops_list.end()) {
+    g_ops_list.emplace_back(op_type);
+  }
   return 0;
 }
 
 int OpDefFactoryImpl::OpDefRegisterV2(const char *name, OpDefFuncPtr ptr) {
+  const ge::AscendString op_type(name);
   g_opsdef_creator_v2.emplace(name, ptr);
-  g_ops_list.emplace_back(name);
+  if (std::find(g_ops_list.begin(), g_ops_list.end(), op_type) == g_ops_list.end()) {
+    g_ops_list.emplace_back(op_type);
+  }
   return 0;
 }
 
