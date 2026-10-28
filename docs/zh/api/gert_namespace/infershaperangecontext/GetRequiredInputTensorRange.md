@@ -35,6 +35,9 @@ ir\_index非法时，返回空指针。
 ```cpp
 const auto infer_shape_range_func = [](gert::InferShapeRangeContext *context) -> graphStatus {
   auto input_shape_range = context->GetRequiredInputTensorRange(0U);
+  if (input_shape_range == nullptr) {
+    return ge::GRAPH_FAILED;
+  }
   auto output_shape_range = context->GetOutputShapeRange(0U);
   *output_shape_range->GetMin() = input_shape_range->GetMin()->GetStorageShape();
   *output_shape_range->GetMax() = input_shape_range->GetMax()->GetStorageShape();

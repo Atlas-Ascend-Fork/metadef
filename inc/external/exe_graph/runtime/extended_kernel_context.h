@@ -40,7 +40,7 @@ class ExtendedKernelContext : protected KernelContext {
   /**
    * 基于算子IR原型定义，获取`REQUIRED_INPUT`类型的输入CompileTimeTensorDesc指针
    * @param ir_index IR原型定义中的index
-   * @return CompileTimeTensorDesc指针，index非法，或该OUTPUT没有实例化时，返回空指针
+   * @return CompileTimeTensorDesc指针，index非法，或该INPUT没有实例化时，返回空指针
    */
   const CompileTimeTensorDesc *GetRequiredInputDesc(const size_t ir_index) const {
     return GetDynamicInputDesc(ir_index, 0);
