@@ -6,7 +6,7 @@
 
 The inheritance relationship of **ExtendedKernelContext** is as follows:
 
-![](../../figures/extended_kernel_context.png)
+![extended_kernel_context](../../figures/extended_kernel_context.png)
 
 ## Header File to Include
 

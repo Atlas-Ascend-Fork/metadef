@@ -4,7 +4,7 @@ ExeResGenerationContext继承自ExtendedKernelContext，用于生成执行资源
 
 ExeResGenerationContext继承关系图如下：
 
-![](../../figures/exe_res_generation_context.png)
+![exe_res_generation_context](../../figures/exe_res_generation_context.png)
 
 ## 需要包含的头文件
 

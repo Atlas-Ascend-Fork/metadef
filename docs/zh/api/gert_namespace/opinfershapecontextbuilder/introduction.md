@@ -4,7 +4,7 @@ OpInferShapeContextBuilder用于构建InferShapeContext。构造出的Context在
 
 OpInferShapeContextBuilder继承关系图如下：
 
-![](../../figures/opinfershape_context_builder.png)
+![opinfershape_context_builder](../../figures/opinfershape_context_builder.png)
 
 使用步骤如下：
 

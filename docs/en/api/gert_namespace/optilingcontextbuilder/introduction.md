@@ -6,7 +6,7 @@
 
 The inheritance relationship of **OpTilingContextBuilder** is as follows:
 
-![](../../figures/optiling_context_builder.png)
+![optiling_context_builder](../../figures/optiling_context_builder.png)
 
 The usage steps are as follows:
 

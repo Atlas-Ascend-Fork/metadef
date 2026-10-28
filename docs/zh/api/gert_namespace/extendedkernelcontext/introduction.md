@@ -4,7 +4,7 @@ ExtendedKernelContext是KernelContext的子类，在KernelContext的基础上，
 
 ExtendedKernelContext继承关系图如下：
 
-![](../../figures/extended_kernel_context.png)
+![extended_kernel_context](../../figures/extended_kernel_context.png)
 
 ## 需要包含的头文件
 

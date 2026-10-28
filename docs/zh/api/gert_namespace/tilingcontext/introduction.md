@@ -4,7 +4,7 @@ TilingContext继承自ExtendedKernelContext，是用于算子Tiling计算的上�
 
 TilingContext继承关系图如下：
 
-![](../../figures/tilingcontext.png)
+![tilingcontext](../../figures/tilingcontext.png)
 
 ## 需要包含的头文件
 

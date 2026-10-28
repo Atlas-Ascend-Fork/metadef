@@ -6,7 +6,7 @@
 
 The inheritance relationship of **OpTilingParseContextBuilder** is as follows:
 
-![](../../figures/optilingparse_context_builder.png)
+![optilingparse_context_builder](../../figures/optilingparse_context_builder.png)
 
 The usage steps are as follows:
 

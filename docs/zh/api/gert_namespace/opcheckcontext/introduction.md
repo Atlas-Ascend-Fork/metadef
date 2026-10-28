@@ -4,7 +4,7 @@ OpCheckContext继承自ExtendedKernelContext，用于算子参数与形状校验
 
 OpCheckContext继承关系图如下：
 
-![](../../figures/opcheck_context.png)
+![opcheck_context](../../figures/opcheck_context.png)
 
 ## 需要包含的头文件
 

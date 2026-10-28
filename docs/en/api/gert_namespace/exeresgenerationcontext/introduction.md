@@ -6,7 +6,7 @@
 
 The inheritance relationship of **ExeResGenerationContext** is as follows:
 
-![](../../figures/exe_res_generation_context.png)
+![exe_res_generation_context](../../figures/exe_res_generation_context.png)
 
 ## Header Files to Include
 

@@ -4,7 +4,7 @@ OpTilingParseContextBuilder用于构建TilingParseContext。构造出的Context�
 
 OpTilingParseContextBuilder继承关系图如下：
 
-![](../../figures/optilingparse_context_builder.png)
+![optilingparse_context_builder](../../figures/optilingparse_context_builder.png)
 
 使用步骤如下：
 

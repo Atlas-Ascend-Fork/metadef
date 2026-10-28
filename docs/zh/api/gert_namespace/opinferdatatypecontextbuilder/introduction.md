@@ -4,7 +4,7 @@ OpInferDataTypeContextBuilder用于构建InferDataTypeContext 。构造出的Con
 
 OpInferDataTypeContextBuilder继承关系图如下：
 
-![](../../figures/opinfer_datatype_context_builder.png)
+![opinfer_datatype_context_builder](../../figures/opinfer_datatype_context_builder.png)
 
 使用步骤如下：
 

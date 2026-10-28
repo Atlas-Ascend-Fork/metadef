@@ -6,7 +6,7 @@
 
 The inheritance diagram of **TilingContext** is as follows:
 
-![](../../figures/tilingcontext.png)
+![tilingcontext](../../figures/tilingcontext.png)
 
 ## Header File to Include
 

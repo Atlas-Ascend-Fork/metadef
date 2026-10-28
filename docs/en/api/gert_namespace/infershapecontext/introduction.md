@@ -6,7 +6,7 @@
 
 The inheritance relationship of **InferShapeContext** is as follows:
 
-![](../../figures/infershape_context.png)
+![infershape_context](../../figures/infershape_context.png)
 
 ## Header File to Include
 

@@ -4,7 +4,7 @@
 
 OpKernelContextBuilder继承关系图如下：
 
-![](../../figures/opkernel_context_builder.png)
+![opkernel_context_builder](../../figures/opkernel_context_builder.png)
 
 > [!NOTE]说明
 > 该类继承自OpContextBuilderBase类，在Build构建ContextHolder对象之前，需要调用OpContextBuilderBase的OpType、OpName、IONum或IOInstanceNum，以及AppendAttr接口，分别设置算子的类型、名称、输入输出个数、以及算子的属性。

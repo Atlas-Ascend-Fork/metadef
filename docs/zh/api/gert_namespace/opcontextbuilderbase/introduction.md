@@ -4,7 +4,7 @@ OpContextBuilderBase是各ContextBuilder的基类，用于构造子类context中
 
 OpContextBuilderBase继承关系图如下：
 
-![](../../figures/opcontext_builder_base.png)
+![opcontext_builder_base](../../figures/opcontext_builder_base.png)
 
 > [!NOTE]说明
 > 不可单独构造OpContextBuilderBase基类对象，只能通过子类构造。
