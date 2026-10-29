@@ -6,7 +6,7 @@
 
 The inheritance relationship of **OpInferShapeRangeContextBuilder** is as follows:
 
-![](../../figures/opinfershape_context_builder.png)
+![opinfershape_context_builder](../../figures/opinfershape_context_builder.png)
 
 The usage steps are as follows:
 

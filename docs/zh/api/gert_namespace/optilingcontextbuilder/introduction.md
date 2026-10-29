@@ -4,7 +4,7 @@ OpTilingContextBuilder用于构建TilingContext。构造出的Context在算子Ti
 
 OpTilingContextBuilder继承关系图如下：
 
-![](../../figures/optiling_context_builder.png)
+![optiling_context_builder](../../figures/optiling_context_builder.png)
 
 使用步骤如下：
 

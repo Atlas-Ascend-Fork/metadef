@@ -6,7 +6,7 @@
 
 The inheritance relationship of **InferFormatContext** is as follows:
 
-![](../../figures/inferformat_context.png)
+![inferformat_context](../../figures/inferformat_context.png)
 
 ## Header File to Include
 

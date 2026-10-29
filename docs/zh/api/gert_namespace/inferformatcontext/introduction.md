@@ -4,7 +4,7 @@ InferFormatContext继承自ExtendedKernelContext，是一个用于Format推导�
 
 InferFormatContext继承关系图如下：
 
-![](../../figures/inferformat_context.png)
+![inferformat_context](../../figures/inferformat_context.png)
 
 ## 需要包含的头文件
 

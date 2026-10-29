@@ -6,7 +6,7 @@
 
 The inheritance relationship of **OpContextBuilderBase** is as follows:
 
-![](../../figures/opcontext_builder_base.png)
+![opcontext_builder_base](../../figures/opcontext_builder_base.png)
 
 > [!NOTE] Note
 > The **OpContextBuilderBase** base class object cannot be constructed independently. It can only be constructed through a subclass.

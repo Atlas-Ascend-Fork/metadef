@@ -4,7 +4,7 @@ InferShapeRangeContext继承自ExtendedKernelContext，主要用于获取算子�
 
 InferShapeRangeContext继承关系图如下：
 
-![](../../figures/infershaperange_context.png)
+![infershaperange_context](../../figures/infershaperange_context.png)
 
 ## 需要包含的头文件
 

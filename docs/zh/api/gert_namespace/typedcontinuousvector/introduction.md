@@ -4,7 +4,7 @@
 
 TypedContinuousVector继承关系图如下：
 
-![](../../figures/typed_continuous_vector.png)
+![typed_continuous_vector](../../figures/typed_continuous_vector.png)
 
 ## 需要包含的头文件
 

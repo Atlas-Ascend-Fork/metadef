@@ -6,7 +6,7 @@ Used to build a general **KernelContext** object, which serves as the input cont
 
 The inheritance diagram of **OpKernelContextBuilder** is as follows:
 
-![](../../figures/opkernel_context_builder.png)
+![opkernel_context_builder](../../figures/opkernel_context_builder.png)
 
 > [!NOTE] Note
 > This class inherits from the **OpContextBuilderBase** class. Before calling **Build** to construct the **ContextHolder** object, you need to call the **OpType**, **OpName**, **IONum** or **IOInstanceNum**, and **AppendAttr** APIs of **OpContextBuilderBase** to set the operator type, name, number of inputs and outputs, and operator attributes, respectively.

@@ -6,7 +6,7 @@
 
 The inheritance relationship of **OpInferDataTypeContextBuilder** is as follows:
 
-![](../../figures/opinfer_datatype_context_builder.png)
+![opinfer_datatype_context_builder](../../figures/opinfer_datatype_context_builder.png)
 
 The usage procedure is as follows:
 

@@ -79,7 +79,7 @@ checkopts() {
         shift
         ;;
       --cann_3rd_lib_path)
-        CANN_3RD_LIB_PATH="$(realpath $2)"
+        CANN_3RD_LIB_PATH="$(realpath -- "$2")"
         shift 2
         ;;
       --)
@@ -111,11 +111,12 @@ mk_dir() {
 # Metadef llt build start
 cmake_generate_make() {
   local build_path="$1"
-  local cmake_args="$2"
+  shift
+  local cmake_args="$*"
   mk_dir "${build_path}"
   cd "${build_path}"
   echo "${cmake_args}"
-  cmake ${cmake_args} ..
+  cmake "$@" ..
   if [ 0 -ne $? ]; then
     echo "execute command: cmake ${cmake_args} .. failed."
     exit 1
@@ -144,19 +145,21 @@ build_metadef() {
     rm -rf "${BUILD_PATH}"
   fi
 
-  CMAKE_ARGS="-D GE_ONLY=$GE_ONLY \
-              -D ENABLE_OPEN_SRC=True \
-              -D ENABLE_METADEF_UT=${ENABLE_METADEF_UT} \
-              -D ENABLE_METADEF_ST=${ENABLE_METADEF_ST} \
-              -D ENABLE_METADEF_COV=${ENABLE_METADEF_COV} \
-              -D BUILD_WITHOUT_AIR=True \
-              -D ASCEND_INSTALL_PATH=${ASCEND_INSTALL_PATH} \
-              -D CANN_3RD_LIB_PATH=${CANN_3RD_LIB_PATH} \
-              -D CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
-              -D CMAKE_INSTALL_PREFIX=${OUTPUT_PATH}"
+  local -a CMAKE_ARGS=(
+    -D "GE_ONLY=$GE_ONLY"
+    -D "ENABLE_OPEN_SRC=True"
+    -D "ENABLE_METADEF_UT=$ENABLE_METADEF_UT"
+    -D "ENABLE_METADEF_ST=$ENABLE_METADEF_ST"
+    -D "ENABLE_METADEF_COV=$ENABLE_METADEF_COV"
+    -D "BUILD_WITHOUT_AIR=True"
+    -D "ASCEND_INSTALL_PATH=$ASCEND_INSTALL_PATH"
+    -D "CANN_3RD_LIB_PATH=$CANN_3RD_LIB_PATH"
+    -D "CMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE"
+    -D "CMAKE_INSTALL_PREFIX=$OUTPUT_PATH"
+  )
 
-  echo "CMAKE_ARGS is: $CMAKE_ARGS"
-  cmake_generate_make "${BUILD_PATH}" "${CMAKE_ARGS}"
+  echo "CMAKE_ARGS is: ${CMAKE_ARGS[*]}"
+  cmake_generate_make "${BUILD_PATH}" "${CMAKE_ARGS[@]}"
 
   if [[ "X$ENABLE_METADEF_UT" = "Xon" || "X$ENABLE_METADEF_COV" = "Xon" ]]; then
     make ut_metadef ut_register ut_exe_meta_device ut_sc_check ${VERBOSE} -j${THREAD_NUM}

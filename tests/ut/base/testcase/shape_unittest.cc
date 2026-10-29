@@ -9,7 +9,9 @@
  */
 
 #include "exe_graph/runtime/shape.h"
+#include "exe_graph/runtime/expand_dims_type.h"
 #include <gtest/gtest.h>
+#include <string>
 
 namespace gert {
 class ShapeUT : public testing::Test {};
@@ -49,5 +51,28 @@ TEST_F(ShapeUT, SetDimNumRejectsOutOfRange) {
   EXPECT_EQ(shape.GetDimNum(), Shape::kMaxDimNum);
   shape.SetDimNum(Shape::kMaxDimNum + 1);
   EXPECT_EQ(shape.GetDimNum(), Shape::kMaxDimNum);
+}
+
+TEST_F(ShapeUT, ExpandDimsIntegerKeepsMaskBitsAboveEight) {
+  const auto encoded = static_cast<int64_t>((static_cast<uint64_t>(9) << 56U) | (static_cast<uint64_t>(1) << 8U));
+  const ExpandDimsType integer_rule(encoded);
+  std::string rule_text(9U, '0');
+  rule_text.back() = '1';
+  const ExpandDimsType string_rule(rule_text.c_str());
+  const Shape input({2, 3, 4, 5, 6, 7, 8, 9});
+  Shape from_integer;
+  Shape from_string;
+
+  EXPECT_EQ(integer_rule, string_rule);
+  EXPECT_EQ(integer_rule.Expand(input, from_integer), ge::GRAPH_SUCCESS);
+  EXPECT_EQ(string_rule.Expand(input, from_string), ge::GRAPH_SUCCESS);
+  ASSERT_EQ(from_integer.GetDimNum(), 9U);
+  ASSERT_EQ(from_string.GetDimNum(), 9U);
+  for (size_t i = 0; i < 8; ++i) {
+    EXPECT_EQ(from_integer.GetDim(i), input.GetDim(i));
+    EXPECT_EQ(from_string.GetDim(i), input.GetDim(i));
+  }
+  EXPECT_EQ(from_integer.GetDim(8), 1);
+  EXPECT_EQ(from_string.GetDim(8), 1);
 }
 }  // namespace gert

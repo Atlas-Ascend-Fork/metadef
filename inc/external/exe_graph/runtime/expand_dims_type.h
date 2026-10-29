@@ -80,7 +80,7 @@ class ExpandDimsType {
     if (size_ > kMaxExpandSize) {
       return;
     }
-    mask_ = static_cast<uint64_t>(static_cast<uint64_t>(reshape_type_mask) & 0xffULL);
+    mask_ = static_cast<uint64_t>(static_cast<uint64_t>(reshape_type_mask) & 0x00FFFFFFFFFFFFFFULL);
   }
   /**
    * 判断补维规则是否一致

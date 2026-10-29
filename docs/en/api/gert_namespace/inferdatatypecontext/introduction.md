@@ -6,7 +6,7 @@
 
 The inheritance diagram of **InferDataTypeContext** is as follows:
 
-![](../../figures/inferdatatype_context.png)
+![inferdatatype_context](../../figures/inferdatatype_context.png)
 
 ## Header File to Include
 

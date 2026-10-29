@@ -29,5 +29,5 @@ void SetPlacement(const TensorPlacement placement)
 ```cpp
 auto addr = reinterpret_cast<void *>(0x10);
 TensorData td(addr, nullptr);
-auto td_place = td.SetPlacement(kOnHost);
+td.SetPlacement(kOnHost);
 ```

@@ -4,7 +4,7 @@ InferDataTypeContext继承自ExtendedKernelContext，是一个用于数据类型
 
 InferDataTypeContext继承关系图如下：
 
-![](../../figures/inferdatatype_context.png)
+![inferdatatype_context](../../figures/inferdatatype_context.png)
 
 ## 需要包含的头文件
 

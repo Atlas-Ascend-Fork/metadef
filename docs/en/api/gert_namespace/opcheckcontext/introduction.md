@@ -6,7 +6,7 @@
 
 The inheritance relationship of **OpCheckContext** is as follows:
 
-![](../../figures/opcheck_context.png)
+![opcheck_context](../../figures/opcheck_context.png)
 
 ## Header File to Include
 

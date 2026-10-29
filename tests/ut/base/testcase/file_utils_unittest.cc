@@ -149,6 +149,19 @@ TEST_F(UtestFileUtils, WriteBinToFileSuccess) {
   system(("rm -f " + so_bin).c_str());
 }
 
+TEST_F(UtestFileUtils, SaveBinToFileRelativeFilename) {
+  const std::string so_bin = "save_bin_relative_filename_test.bin";
+  const char so_data[] = "bare";
+  (void)remove(so_bin.c_str());
+  ASSERT_EQ(SaveBinToFile(so_data, sizeof(so_data) - 1U, so_bin), ge::GRAPH_SUCCESS);
+  uint32_t data_len = 0U;
+  const auto saved_data = GetBinDataFromFile(so_bin, data_len);
+  ASSERT_NE(saved_data, nullptr);
+  ASSERT_EQ(data_len, sizeof(so_data) - 1U);
+  ASSERT_EQ(memcmp(saved_data.get(), so_data, data_len), 0);
+  EXPECT_EQ(remove(so_bin.c_str()), 0);
+}
+
 TEST_F(UtestFileUtils, WriteBinToFilePathNullFail) {
   std::string so_bin = "";
   uint32_t data_len = 4;

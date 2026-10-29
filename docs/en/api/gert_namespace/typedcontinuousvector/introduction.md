@@ -6,7 +6,7 @@ This class inherits from the **ContinuousVector** class. Unlike the **Continuous
 
 The inheritance relationship of **TypedContinuousVector** is as follows:
 
-![](../../figures/typed_continuous_vector.png)
+![typed_continuous_vector](../../figures/typed_continuous_vector.png)
 
 ## Header File to Include
 

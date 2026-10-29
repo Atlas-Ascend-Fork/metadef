@@ -4,7 +4,7 @@ InferShapeContext继承自ExtendedKernelContext，是一个用于shape推导的�
 
 InferShapeContext继承关系图如下：
 
-![](../../figures/infershape_context.png)
+![infershape_context](../../figures/infershape_context.png)
 
 ## 需要包含的头文件
 
