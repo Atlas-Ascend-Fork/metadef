@@ -123,7 +123,7 @@ class OpExecuteLaunchContext : public ExtendedKernelContext {
     const size_t output_num = GetComputeNodeOutputNum();
     auto workspaces = GetInputPointer<TypedContinuousVector<TensorData *>>(
         input_num + output_num + static_cast<size_t>(OpExecuteLaunchInputIndex::kWorkspaceAddr));
-    if (workspaces->GetSize() == 0) {
+    if (workspaces == nullptr || workspaces->GetSize() == 0) {
       return nullptr;
     }
     return workspaces;

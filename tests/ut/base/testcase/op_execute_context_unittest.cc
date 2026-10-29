@@ -9,6 +9,7 @@
  */
 
 #include "exe_graph/runtime/op_execute_context.h"
+#include "exe_graph/runtime/op_execute_launch_context.h"
 #include "graph/error_codes.h"
 #include <gtest/gtest.h>
 #include "faker/allocator_faker.h"
@@ -48,5 +49,23 @@ TEST_F(OpExecuteContextUT, MallocFreeWorkSpaceOk) {
   EXPECT_EQ(memory_vec->size(), 1UL);
   context->FreeWorkspace();
   EXPECT_EQ(memory_vec->size(), 0UL);
+}
+
+TEST_F(OpExecuteContextUT, GetWorkspaceAddrsReturnsNullWhenInputSlotIsMissing) {
+  OpKernelContextBuilder ctx_builder;
+  gert::StorageShape shape0 = {{10, 20}, {10, 20}};
+  auto holder = ctx_builder.OpType("Add")
+                    .OpName("add_1")
+                    .IONum(2, 1)
+                    .InputTensorDesc(0, ge::DT_FLOAT16, ge::FORMAT_ND, ge::FORMAT_ND)
+                    .InputTensorDesc(1, ge::DT_FLOAT16, ge::FORMAT_ND, ge::FORMAT_ND)
+                    .OutputTensorDesc(0, ge::DT_FLOAT16, ge::FORMAT_ND, ge::FORMAT_ND)
+                    .Inputs({&shape0, &shape0})
+                    .Outputs({&shape0})
+                    .Build();
+
+  auto context = reinterpret_cast<OpExecuteLaunchContext *>(holder.GetContext());
+  ASSERT_NE(context, nullptr);
+  EXPECT_EQ(context->GetWorkspaceAddrs(), nullptr);
 }
 }  // namespace gert

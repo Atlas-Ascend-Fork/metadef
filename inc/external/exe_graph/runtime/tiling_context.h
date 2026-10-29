@@ -410,7 +410,8 @@ class TilingContext : public ExtendedKernelContext {
    * @return tiling data指针，失败时返回空指针
    */
   TilingData *GetRawTilingData() {
-    return *GetOutputPointer<TilingData *>(kOutputTilingData);
+    const auto p = GetOutputPointer<TilingData *>(kOutputTilingData);
+    return p == nullptr ? nullptr : *p;
   }
   /**
    * 获取workspace sizes指针
