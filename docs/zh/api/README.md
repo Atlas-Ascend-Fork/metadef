@@ -11,6 +11,8 @@
     - [SetInstanceStart](gert_namespace/anchorinstanceinfo/SetInstanceStart.md)
     - [SetInstantiationNum](gert_namespace/anchorinstanceinfo/SetInstantiationNum.md)
 
+  - [AttrDataType](gert_namespace/AttrDataType.md)
+
   - [CompileTimeTensorDesc](gert_namespace/compiletimetensordesc/CompileTimeTensorDesc.md)
     - [简介](gert_namespace/compiletimetensordesc/introduction.md)
     - [构造函数](gert_namespace/compiletimetensordesc/constructor.md)

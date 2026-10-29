@@ -20,7 +20,7 @@ ge::graphStatus AppendConvertedAttrVal(const RuntimeAttrs *attrs, const size_t a
 |--|--|--|
 |attrs|Input|Attributes during graph execution.|
 |attr_index|Input|Index of the attribute.|
-|src_type|Input|Original dtype of the attribute. Type **AttrDataType**, defined as follows: enum class AttrDataType : int32_t {  kBool = 0,  kString,  kInt32,  kInt64,  kUint32,  kFloat32,  kFloat16,  kListBool,  kListString,  kListInt32,  kListInt64,  kListUint32,  kListFloat32,  kListFloat16,  kListListInt32,  kListListInt64,  kBfloat16,  kInt8,  kInt16,  kListInt8,  kListInt16,  kTypeEnd}; The supported value ranges and mapping between **src_type** and **dst_type** are listed in Table 2.|
+|src_type|Input|Original dtype of the attribute. Type **AttrDataType**. For the definition of **AttrDataType**, see [AttrDataType](../AttrDataType.md). The supported value ranges and mapping between **src_type** and **dst_type** are listed in Table 2.|
 |dst_type|Input|Target dtype of the attribute. The supported value ranges and mapping between **src_type** and **dst_type** are listed in Table 2.|
 
 **Table 2**  Supported value ranges and mapping between **src\_type** and **dst\_type**
