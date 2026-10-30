@@ -601,6 +601,8 @@ bool OpAttrDefImpl::DoubleEq(const OpAttrDef *parent_this, const OpAttrDef &attr
 OpAttrDef &OpAttrDefImpl::AttrType(OpAttrDef *parent_this, Option attr_type) {
   if (attr_type == Option::OPTIONAL) {
     parent_this->impl_->required = false;
+  } else if (attr_type == Option::REQUIRED) {
+    parent_this->impl_->required = true;
   }
   return *parent_this;
 }

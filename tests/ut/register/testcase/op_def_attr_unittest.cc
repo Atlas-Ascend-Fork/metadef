@@ -32,6 +32,11 @@ TEST_F(OpAttrDefUT, AttrTest) {
   EXPECT_EQ(attr == attr3, false);
   attr.Bool();
   EXPECT_EQ(attr.GetCfgDataType(), "bool");
+  EXPECT_TRUE(attr.IsRequired());
+  attr.AttrType(Option::OPTIONAL);
+  EXPECT_FALSE(attr.IsRequired());
+  attr.AttrType(Option::REQUIRED);
+  EXPECT_TRUE(attr.IsRequired());
   EXPECT_EQ(attr.GetProtoDataType(), "Bool");
   opDef.Attr("Test");
   EXPECT_EQ(opDef.GetAttrs().size(), 1);
