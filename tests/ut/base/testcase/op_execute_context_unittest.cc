@@ -9,6 +9,7 @@
  */
 
 #include "exe_graph/runtime/op_execute_context.h"
+#include "exe_graph/runtime/op_execute_prepare_context.h"
 #include "exe_graph/runtime/op_execute_launch_context.h"
 #include "graph/error_codes.h"
 #include <gtest/gtest.h>
@@ -49,6 +50,12 @@ TEST_F(OpExecuteContextUT, MallocFreeWorkSpaceOk) {
   EXPECT_EQ(memory_vec->size(), 1UL);
   context->FreeWorkspace();
   EXPECT_EQ(memory_vec->size(), 0UL);
+  ASSERT_EQ(context->GetComputeNodeOutputNum(), 1U);
+  EXPECT_EQ(context->GetOutputTensor(1U), nullptr);
+  const auto prepare_context = reinterpret_cast<OpExecutePrepareContext *>(context);
+  EXPECT_EQ(prepare_context->GetOutputTensor(1U), nullptr);
+  const auto launch_context = reinterpret_cast<OpExecuteLaunchContext *>(context);
+  EXPECT_EQ(launch_context->GetOutputTensor(1U), nullptr);
 }
 
 TEST_F(OpExecuteContextUT, GetWorkspaceAddrsReturnsNullWhenInputSlotIsMissing) {

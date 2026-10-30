@@ -72,6 +72,9 @@ class OpExecutePrepareContext : public ExtendedKernelContext {
    * @return 输出tensor指针，index非法时，返回空指针
    */
   const Tensor *GetOutputTensor(const size_t index) const {
+    if (index >= GetComputeNodeOutputNum()) {
+      return nullptr;
+    }
     const size_t input_num = GetComputeNodeInputNum();
     return GetInputPointer<Tensor>(input_num + index);
   }
