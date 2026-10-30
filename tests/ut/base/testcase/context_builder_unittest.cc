@@ -1124,3 +1124,20 @@ TEST_F(UtestContextBuilder, GetPcieThroughFlag_InputOutOfRange) {
   ASSERT_NE(ctx, nullptr);
   EXPECT_FALSE(ctx->GetPcieThroughFlag());
 }
+
+TEST_F(UtestContextBuilder, GetRawTilingDataReturnsNullWhenOutputSlotIsMissing) {
+  OpKernelContextBuilder ctx_builder;
+  gert::StorageShape shape0({1, 1}, {1, 1});
+  auto holder = ctx_builder.OpType("Add")
+                    .OpName("add_1")
+                    .IONum(2, 1)
+                    .InputTensorDesc(0, ge::DT_FLOAT16, ge::FORMAT_ND, ge::FORMAT_ND)
+                    .InputTensorDesc(1, ge::DT_FLOAT16, ge::FORMAT_ND, ge::FORMAT_ND)
+                    .OutputTensorDesc(0, ge::DT_FLOAT16, ge::FORMAT_ND, ge::FORMAT_ND)
+                    .Inputs({&shape0, &shape0})
+                    .Outputs({&shape0})
+                    .Build();
+  auto *ctx = reinterpret_cast<TilingContext *>(holder.GetContext());
+  ASSERT_NE(ctx, nullptr);
+  EXPECT_EQ(ctx->GetRawTilingData(), nullptr);
+}

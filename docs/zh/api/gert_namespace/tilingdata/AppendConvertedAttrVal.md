@@ -18,7 +18,7 @@ ge::graphStatus AppendConvertedAttrVal(const RuntimeAttrs *attrs, const size_t a
 |--|--|--|
 |attrs|输入|图执行时的属性。|
 |attr_index|输入|属性的序号。|
-|src_type|输入|属性的原始dtype。AttrDataType类型，具体定义如下：enum class AttrDataType : int32_t {  kBool = 0,  kString,  kInt32,  kInt64,  kUint32,  kFloat32,  kFloat16,  kListBool,  kListString,  kListInt32,  kListInt64,  kListUint32,  kListFloat32,  kListFloat16,  kListListInt32,  kListListInt64,  kBfloat16,  kInt8,  kInt16,  kListInt8,  kListInt16,  kTypeEnd};src_type和dst_type支持的取值范围和对应关系见表2。|
+|src_type|输入|属性的原始dtype。AttrDataType类型，关于AttrDataType类型的定义，请参见[AttrDataType](../AttrDataType.md)。src_type和dst_type支持的取值范围和对应关系见表2。|
 |dst_type|输入|属性的目标dtype。src_type和dst_type支持的取值范围和对应关系见表2。|
 
 **表 2**  src\_type和dst\_type支持的取值范围和对应关系

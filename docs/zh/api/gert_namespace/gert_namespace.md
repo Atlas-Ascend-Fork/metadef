@@ -2,6 +2,8 @@
 
 - [AnchorInstanceInfo](anchorinstanceinfo/AnchorInstanceInfo.md)
 
+- [AttrDataType](AttrDataType.md)
+
 - [CompileTimeTensorDesc](compiletimetensordesc/CompileTimeTensorDesc.md)
 
 - [ComputeNodeInfo](computenodeinfo/ComputeNodeInfo.md)
