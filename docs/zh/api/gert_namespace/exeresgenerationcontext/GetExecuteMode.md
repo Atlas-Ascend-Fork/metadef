@@ -34,7 +34,7 @@ enum class ExecuteMode {
 
 ```cpp
 ExecuteMode  GetExecuteMode(ExeResGenerationContext *context) {
-  ExecuteMode mode = *context->GetExecuteMode();
+  ExecuteMode mode = context->GetExecuteMode();
   ...
 }
 ```
