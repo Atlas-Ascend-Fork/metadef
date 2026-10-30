@@ -11,7 +11,9 @@
 #ifndef METADEF_CXX_INC_EXE_GRAPH_RUNTIME_TENSOR_H_
 #define METADEF_CXX_INC_EXE_GRAPH_RUNTIME_TENSOR_H_
 
+#include <cstdint>
 #include <cstring>
+#include <limits>
 
 #include "graph/error_codes.h"
 #include "storage_shape.h"
@@ -49,7 +51,7 @@ class Tensor {
         storage_format_(storage_format),
         version_(kTensorV1),
         data_type_(data_type),
-        tensor_data_(addr, manager, static_cast<size_t>(ge::GetSizeInBytes(GetShapeSize(), data_type_)), placement) {
+        tensor_data_(addr, manager, GetDataSizeOrZero(GetShapeSize(), data_type_), placement) {
     (void)memset(reserved_, 0, sizeof(reserved_));
     (void)memset(reserved_field_, 0, sizeof(reserved_field_));
   }
@@ -146,7 +148,9 @@ class Tensor {
    */
   static std::unique_ptr<uint8_t[]> CreateFollowing(const int64_t shape_size, const ge::DataType dt,
                                                     size_t &total_size) {
-    total_size = static_cast<size_t>(ge::GetSizeInBytes(shape_size, dt));
+    if (!GetCheckedDataSize(shape_size, dt, total_size)) {
+      return nullptr;
+    }
     return NewFollowingTensor(dt, total_size);
   }
   /**
@@ -307,6 +311,22 @@ class Tensor {
   }
 
  private:
+  static bool GetCheckedDataSize(const int64_t shape_size, const ge::DataType dt, size_t &data_size) {
+    const int64_t size_in_bytes = ge::GetSizeInBytes(shape_size, dt);
+    if ((size_in_bytes < 0) || (static_cast<uint64_t>(size_in_bytes) > std::numeric_limits<size_t>::max())) {
+      data_size = 0U;
+      return false;
+    }
+    data_size = static_cast<size_t>(size_in_bytes);
+    return true;
+  }
+
+  static size_t GetDataSizeOrZero(const int64_t shape_size, const ge::DataType dt) {
+    size_t data_size = 0U;
+    (void)GetCheckedDataSize(shape_size, dt, data_size);
+    return data_size;
+  }
+
   static std::unique_ptr<uint8_t[]> NewFollowingTensor(const ge::DataType dt, size_t &total_size) {
     if (ge::AddOverflow(total_size, sizeof(Tensor), total_size)) {
       return nullptr;
@@ -461,7 +481,9 @@ class TensorV2 {
    */
   static std::unique_ptr<uint8_t[]> CreateFollowing(const int64_t shape_size, const ge::DataType dt,
                                                     size_t &total_size) {
-    total_size = static_cast<size_t>(ge::GetSizeInBytes(shape_size, dt));
+    if (!Tensor::GetCheckedDataSize(shape_size, dt, total_size)) {
+      return nullptr;
+    }
     return NewFollowingTensor(dt, total_size);
   }
   /**

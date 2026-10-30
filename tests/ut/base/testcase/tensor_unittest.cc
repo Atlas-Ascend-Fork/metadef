@@ -193,6 +193,20 @@ TEST_F(TensorUT, CreateFollowingCheckTotalSize_V2) {
   EXPECT_EQ(tensor->GetSize(), 32);
 }
 
+TEST_F(TensorUT, CreateFollowingRejectsShapeSizeOverflow) {
+  size_t total_size = 1U;
+  auto ptr = Tensor::CreateFollowing(INT64_MAX, ge::DataType::DT_FLOAT, total_size);
+  EXPECT_EQ(ptr, nullptr);
+  EXPECT_EQ(total_size, 0U);
+}
+
+TEST_F(TensorUT, CreateFollowingRejectsShapeSizeOverflow_V2) {
+  size_t total_size = 1U;
+  auto ptr = TensorV2::CreateFollowing(INT64_MAX, ge::DataType::DT_FLOAT, total_size);
+  EXPECT_EQ(ptr, nullptr);
+  EXPECT_EQ(total_size, 0U);
+}
+
 TEST_F(TensorUT, CreateFollowingWithTensorCheckTotalSize_V2) {
   size_t total_size;
   auto ptr = TensorV2::CreateFollowing(ge::DT_FLOAT, 8U, total_size);
