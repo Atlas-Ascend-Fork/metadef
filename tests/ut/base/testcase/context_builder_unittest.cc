@@ -1125,6 +1125,32 @@ TEST_F(UtestContextBuilder, GetPcieThroughFlag_InputOutOfRange) {
   EXPECT_FALSE(ctx->GetPcieThroughFlag());
 }
 
+TEST_F(UtestContextBuilder, GetAttrPointerReturnPointerOK) {
+  uint8_t tmp_compile_info[] = {1, 2, 3, 4, 5, 6, 7};
+  uint8_t tmp_platform_info[] = {1, 2, 3, 4, 5, 6, 7};
+  OpTilingContextBuilder ctx_builder;
+  ContextHolder<TilingContext> holder = ctx_builder.OpName("tmp")
+                                            .OpType("DIY")
+                                            .IONum(1, 1)
+                                            .AppendAttr(std::vector<int64_t>({1, 2, 3}))
+                                            .CompileInfo(tmp_compile_info)
+                                            .PlatformInfo(tmp_platform_info)
+                                            .Build();
+  TilingContext *ctx = holder.GetContext();
+  ASSERT_NE(ctx, nullptr);
+  const RuntimeAttrs *runtime_attrs = ctx->GetAttrs();
+  ASSERT_NE(runtime_attrs, nullptr);
+  // 与 docs/zh/api/gert_namespace/runtimeattrs/GetAttrPointer.md 调用示例一致，返回值为指针而非对象
+  const ContinuousVector *attr0 = runtime_attrs->GetAttrPointer<ContinuousVector>(0);
+  ASSERT_NE(attr0, nullptr);
+  EXPECT_EQ(attr0->GetSize(), 3U);
+  const int64_t *data = reinterpret_cast<const int64_t *>(attr0->GetData());
+  ASSERT_NE(data, nullptr);
+  EXPECT_EQ(data[0], 1);
+  EXPECT_EQ(data[1], 2);
+  EXPECT_EQ(data[2], 3);
+}
+
 TEST_F(UtestContextBuilder, GetRawTilingDataReturnsNullWhenOutputSlotIsMissing) {
   OpKernelContextBuilder ctx_builder;
   gert::StorageShape shape0({1, 1}, {1, 1});

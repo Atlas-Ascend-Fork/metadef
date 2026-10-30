@@ -29,5 +29,5 @@ template<typename T>  const T *GetAttrPointer(size_t index) const
 
 ```cpp
 const RuntimeAttrs * runtime_attrs = kernel_context->GetAttrs();
-const gert::ContinuousVector attr0 = runtime_attrs->GetAttrPointer<gert::ContinuousVector>(0);
+const gert::ContinuousVector *attr0 = runtime_attrs->GetAttrPointer<gert::ContinuousVector>(0);
 ```
