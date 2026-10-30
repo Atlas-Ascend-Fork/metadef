@@ -23,7 +23,7 @@ TensorData& operator= (TensorData &&other) noexcept
 
 ## Return Value
 
-Returns a new **TensorData** object that holds the resources of the **other** object.
+Returns a reference to this **TensorData** object, which takes over the resources from **other**.
 
 ## Constraints
 
@@ -32,7 +32,10 @@ None
 ## Example
 
 ```cpp
+#include <utility>
+
 auto addr = reinterpret_cast<void *>(0x10);
 TensorData td(addr, HostAddrManager, 100U, kOnHost);
-TensorData new_td = td;
+TensorData new_td;
+new_td = std::move(td);
 ```
