@@ -32,5 +32,5 @@ static ge::graphStatus CalcTotalSize(const size_t cap_size, size_t &total_size)
 auto td_buf = TilingData::CreateCap(100U);
 auto td = reinterpret_cast<TilingData *>(td_buf.get());
 size_t total_size = 0U;
-auto ret = td->CalcTotalSize(td.GetCapacity, total_size); // total_size = 100 + sizeof(TilingData)
+auto ret = TilingData::CalcTotalSize(td->GetCapacity(), total_size); // total_size = 100 + sizeof(TilingData)
 ```

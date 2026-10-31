@@ -2016,4 +2016,44 @@ TEST_F(TilingDataUT, AppendListOk) {
     EXPECT_EQ(*(reinterpret_cast<uint8_t *>(tiling_data->GetData()) + 5 + i), append_data[i]);
   }
 }
+
+TEST_F(TilingDataUT, CalcTotalSizeWithCapacityOk) {
+  std::unique_ptr<uint8_t[]> data = TilingData::CreateCap(100U);
+  ASSERT_NE(data, nullptr);
+  TilingData *tiling_data = reinterpret_cast<TilingData *>(data.get());
+  ASSERT_NE(tiling_data, nullptr);
+  EXPECT_EQ(tiling_data->GetCapacity(), 100U);
+
+  size_t total_size = 0U;
+  EXPECT_EQ(TilingData::CalcTotalSize(tiling_data->GetCapacity(), total_size), ge::GRAPH_SUCCESS);
+  EXPECT_EQ(total_size, 100U + sizeof(TilingData));
+}
+
+TEST_F(TilingDataUT, ExpandKeepsCapacityOk) {
+  std::unique_ptr<uint8_t[]> data = TilingData::CreateCap(100U);
+  ASSERT_NE(data, nullptr);
+  TilingData *tiling_data = reinterpret_cast<TilingData *>(data.get());
+  ASSERT_NE(tiling_data, nullptr);
+
+  void *ptr = tiling_data->Expand(64U);
+  ASSERT_NE(ptr, nullptr);
+  EXPECT_EQ(tiling_data->GetDataSize(), 64U);
+  EXPECT_EQ(tiling_data->GetCapacity(), 100U);
+}
+
+TEST_F(TilingDataUT, AppendByLeftShiftOperatorOk) {
+  struct AppendData {
+    int32_t a;
+    int32_t b;
+  };
+  std::unique_ptr<uint8_t[]> data = TilingData::CreateCap(100U);
+  ASSERT_NE(data, nullptr);
+  TilingData *tiling_data = reinterpret_cast<TilingData *>(data.get());
+  ASSERT_NE(tiling_data, nullptr);
+
+  AppendData append_data{10, 100};
+  (*tiling_data) << append_data;
+  EXPECT_EQ(tiling_data->GetDataSize(), 2U * sizeof(int32_t));
+  EXPECT_EQ(memcmp(tiling_data->GetData(), &append_data, sizeof(append_data)), 0);
+}
 }  // namespace gert

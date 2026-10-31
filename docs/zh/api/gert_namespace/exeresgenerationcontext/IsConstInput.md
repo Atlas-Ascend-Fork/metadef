@@ -29,7 +29,7 @@ true表示该输入是常量；false表示是动态输入（如输入数据、�
 ```cpp
 bool IsConstInput(ExeResGenerationContext *context) {
   ge::AscendString name = "XXX";
-  bool status = *context->IsConstInput(name);
+  bool status = context->IsConstInput(name);
   ...
 }
 ```

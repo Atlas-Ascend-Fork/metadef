@@ -21,7 +21,7 @@ TensorData& operator= (TensorData &&other) noexcept
 
 ## 返回值说明
 
-返回一个持有other对象资源的新TensorData对象。
+返回当前TensorData对象的引用，当前对象接管other对象的资源。
 
 ## 约束说明
 
@@ -30,7 +30,10 @@ TensorData& operator= (TensorData &&other) noexcept
 ## 调用示例
 
 ```cpp
+#include <utility>
+
 auto addr = reinterpret_cast<void *>(0x10);
 TensorData td(addr, HostAddrManager, 100U, kOnHost);
-TensorData new_td = td;
+TensorData new_td;
+new_td = std::move(td);
 ```

@@ -31,7 +31,7 @@ bool GetIntAttrVal(const char *attr_name, int64_t &val) const
 bool GetIntAttrVal(ExeResGenerationContext* context) {
   std::string attr_name = "";
   int64_t val;
-  auto result = context->GetStrAttrVal(attr_name.c_str(),val);
+  auto result = context->GetIntAttrVal(attr_name.c_str(),val);
   // ...
 }
 ```

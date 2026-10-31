@@ -48,7 +48,7 @@ static Format DataFormatToFormat(const std::string &str)
 ge::AscendString format_str = "NHWC";
 auto format = ge::TypeUtils::DataFormatToFormat(format_str); // 1
 
-// 如果使用的是std:string入参的接口(不建议使用)
-std::string format_str = "NHWC";
-auto format = ge::TypeUtils::DataFormatToFormat(format_str); // 1
+// 如果使用的是std::string入参的接口(不建议使用)
+std::string format_str_std = "NHWC";
+auto format_std = ge::TypeUtils::DataFormatToFormat(format_str_std); // 1
 ```

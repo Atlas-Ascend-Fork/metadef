@@ -42,5 +42,5 @@ struct AppendData{
 };
 AppendData ad;
 (*td) << ad;
-auto data_size = td.GetDataSize(); // 2 * sizeof(int)
+auto data_size = td->GetDataSize(); // 2 * sizeof(int)
 ```
