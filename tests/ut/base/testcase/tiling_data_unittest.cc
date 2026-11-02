@@ -2017,6 +2017,34 @@ TEST_F(TilingDataUT, AppendListOk) {
   }
 }
 
+TEST_F(TilingDataUT, AppendStatusCodes) {
+  constexpr const size_t kCapacity = 100U;
+  auto data = TilingData::CreateCap(kCapacity);
+  auto tiling_data = reinterpret_cast<TilingData *>(data.get());
+  ASSERT_NE(tiling_data, nullptr);
+
+  struct AppendData {
+    int32_t a = 10;
+    int32_t b = 100;
+  };
+  AppendData ad;
+  EXPECT_EQ(tiling_data->Append<AppendData>(ad), ge::GRAPH_SUCCESS);
+  ASSERT_EQ(tiling_data->GetDataSize(), sizeof(AppendData));
+
+  constexpr const size_t kAppendNum = 10U;
+  int32_t append_list[kAppendNum] = {0};
+  EXPECT_EQ(tiling_data->Append<int32_t>(append_list, kAppendNum), ge::GRAPH_SUCCESS);
+  ASSERT_EQ(tiling_data->GetDataSize(), sizeof(AppendData) + sizeof(append_list));
+
+  constexpr const size_t kOverCapNum = 50U;
+  int32_t over_cap_list[kOverCapNum] = {0};
+  EXPECT_EQ(tiling_data->Append<int32_t>(over_cap_list, kOverCapNum), ge::GRAPH_ADD_OVERFLOW);
+  EXPECT_EQ(tiling_data->GetDataSize(), sizeof(AppendData) + sizeof(append_list));
+
+  EXPECT_EQ(tiling_data->Append<int32_t>(append_list, SIZE_MAX), ge::GRAPH_MUL_OVERFLOW);
+  EXPECT_EQ(tiling_data->GetDataSize(), sizeof(AppendData) + sizeof(append_list));
+}
+
 TEST_F(TilingDataUT, CalcTotalSizeWithCapacityOk) {
   std::unique_ptr<uint8_t[]> data = TilingData::CreateCap(100U);
   ASSERT_NE(data, nullptr);

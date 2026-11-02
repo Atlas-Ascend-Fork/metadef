@@ -36,21 +36,21 @@ template<typename T, typename std::enable_if<std::is_standard_layout<T>::value, 
 auto td_buf = TilingData::CreateCap(100U);
 auto td = reinterpret_cast<TilingData *>(td_buf.get());
 
-// 1
-struct AppendData{
+// 1追加单个tiling data
+struct AppendData {
   int a = 10;
   int b = 100;
 };
 AppendData ad;
 auto ret = td->Append<AppendData>(ad); // ge::GRAPH_SUCCESS
 
-// 2
-size_t append_num = 10;
-int32_t *td = new int32_t[append_num];
-auto ret = td->Append<int32_t>(td, append_num); // ge::GRAPH_SUCCESS
+// 2追加数组，剩余容量充足
+constexpr size_t kAppendNum = 10U;
+int32_t append_data[kAppendNum] = {0};
+auto append_ret = td->Append<int32_t>(append_data, kAppendNum); // ge::GRAPH_SUCCESS
 
-// 3
-size_t append_num = 50;
-int32_t *td = new int32_t[append_num];
-auto ret = td->Append<int32_t>(td, append_num); // ge::GRAPH_ADD_OVERFLOW
+// 3追加数组，超出剩余容量
+constexpr size_t kOverCapNum = 50U;
+int32_t over_cap_data[kOverCapNum] = {0};
+auto over_cap_ret = td->Append<int32_t>(over_cap_data, kOverCapNum); // ge::GRAPH_ADD_OVERFLOW
 ```
