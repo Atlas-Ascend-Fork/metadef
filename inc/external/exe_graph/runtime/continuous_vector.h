@@ -144,6 +144,7 @@ class ContinuousVectorVector {
  public:
   void Init(const size_t capacity) {
     capacity_ = capacity;
+    size_ = 0U;
     if (capacity_ == 0U) {
       return;
     }
