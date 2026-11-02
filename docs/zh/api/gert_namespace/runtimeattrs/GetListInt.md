@@ -18,7 +18,7 @@ const TypedContinuousVector<int64_t> *GetListInt(const size_t index) const
 
 ## 返回值说明
 
-指向属性值的指针。
+指向属性值的指针，在index\>=GetAttrNum()时，返回空指针。
 
 关于TypedContinuousVector类型的定义，请参见[TypedContinuousVector](../typedcontinuousvector/TypedContinuousVector.md)。
 

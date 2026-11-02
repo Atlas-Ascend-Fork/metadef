@@ -18,7 +18,7 @@ const CompileTimeTensorDesc *GetOutputTdInfo(const size_t index) const
 
 ## 返回值说明
 
-返回const类型的Tensor描述信息。
+返回const类型的Tensor描述信息，在index\>=GetOutputsNum()时，返回空指针。
 
 ## 约束说明
 
