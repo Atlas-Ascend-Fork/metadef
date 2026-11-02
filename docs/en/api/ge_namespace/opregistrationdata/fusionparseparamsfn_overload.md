@@ -33,7 +33,7 @@ Status FusionParseParamByOpFunc(const std::vector<ge::Operator> &op_src,  ge::Op
 |op_src|Input|Fusion operator data structure that stores the operator attributes of the original model within a group of scopes.|
 |op_dest|Output|Fusion operator data structure that stores the fusion operator information.|
 
-For details about the Operator class, see *[GE Graph Engine API](https://gitcode.com/cann/ge/blob/9.2.0/docs/zh/api/graph_engine_api/README.md)*.
+For details about the Operator class, see *[GE Graph Engine API](https://gitcode.com/cann/ge/blob/9.2.0/docs/en/api/graph_engine_api/README.md)*.
 
 ## Example
 

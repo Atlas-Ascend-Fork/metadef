@@ -8,7 +8,7 @@ Sets the number of AI CPU cores that can be scheduled.
 
 When using the **BatchWrite** API of the HCCL advanced API, you can achieve better performance by properly setting the number of AI CPU cores.
 
-For details about the **BatchWrite** API, see "SIMD API > Advanced APIs > HCCL Communication Class" in *[Ascend C API](https://gitcode.com/cann/asc-devkit/blob/9.2.0/docs/zh/api/README.md)*.
+For details about the **BatchWrite** API, see "SIMD API > Advanced APIs > HCCL Communication Class" in *[Ascend C API](https://gitcode.com/cann/asc-devkit/blob/9.2.0/docs/en/api/README.md)*.
 
 ## Function Prototype
 

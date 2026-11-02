@@ -33,7 +33,7 @@ Status ParseParamByOpFunc(const ge::Operator &op_origin, ge::Operator &op_dest)
 |**op_origin**|Input|**Operator** class object defined by the framework, which contains the parsed custom operator attribute information in the original model.|
 |**op_dest**|Output|Operator data structure in the model adapted to the AI processor, which stores the operator information.|
 
-For details about the **Operator** class, see *[GE Graph Engine API](https://gitcode.com/cann/ge/blob/9.2.0/docs/zh/api/graph_engine_api/README.md)*.
+For details about the **Operator** class, see *[GE Graph Engine API](https://gitcode.com/cann/ge/blob/9.2.0/docs/en/api/graph_engine_api/README.md)*.
 
 ## Constraints
 

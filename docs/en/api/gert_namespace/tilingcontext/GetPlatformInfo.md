@@ -20,7 +20,7 @@ None
 
 The **PlatformInfos** pointer holds the internal hardware platform information, which serves as the input to **PlatformAscendC**. Developers obtain the hardware platform information through the methods provided by **PlatformAscendC**.
 
-For details about the **PlatformAscendC** APIs, see *[Ascend C API](https://gitcode.com/cann/asc-devkit/blob/9.2.0/docs/zh/api/README.md)*.
+For details about the **PlatformAscendC** APIs, see *[Ascend C API](https://gitcode.com/cann/asc-devkit/blob/9.2.0/docs/en/api/README.md)*.
 
 ## Constraints
 

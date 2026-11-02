@@ -16,7 +16,7 @@ The operator can either perform the initialization by itself, or set this API to
 
 <!-- npu="950,A3,910b,910,310p,310b" id1 -->
 **SetNeedAtomic and InitValue are used together. The InitValue API configures which outputs to initialize and the specific initialization values.**
-For details about the **InitValue** API, see *[Ascend C API](https://gitcode.com/cann/asc-devkit/blob/9.2.0/docs/zh/api/README.md)*.
+For details about the **InitValue** API, see *[Ascend C API](https://gitcode.com/cann/asc-devkit/blob/9.2.0/docs/en/api/README.md)*.
 <!-- end id1 -->
 
 <!-- @ref: metadef/res/docs/api/SetNeedAtomic_res.md#id1 -->

@@ -26,7 +26,7 @@ For an implementation example, see [Example](#example).
 
 ## Callback Function ParseOpToGraphFunc
 
-Users customize and implement the **ParseOpToGraphFunc** function to construct a one-to-many subgraph through IR model construction. For details about graph construction, see *[Graph Development](https://gitcode.com/cann/ge/blob/9.2.0/docs/zh/user_guides/graph_dev/README.md)*.
+Users customize and implement the **ParseOpToGraphFunc** function to construct a one-to-many subgraph through IR model construction. For details about graph construction, see *[Graph Development](https://gitcode.com/cann/ge/blob/9.2.0/docs/en/user_guides/graph_dev/README.md)*.
 
 The callback function prototype is defined as follows:
 

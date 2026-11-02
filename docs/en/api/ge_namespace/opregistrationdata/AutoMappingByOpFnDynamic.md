@@ -20,7 +20,7 @@ Status AutoMappingByOpFnDynamic(const ge::Operator &op_src, ge::Operator &op, co
 |op|Input|Operator adapted to the AI processor.|
 |dynamic_name_attr_value|Input|Describes the actual number of dynamic inputs and outputs. For details about the **DynamicInputOutputInfo** data structure, see the "DynamicInputOutputInfo Data Structure".|
 
-For details about the **Operator** class, see *[GE Graph Engine API](https://gitcode.com/cann/ge/blob/9.2.0/docs/zh/api/graph_engine_api/README.md)*.
+For details about the **Operator** class, see *[GE Graph Engine API](https://gitcode.com/cann/ge/blob/9.2.0/docs/en/api/graph_engine_api/README.md)*.
 
 ## DynamicInputOutputInfo Data Structure
 

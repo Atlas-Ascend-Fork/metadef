@@ -19,7 +19,7 @@ Status AutoMappingFn(const google::protobuf::Message *op_src, ge::Operator &op)
 |op_src|Input|Operator in the original model before conversion, containing the attributes of the operator in the original model.|
 |op|Input|Operator adapted to the AI processor.|
 
-For details about the **Operator** class, see *[GE Graph Engine API](https://gitcode.com/cann/ge/blob/9.2.0/docs/zh/api/graph_engine_api/README.md)*.
+For details about the **Operator** class, see *[GE Graph Engine API](https://gitcode.com/cann/ge/blob/9.2.0/docs/en/api/graph_engine_api/README.md)*.
 
 ## Constraints
 

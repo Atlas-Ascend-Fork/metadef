@@ -36,4 +36,4 @@ using ParseParamFunc = std::function<domi::Status(const google::protobuf::Messag
 ```
 
 - The first parameter is an input, a protobuf-format data structure (derived from the prototxt file of the original model) that contains operator attribute information.
-- The second parameter is an output, the operator data structure of the model adapted to the AI processor, which stores operator information. For details about the **Operator** class, see *[GE Graph Engine API](https://gitcode.com/cann/ge/blob/9.2.0/docs/zh/api/graph_engine_api/README.md)*.
+- The second parameter is an output, the operator data structure of the model adapted to the AI processor, which stores operator information. For details about the **Operator** class, see *[GE Graph Engine API](https://gitcode.com/cann/ge/blob/9.2.0/docs/en/api/graph_engine_api/README.md)*.

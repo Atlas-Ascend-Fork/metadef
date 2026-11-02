@@ -33,9 +33,9 @@ The supplementary description of this parameter is as follows:
 
 > [!NOTE] Note
 >
-> - For details about the APIs for obtaining the number of cores such as **GetCoreNumAiv** and **PlatformAscendC**, see *[Ascend C API](https://gitcode.com/cann/asc-devkit/blob/9.2.0/docs/zh/api/README.md)*.
+> - For details about the APIs for obtaining the number of cores such as **GetCoreNumAiv** and **PlatformAscendC**, see *[Ascend C API](https://gitcode.com/cann/asc-devkit/blob/9.2.0/docs/en/api/README.md)*.
 >
-> - For details about the **aclrtSetStreamResLimit** API, see *[Runtime API](https://gitcode.com/cann/runtime/blob/9.2.0/docs/zh/api_ref/README.md)*.
+> - For details about the **aclrtSetStreamResLimit** API, see *[Runtime API](https://gitcode.com/cann/runtime/blob/9.2.0/docs/en/api_ref/README.md)*.
 
 ## Return Value
 

@@ -37,4 +37,4 @@ Status FusionParseParamFunc(const  vector<const google::protobuf::Message *> &v_
 |**v_op_origin**|Input|A protobuf-format data structure within a scope (derived from the prototxt file of the original model), containing operator attribute information.|
 |**op_dest**|Output|Fusion operator data structure, which stores fusion operator information.|
 
-For details about the **Operator** class, see *[GE Graph Engine API](https://gitcode.com/cann/ge/blob/9.2.0/docs/zh/api/graph_engine_api/README.md)*.
+For details about the **Operator** class, see *[GE Graph Engine API](https://gitcode.com/cann/ge/blob/9.2.0/docs/en/api/graph_engine_api/README.md)*.
