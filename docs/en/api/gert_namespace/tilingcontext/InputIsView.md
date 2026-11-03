@@ -4,7 +4,9 @@
 
 ## Function
 
-Checks whether the corresponding input carries non-contiguous information based on the operator input index. The input index here refers to the actual index after operator instantiation, not the index in the prototype definition.
+Checks whether the input tensor corresponding to the given operator input index carries non-contiguous description information. The input index here refers to the actual index after operator instantiation, not the index in the prototype definition.
+
+A return value of true only indicates that the stride and offset of the input can be obtained through GetInputStride/GetInputOffset. It does not mean that the input is actually a non-contiguous tensor; the input may be a contiguous tensor carrying the default stride.
 
 ## Function Prototype
 

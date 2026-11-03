@@ -4,7 +4,9 @@
 
 ## Function
 
-Checks whether the corresponding output carries non-contiguous information based on the operator output index. The output index here refers to the actual index after operator instantiation, not the index in the prototype definition.
+Checks whether the output tensor corresponding to the given operator output index carries non-contiguous information. The output index here refers to the actual index after operator instantiation, not the index in the prototype definition.
+
+A return value of true only indicates that the stride and offset of the output can be obtained through GetOutputStride/GetOutputOffset. It does not mean that the output is actually a non-contiguous tensor; the output may be a contiguous tensor carrying the default stride.
 
 > [!NOTE] Note
 > This is a reserved API for future functionality and is not supported in the current version.
