@@ -18,7 +18,7 @@ const CompileTimeTensorDesc *GetOutputDesc(const size_t index) const
 
 ## 返回值说明
 
-输出TensorDesc的指针，当输入index非法时，返回空指针。
+输出TensorDesc的指针，当输出index非法时，返回空指针。
 
 关于CompileTimeTensorDesc的定义，请参见[CompileTimeTensorDesc](../compiletimetensordesc/CompileTimeTensorDesc.md)。
 

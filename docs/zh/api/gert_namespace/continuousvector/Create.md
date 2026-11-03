@@ -21,7 +21,7 @@ template<typename T>  static std::unique_ptr<uint8_t[]> Create(const size_t capa
 
 ## 返回值说明
 
-指向本实例的指针。
+`std::unique_ptr<uint8_t[]>`类型的缓冲区持有者，拥有创建的实例所在的连续内存缓冲区，ContinuousVector实例位于缓冲区起始处。调用方需要通过持有者的get()获取缓冲区地址并转换为ContinuousVector指针使用，实例在持有者生命周期内有效。
 
 ## 约束说明
 

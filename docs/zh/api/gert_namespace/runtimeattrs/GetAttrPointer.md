@@ -19,7 +19,7 @@ template<typename T>  const T *GetAttrPointer(size_t index) const
 
 ## 返回值说明
 
-指向属性的指针。
+指向属性的指针，在index\>=GetAttrNum()时，返回空指针。
 
 ## 约束说明
 

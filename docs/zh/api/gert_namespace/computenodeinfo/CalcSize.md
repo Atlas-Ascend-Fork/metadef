@@ -30,7 +30,7 @@ static ge::graphStatus CalcSize(const size_t ir_inputs_num, const size_t ir_outp
 |状态|值|说明|
 |--|--|--|
 |ge::GRAPH_SUCCESS|0|执行成功。|
-|ge::GRAPH_PARAM_INVALID|50331649|执行失败，参数无效，校验未通过。|
+|ge::PARAM_INVALID|1343225857|执行失败，参数无效，大小计算过程中发生溢出。|
 
 ## 约束说明
 

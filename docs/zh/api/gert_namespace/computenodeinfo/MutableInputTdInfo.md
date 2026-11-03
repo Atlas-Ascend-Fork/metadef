@@ -18,7 +18,7 @@ CompileTimeTensorDesc *MutableInputTdInfo(const size_t index) const
 
 ## 返回值说明
 
-返回Tensor描述。返回对象为非const。
+返回Tensor描述。返回对象为非const，在index\>=GetInputsNum()时，返回空指针。
 
 ## 约束说明
 

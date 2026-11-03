@@ -18,7 +18,7 @@ const AnchorInstanceInfo *GetInputInstanceInfo(const size_t ir_index) const
 
 ## 返回值说明
 
-返回const类型的实例化对象的地址。
+返回const类型的实例化对象的地址，在ir_index\>=GetIrInputsNum()时，返回空指针。
 
 ## 约束说明
 

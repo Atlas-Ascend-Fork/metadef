@@ -30,7 +30,7 @@ const StorageShape *GetOptionalInputShape(const size_t ir_index) const
 
 ```cpp
 ge::graphStatus Tiling4ConcatD(TilingContext* context) {
-  const Shape *shape_bias = context->GetOptionalInputShape(kBatchMatMulBiasIdx);
+  const StorageShape *shape_bias = context->GetOptionalInputShape(kBatchMatMulBiasIdx);
   ...
 }
 ```

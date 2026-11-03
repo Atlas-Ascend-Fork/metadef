@@ -22,7 +22,7 @@ void SetExpandIndex(const AxisIndex index)
 
 ## 约束说明
 
-无。
+index的有效范围为[0, kMaxExpandSize)，kMaxExpandSize为56。调用方需要保证index在有效范围内。
 
 ## 调用示例
 
