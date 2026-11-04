@@ -23,7 +23,7 @@ static bool GetDataTypeLength(const ge::DataType data_type, uint32_t &length)
 |Parameter|Input/Output|Description|
 |--|--|--|
 |data_type|Input|Data type.|
-|length|Output|Memory size occupied by the data type, in bytes.|
+|length|Output|For common data types, the memory size occupied by each element, in bytes. For bit types such as DT_INT1, DT_INT4, and DT_UINT1, an encoded value equal to 1000 plus the number of bits (1000 + bit count) is returned, rather than the number of bytes per element. To calculate the total bytes of elements, use **GetSizeInBytes**; do not directly treat this encoded value as a byte count.|
 
 ## Return Value
 

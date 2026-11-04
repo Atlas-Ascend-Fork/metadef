@@ -21,7 +21,7 @@ static bool GetDataTypeLength(const ge::DataType data_type, uint32_t &length)
 |参数|输入/输出|说明|
 |--|--|--|
 |data_type|输入|数据类型。|
-|length|输出|数据类型所占内存大小，单位：字节。|
+|length|输出|对于普通数据类型，返回每个元素所占内存大小，单位：字节；对于DT_INT1、DT_INT4、DT_UINT1等bit类型，返回1000与bit数相加得到的编码值（即1000+bit数），而非每个元素的字节数。需要计算元素总字节数时，建议使用GetSizeInBytes接口，不要直接将该编码值当作字节数使用。|
 
 ## 返回值说明
 
