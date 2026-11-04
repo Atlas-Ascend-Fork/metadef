@@ -603,9 +603,11 @@ class TilingContext : public ExtendedKernelContext {
   }
 
   /**
-   * 判断输入tensor是否携带非连续描述信息
-   * @index 输入index
-   * @return 是否携带非连续描述信息，index非法或者tensor不携带非连续描述信息时返回false
+   * 根据算子输入索引获取对应的输入是否携带非连续信息
+   * 返回true仅表示可通过GetInputStride/GetInputOffset获取stride与offset，
+   * 不代表输入实际是非连续tensor，输入可能为携带默认stride的连续tensor
+   * @param index 输入index
+   * @return 是否携带非连续信息，index非法或输入不携带非连续信息时返回false
    */
   bool InputIsView(const size_t index) const {
     if (GetInputViewTensor(index) == nullptr) {
@@ -641,9 +643,11 @@ class TilingContext : public ExtendedKernelContext {
     return tensor->GetOffset();
   }
   /**
-   * 判断输出tensor是否携带非连续描述信息
-   * @index 输出index
-   * @return 是否携带非连续描述信息，index非法或者tensor不携带非连续描述信息时返回false
+   * 根据算子输出索引获取对应的输出是否携带非连续信息
+   * 返回true仅表示可通过GetOutputStride/GetOutputOffset获取stride与offset，
+   * 不代表输出实际是非连续tensor，输出可能为携带默认stride的连续tensor
+   * @param index 输出index
+   * @return 是否携带非连续信息，index非法或输出不携带非连续信息时返回false
    */
   bool OutputIsView(const size_t index) const {
     if (GetOutputViewTensor(index) == nullptr) {
