@@ -2,7 +2,7 @@
 
 ## 1. Environment Preparation
 
-This project supports source code compilation. Before source code compilation, you need to ensure that CANN software (Toolkit development suite package and ops package (optional)) has been installed. If running samples, you also need to install NPU driver and firmware.
+This project supports source code compilation. Before source code compilation, you need to ensure that CANN software (Toolkit development suite package and ops package) has been installed. The ops package is optional for source compilation only; it is required for running the samples under the `example` directory, because building the samples depends on the op-prototype headers under `opp/built-in/op_graph/inc` provided by the ops package. If running samples, you also need to install NPU driver and firmware.
 
 Please choose the software installation method according to the following description:
 
@@ -142,6 +142,15 @@ chmod +x Ascend-cann-toolkit_${cann_version}_linux-${arch}.run
 - `${cann_version}`: Indicates CANN package version number.
 - `${arch}`: Indicates CPU architecture, such as `aarch64`, `x86_64`.
 - `${install_path}`: Indicates specified installation path, needs to be installed in same path as toolkit package. Root user default installation in `/usr/local/Ascend` directory.
+
+To run the samples under the `example` directory, also install the ops package matching your chip model from the same download link (building the samples depends on the op-prototype headers under `opp/built-in/op_graph/inc` provided by the ops package):
+
+```bash
+# Ensure installation package has executable permission, ${chip} indicates chip model, such as A3, 910b
+chmod +x Ascend-cann-${chip}-ops_${cann_version}_linux-${arch}.run
+# Installation command, needs to be installed in same path as toolkit package
+./Ascend-cann-${chip}-ops_${cann_version}_linux-${arch}.run --install --install-path=${install_path}
+```
 
 **Scenario 2: Experience Released Version Capabilities or Develop Based on Released Version**
 

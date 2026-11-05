@@ -2,7 +2,7 @@
 
 ## 1. 环境准备
 
-本项目支持源码编译，在源码编译前，需要确保已经安装CANN软件（Toolkit开发套件包和ops包（可选）），若运行样例，还需要安装NPU驱动和固件。
+本项目支持源码编译，在源码编译前，需要确保已经安装CANN软件（Toolkit开发套件包和ops包。仅源码编译时ops包可选；若需运行`example`目录下的样例，ops包为必选，样例编译依赖ops包提供的`opp/built-in/op_graph/inc`算子原型头文件），若运行样例，还需要安装NPU驱动和固件。
 
 软件安装方式请根据如下描述进行选择：
 
@@ -141,6 +141,15 @@ chmod +x Ascend-cann-toolkit_${cann_version}_linux-${arch}.run
 - `${cann_version}`：表示CANN包版本号。
 - `${arch}`：表示CPU架构，如`aarch64`、`x86_64`。
 - `${install_path}`：表示指定安装路径，需要与toolkit包安装在相同路径，root用户默认安装在`/usr/local/Ascend`目录。
+
+若需运行`example`目录下的样例，还需从相同下载链接安装与芯片型号配套的ops算子包（样例编译依赖ops包提供的`opp/built-in/op_graph/inc`算子原型头文件），安装命令如下：
+
+```bash
+# 确保安装包具有可执行权限，${chip}表示芯片型号，如A3、910b
+chmod +x Ascend-cann-${chip}-ops_${cann_version}_linux-${arch}.run
+# 安装命令，需与toolkit包安装在相同路径
+./Ascend-cann-${chip}-ops_${cann_version}_linux-${arch}.run --install --install-path=${install_path}
+```
 
 **场景2：体验已发布版本能力或基于已发布版本进行开发**
 
