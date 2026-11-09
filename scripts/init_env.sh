@@ -118,7 +118,10 @@ install_cann() {
     fi
 
     log_info "Cleaning up..."
-    rm -f "$toolkit_pkg" "$ops_pkg"
+    rm -f "$toolkit_pkg"
+    if [ "$INSTALL_OPS" = true ]; then
+        rm -f "$ops_pkg"
+    fi
     cd - > /dev/null
 
     log_info "CANN installation completed"
