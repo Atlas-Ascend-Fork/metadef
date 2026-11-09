@@ -183,21 +183,102 @@ TEST_F(UtestContextBuilder, CreateInferShapeContextFailed) {
   EXPECT_EQ(ctx_compute_node_info->GetOutputsNum(), 1);
 }
 
-TEST_F(UtestContextBuilder, IONumTakesPrecedenceOverIOInstanceNum) {
-  OpInferShapeContextBuilder ctx_builder;
-  gert::Tensor tensor;
-  auto holder = ctx_builder.OpType("DIY")
+TEST_F(UtestContextBuilder, IOInstanceNumOverridesPreviousCounts) {
+  OpInferShapeContextBuilder builder;
+  StorageShape shape = {{2, 3}, {2, 3}};
+  gert::Tensor tensor{shape, {ge::FORMAT_ND, ge::FORMAT_NCHW, {}}, ge::DT_FLOAT16};
+  auto holder = builder.OpType("DIY")
                     .OpName("diy_1")
                     .IONum(2, 1)
-                    .IOInstanceNum({1}, {1})
+                    .IOInstanceNum({2}, {2})
+                    .IOInstanceNum({0, 2}, {1, 1})
                     .InputTensors({&tensor, &tensor})
                     .Build();
-  auto ctx = holder.GetContext();
+  const auto *ctx = holder.GetContext();
   ASSERT_NE(ctx, nullptr);
-  const auto *compute_node_info = ctx->GetComputeNodeInfo();
-  ASSERT_NE(compute_node_info, nullptr);
-  EXPECT_EQ(compute_node_info->GetIrInputsNum(), 2);
-  EXPECT_EQ(compute_node_info->GetInputsNum(), 2);
+  const auto *info = ctx->GetComputeNodeInfo();
+  ASSERT_NE(info, nullptr);
+  EXPECT_EQ(info->GetIrInputsNum(), 2);
+  EXPECT_EQ(info->GetIrOutputsNum(), 2);
+  EXPECT_EQ(info->GetInputsNum(), 2);
+  EXPECT_EQ(info->GetOutputsNum(), 2);
+  EXPECT_EQ(info->GetInputInstanceInfo(0)->GetInstanceNum(), 0);
+  EXPECT_EQ(info->GetInputInstanceInfo(1)->GetInstanceNum(), 2);
+  EXPECT_EQ(info->GetInputInstanceInfo(1)->GetInstanceStart(), 0);
+  for (size_t i = 0; i < 2; ++i) {
+    EXPECT_EQ(info->GetOutputInstanceInfo(i)->GetInstanceNum(), 1);
+    EXPECT_EQ(info->GetOutputInstanceInfo(i)->GetInstanceStart(), i);
+    EXPECT_EQ(ctx->GetInputTensor(i), &tensor);
+    EXPECT_EQ(info->GetInputTdInfo(i)->GetDataType(), ge::DT_FLOAT16);
+    EXPECT_EQ(info->GetInputTdInfo(i)->GetOriginFormat(), ge::FORMAT_ND);
+    EXPECT_EQ(info->GetInputTdInfo(i)->GetStorageFormat(), ge::FORMAT_NCHW);
+  }
+}
+
+TEST_F(UtestContextBuilder, IONumOverridesInstanceCountsAndCanBeRepeated) {
+  for (const uint32_t count : {1U, 3U}) {
+    SCOPED_TRACE(count);
+    OpKernelContextBuilder builder;
+    StorageShape shape;
+    auto holder = builder.OpType("DIY")
+                      .OpName("diy_1")
+                      .IOInstanceNum({2, 0}, {0, 2})
+                      .IONum(2, 2)
+                      .IONum(count, count)
+                      .Inputs(std::vector<void *>(count, &shape))
+                      .Outputs(std::vector<void *>(count, &shape))
+                      .Build();
+    const auto *ctx = holder.GetContext();
+    ASSERT_NE(ctx, nullptr);
+    const auto *info = static_cast<const ComputeNodeInfo *>(ctx->GetComputeNodeExtend());
+    ASSERT_NE(info, nullptr);
+    EXPECT_EQ(info->GetIrInputsNum(), count);
+    EXPECT_EQ(info->GetIrOutputsNum(), count);
+    EXPECT_EQ(info->GetInputsNum(), count);
+    EXPECT_EQ(info->GetOutputsNum(), count);
+    for (size_t i = 0; i < count; ++i) {
+      EXPECT_EQ(info->GetInputInstanceInfo(i)->GetInstanceNum(), 1);
+      EXPECT_EQ(info->GetInputInstanceInfo(i)->GetInstanceStart(), i);
+      EXPECT_EQ(info->GetOutputInstanceInfo(i)->GetInstanceNum(), 1);
+      EXPECT_EQ(info->GetOutputInstanceInfo(i)->GetInstanceStart(), i);
+    }
+  }
+}
+
+TEST_F(UtestContextBuilder, CountOverridesPreserveRetainedDescsAndDefaultNewDescs) {
+  OpKernelContextBuilder builder;
+  const ExpandDimsType expand_dims("010");
+  StorageShape shape;
+  auto holder = builder.OpType("DIY")
+                    .OpName("diy_1")
+                    .IOInstanceNum({2}, {2})
+                    .InputTensorDesc(0, ge::DT_FLOAT16, ge::FORMAT_ND, ge::FORMAT_NCHW, expand_dims)
+                    .InputTensorDesc(1, ge::DT_INT32, ge::FORMAT_NCHW, ge::FORMAT_ND, expand_dims)
+                    .OutputTensorDesc(0, ge::DT_FLOAT16, ge::FORMAT_ND, ge::FORMAT_NCHW, expand_dims)
+                    .OutputTensorDesc(1, ge::DT_INT32, ge::FORMAT_NCHW, ge::FORMAT_ND, expand_dims)
+                    .IONum(1, 1)
+                    .IOInstanceNum({3}, {2})
+                    .Inputs({&shape, &shape, &shape})
+                    .Outputs({&shape, &shape})
+                    .Build();
+  const auto *ctx = holder.GetContext();
+  ASSERT_NE(ctx, nullptr);
+  const auto *info = static_cast<const ComputeNodeInfo *>(ctx->GetComputeNodeExtend());
+  ASSERT_NE(info, nullptr);
+  for (const auto *desc : {info->GetInputTdInfo(0), info->GetOutputTdInfo(0)}) {
+    ASSERT_NE(desc, nullptr);
+    EXPECT_EQ(desc->GetDataType(), ge::DT_FLOAT16);
+    EXPECT_EQ(desc->GetOriginFormat(), ge::FORMAT_ND);
+    EXPECT_EQ(desc->GetStorageFormat(), ge::FORMAT_NCHW);
+    EXPECT_EQ(desc->GetExpandDimsType(), expand_dims);
+  }
+  for (const auto *desc : {info->GetInputTdInfo(1), info->GetInputTdInfo(2), info->GetOutputTdInfo(1)}) {
+    ASSERT_NE(desc, nullptr);
+    EXPECT_EQ(desc->GetDataType(), ge::DT_MAX);
+    EXPECT_EQ(desc->GetOriginFormat(), ge::FORMAT_MAX);
+    EXPECT_EQ(desc->GetStorageFormat(), ge::FORMAT_MAX);
+    EXPECT_EQ(desc->GetExpandDimsType(), ExpandDimsType());
+  }
 }
 
 TEST_F(UtestContextBuilder, CreateInferShapeContextOK) {

@@ -44,16 +44,12 @@ template <typename T>
 T &OpContextBuilderBase<T>::IONum(size_t input_ir_num, size_t output_ir_num) {
   GE_CHECK_NOTNULL_EXEC(impl_, return static_cast<T &>(*this));
   auto &op_info = impl_->MutableOpInfo();
-  if (!op_info.input_instance.empty() || !op_info.output_instance.empty()) {
-    GELOGW("IO has been set. Set IO Num failed!");
-    return static_cast<T &>(*this);  // 已经设置过输入输出， 无需不允许再次设置
-  }
   op_info.input_ir_num = static_cast<uint32_t>(input_ir_num);
   op_info.output_ir_num = static_cast<uint32_t>(output_ir_num);
   op_info.input_tensor_descs.resize(static_cast<size_t>(op_info.input_ir_num), ContextTensorDesc());
   op_info.output_tensor_descs.resize(static_cast<size_t>(op_info.output_ir_num), ContextTensorDesc());
-  op_info.input_instance.resize(static_cast<size_t>(op_info.input_ir_num), 1);
-  op_info.output_instance.resize(static_cast<size_t>(op_info.output_ir_num), 1);
+  op_info.input_instance.assign(static_cast<size_t>(op_info.input_ir_num), 1);
+  op_info.output_instance.assign(static_cast<size_t>(op_info.output_ir_num), 1);
   op_info.input_instance_num = op_info.input_ir_num;
   op_info.output_instance_num = op_info.output_ir_num;
   return static_cast<T &>(*this);
@@ -64,10 +60,6 @@ T &OpContextBuilderBase<T>::IOInstanceNum(const std::vector<uint32_t> &input_ins
                                           const std::vector<uint32_t> &output_instance_num) {
   GE_CHECK_NOTNULL_EXEC(impl_, return static_cast<T &>(*this));
   auto &op_info = impl_->MutableOpInfo();
-  if (!op_info.input_instance.empty() || !op_info.output_instance.empty()) {
-    GELOGW("IO has been set. Set IO Instance Num failed!");
-    return static_cast<T &>(*this);
-  }
   op_info.input_instance = input_instance_num;
   op_info.output_instance = output_instance_num;
   op_info.input_ir_num = static_cast<uint32_t>(input_instance_num.size());

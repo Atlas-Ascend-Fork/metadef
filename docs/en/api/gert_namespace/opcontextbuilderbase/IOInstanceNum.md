@@ -4,7 +4,7 @@
 
 ## Function
 
-When the number of instances of an input IR prototype is not 1 (typically in optional-input or dynamic-input scenarios), you need to set the number of instances of each input IR prototype of the operator to construct the **ComputeNodeInfo** information in the base class **ExtendedKernelContext** of each subclass **Context**.
+When the number of instances of an input IR prototype is not 1 (typically in optional-input or dynamic-input scenarios), set the instance count for each input IR prototype of the operator to construct ComputeNodeInfo for each subclass Context.
 
 ## Function Prototype
 
@@ -25,4 +25,5 @@ Returns a reference of the subclass object type **T** to support chained calls o
 
 ## Constraints
 
-This API is mutually exclusive with the [IONum](IONum.md) API. You only need to call one of the two APIs, and the API called first takes effect.
+- If this API or [IONum](IONum.md) is called more than once, the last call determines the input and output count configuration.
+- Determine the input and output counts using `IONum()` or `IOInstanceNum()` before setting Tensors and their descriptions. After Tensors have been supplied, the input and output count configuration must not be changed; create a new Builder if changes are needed.
