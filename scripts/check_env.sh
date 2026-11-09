@@ -239,11 +239,14 @@ fi
 print_header "2. GCC/G++ [build.md: >= $REQUIRED_GCC_MIN]"
 
 if check_command gcc; then
-    # 获取gcc原始版本信息：gcc -dumpversion 输出gcc的主版本号（如 11.2）
-    GCC_RAW=$(gcc -dumpversion)
+    # -dumpversion may report only the major version; use the full version for
+    # the 7.3 minimum, with a fallback for compilers without this option.
+    if ! GCC_RAW=$(gcc -dumpfullversion 2>/dev/null) || [ -z "$GCC_RAW" ]; then
+        GCC_RAW=$(gcc -dumpversion)
+    fi
     # 提取标准化版本号：调用extract_version函数将原始版本转为x.x.x格式（如 11 → 11.0.0）
     GCC_VER=$(extract_version "$GCC_RAW")
-    log_info "gcc -dumpversion: $GCC_RAW → $GCC_VER"
+    log_info "gcc 版本: $GCC_RAW → $GCC_VER"
 
     # 判断gcc版本是否满足最低要求：调用version_ge函数比较版本号（GCC_VER >= REQUIRED_GCC_MIN）
     if version_ge "$GCC_VER" "$REQUIRED_GCC_MIN"; then
@@ -262,8 +265,10 @@ else
 fi
 
 if check_command g++; then
-    # 获取g++原始版本信息：g++ -dumpversion 输出g++的主版本号（如 11.2）
-    GPP_RAW=$(g++ -dumpversion)
+    # Keep the displayed compiler version accurate when -dumpversion is major-only.
+    if ! GPP_RAW=$(g++ -dumpfullversion 2>/dev/null) || [ -z "$GPP_RAW" ]; then
+        GPP_RAW=$(g++ -dumpversion)
+    fi
     # 提取标准化版本号：调用extract_version函数将原始版本转为x.x.x格式（如 11 → 11.0.0）
     GPP_VER=$(extract_version "$GPP_RAW")
     log_pass "G++ $GPP_VER"
