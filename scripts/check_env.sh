@@ -46,6 +46,7 @@ PASS_COUNT=0
 #   - graph-easy（可选）
 # ==============================================================================
 REQUIRED_GCC_MIN="7.3.0"         # build.md: GCC >= 7.3.x
+REQUIRED_PYTHON_MIN="3.9.0"    # build.md: Python3 >= 3.9.x
 REQUIRED_CMAKE_MIN="3.16.0"     # build.md: CMake >= 3.16.0
 REQUIRED_CMAKE_RECOMMEND="3.20.0"  # build.md: 建议使用 3.20.0
 
@@ -277,10 +278,31 @@ else
     pkg_install_hint "g++" "gcc-c++"
 fi
 
+# ==================== 3. Python3 ====================
+# build.md: Python3 >= 3.9.x; CMake uses python3 for open-source builds.
+print_header "3. Python3 [build.md: >= $REQUIRED_PYTHON_MIN]"
+PYTHON_CMD=""
+if check_command python3; then
+    if PYTHON_RAW=$(python3 --version 2>&1); then
+        PYTHON_VER=$(extract_version "$PYTHON_RAW")
+        if version_ge "$PYTHON_VER" "$REQUIRED_PYTHON_MIN"; then
+            PYTHON_CMD="python3"
+            log_pass "Python $PYTHON_VER (>= $REQUIRED_PYTHON_MIN)"
+        else
+            log_error "Python 版本过低或无法识别: $PYTHON_RAW (build.md 要求 >= $REQUIRED_PYTHON_MIN)"
+        fi
+    else
+        log_error "无法运行 python3 --version"
+    fi
+else
+    log_error "未安装 Python3 (build.md 要求 >= $REQUIRED_PYTHON_MIN)"
+    pkg_install_hint "python3" "python3"
+fi
 
-# ==================== 3. CMake ====================
+
+# ==================== 4. CMake ====================
 # build.md: CMake >= 3.16.0 (建议使用 3.20.0 版本)
-print_header "3. CMake [build.md: >= $REQUIRED_CMAKE_MIN, 建议 $REQUIRED_CMAKE_RECOMMEND]"
+print_header "4. CMake [build.md: >= $REQUIRED_CMAKE_MIN, 建议 $REQUIRED_CMAKE_RECOMMEND]"
 
 # 检查cmake命令是否存在
 if check_command cmake; then
@@ -308,9 +330,9 @@ else
     log_info "安装 (pip):    pip install cmake"
 fi
 
-# ==================== 4. ccache ====================
+# ==================== 5. ccache ====================
 # build.md: ccache (列为必需依赖)
-print_header "4. ccache [build.md: 必需]"
+print_header "5. ccache [build.md: 必需]"
 
 # 检查ccache版本（build.md 必需依赖）
 if check_command ccache; then
@@ -325,9 +347,9 @@ else
     pkg_install_hint "ccache" "ccache"
 fi
 
-# ==================== 5. lcov (cov) ====================
+# ==================== 6. lcov (cov) ====================
 # build.md: cov → lcov (非必需, 仅用于代码覆盖率统计)
-print_header "5. lcov [build.md: 非必需 (cov, 用于代码覆盖率)]"
+print_header "6. lcov [build.md: 非必需 (cov, 用于代码覆盖率)]"
 
 # 检查lcov版本（非必需依赖，仅用于代码覆盖率统计）
 if check_command lcov; then
@@ -348,9 +370,9 @@ else
     log_warn "genhtml 未找到 (通常随 lcov 一起安装)"
 fi
 
-# ==================== 6. libasan (asan) ====================
+# ==================== 7. libasan (asan) ====================
 # build.md: asan → libasan (以 gcc 7.5.0 为例: libasan4)
-print_header "6. libasan [build.md: 必需 (asan)]"
+print_header "7. libasan [build.md: 必需 (asan)]"
 
 # 检查 libasan 动态库
 ASAN_FOUND=false
@@ -410,9 +432,9 @@ else
     esac
 fi
 
-# ==================== 7. graph-easy ====================
+# ==================== 8. graph-easy ====================
 # build.md: graph-easy (可选)
-print_header "7. graph-easy [build.md: 可选]"
+print_header "8. graph-easy [build.md: 可选]"
 
 if check_command graph-easy; then
     log_pass "graph-easy 已安装"
@@ -421,9 +443,9 @@ else
     pkg_install_hint "libgraph-easy-perl" "perl-Graph-Easy"
 fi
 
-# ==================== 8. CANN Toolkit ====================
+# ==================== 9. CANN Toolkit ====================
 # build.md 步骤二: 安装社区版 CANN Toolkit 包
-print_header "8. CANN Toolkit [build.md: 步骤二, 必需]"
+print_header "9. CANN Toolkit [build.md: 步骤二, 必需]"
 
 if [ -z "$ASCEND_HOME_PATH" ]; then
     log_error "ASCEND_HOME_PATH 未设置 (build.sh 要求先 source set_env.sh)"
@@ -511,8 +533,8 @@ else
     log_info "然后: source /usr/local/Ascend/cann/set_env.sh"
 fi
 
-# ==================== 9. 基础构建工具 ====================
-print_header "9. 基础构建工具"
+# ==================== 10. 基础构建工具 ====================
+print_header "10. 基础构建工具"
 
 # make
 if check_command make; then
@@ -566,8 +588,8 @@ else
     pkg_install_hint "patch" "patch"
 fi
 
-# ==================== 10. 系统资源 ====================
-print_header "10. 系统资源 [可选]"
+# ==================== 11. 系统资源 ====================
+print_header "11. 系统资源 [可选]"
 
 # 获取磁盘可用空间（单位GB）：
 #   df -BG：以GB为单位显示磁盘使用情况
