@@ -425,6 +425,10 @@ fi
 # build.md 步骤二: 安装社区版 CANN Toolkit 包
 print_header "8. CANN Toolkit [build.md: 步骤二, 必需]"
 
+if [ -z "$ASCEND_HOME_PATH" ]; then
+    log_error "ASCEND_HOME_PATH 未设置 (build.sh 要求先 source set_env.sh)"
+fi
+
 ASCEND_HOME=""
 # 判断ASCEND_HOME_PATH环境变量是否非空（-n 表示变量非空）：优先使用用户指定的路径
 if [ -n "$ASCEND_HOME_PATH" ]; then
