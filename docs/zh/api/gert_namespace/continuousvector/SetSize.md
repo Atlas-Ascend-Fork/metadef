@@ -20,7 +20,7 @@ ge::graphStatus SetSize(const size_t size)
 
 成功时返回ge::GRAPH\_SUCCESS。
 
-设置的size\>capacity时，返回失败ge::GRAPH\_FAILED。
+设置的size\>capacity时，返回失败ge::GRAPH\_PARAM\_OUT\_OF\_RANGE。
 
 ## 约束说明
 
@@ -33,5 +33,5 @@ size_t capacity = 100U;
 auto cv_holder = ContinuousVector::Create<int64_t>(capacity);
 auto cv = reinterpret_cast<ContinuousVector *>(cv_holder.get());
 auto ret = cv->SetSize(10U); // ge::GRAPH_SUCCESS
-ret = cv->GetSize(101U); // ge::GRAPH_FAILED
+ret = cv->SetSize(101U); // ge::GRAPH_PARAM_OUT_OF_RANGE
 ```
