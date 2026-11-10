@@ -30,5 +30,5 @@ uint32_t __attribute__((weak)) gert_TilingContextBuilder_SetSimtGridDim(void *bu
 ```cpp
 OpTilingContextBuilder ctx_builder;
 gert::Dim3 grid_dim(4, 5);
-ret = gert_TilingContextBuilder_SetSimtGridDim(reinterpret_cast<void *>(&ctx_builder4), &grid_dim);
+auto ret = gert_TilingContextBuilder_SetSimtGridDim(reinterpret_cast<void *>(&ctx_builder), &grid_dim);
 ```
