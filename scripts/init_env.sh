@@ -49,6 +49,17 @@ get_cann_url() {
     echo "${base_url}/${latest_dir}"
 }
 
+download_package() {
+    local url="$1" destination="$2" temporary
+    temporary=$(mktemp "${destination}.part.XXXXXX") || return 1
+    if wget -q --show-progress --no-check-certificate -O "$temporary" "$url" &&
+       mv -f -- "$temporary" "$destination"; then
+        return 0
+    fi
+    rm -f -- "$temporary"
+    return 1
+}
+
 install_cann() {
     log_info "Start CANN installation..."
 
@@ -76,7 +87,7 @@ install_cann() {
     if [ ! -f "$toolkit_pkg" ]; then
         log_info "Downloading CANN toolkit (${arch})..."
         log_info "URL: $toolkit_url"
-        wget -q --show-progress --no-check-certificate -O "$toolkit_pkg" "$toolkit_url" || {
+        download_package "$toolkit_url" "$toolkit_pkg" || {
             log_error "Failed to download toolkit"
             return 1
         }
@@ -85,7 +96,7 @@ install_cann() {
     if [ ! -f "$ops_pkg" ] && [ "$INSTALL_OPS" = true ]; then
         log_info "Downloading CANN ops (${CHIP_TYPE}, ${arch})..."
         log_info "URL: $ops_url"
-        wget -q --show-progress --no-check-certificate -O "$ops_pkg" "$ops_url" || {
+        download_package "$ops_url" "$ops_pkg" || {
             log_error "Failed to download ops"
             return 1
         }
@@ -107,7 +118,10 @@ install_cann() {
     fi
 
     log_info "Cleaning up..."
-    rm -f "$toolkit_pkg" "$ops_pkg"
+    rm -f "$toolkit_pkg"
+    if [ "$INSTALL_OPS" = true ]; then
+        rm -f "$ops_pkg"
+    fi
     cd - > /dev/null
 
     log_info "CANN installation completed"

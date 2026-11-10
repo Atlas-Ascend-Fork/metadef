@@ -4,7 +4,7 @@
 
 ## Function
 
-Sets the number of input and output IR prototypes of an operator, which is used to construct the **ComputeNodeInfo** information in the base class **ExtendedKernelContext** of each subclass **Context**. By default, the number of input and output instances for each IR prototype is 1.
+Sets the numbers of input and output IR prototypes of an operator to construct ComputeNodeInfo for each subclass Context. By default, each input and output IR prototype has one instance.
 
 ## Function Prototype
 
@@ -25,4 +25,5 @@ Returns a reference to the subclass object of type **T**, which supports chained
 
 ## Constraints
 
-This API is mutually exclusive with the [IOInstanceNum](IOInstanceNum.md) API. You only need to call one of the two APIs, and the API called first takes precedence.
+- If this API or [IOInstanceNum](IOInstanceNum.md) is called more than once, the last call determines the input and output count configuration.
+- Determine the input and output counts using `IONum()` or `IOInstanceNum()` before setting Tensors and their descriptions. After Tensors have been supplied, the input and output count configuration must not be changed; create a new Builder if changes are needed.

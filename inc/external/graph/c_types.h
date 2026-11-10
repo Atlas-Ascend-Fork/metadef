@@ -125,6 +125,13 @@ typedef enum {
   //                   If you want to judge the range of Format, you can use FORMAT_END.
   C_FORMAT_MAX = 0xff
 } C_Format;
+
+// The backend kind of a graph, fixed at construction and cannot be switched.
+// The C++ side uses it via the ge::GraphKind alias.
+typedef enum {
+  C_GRAPH_COMPUTE = 0,  // compute graph
+  C_GRAPH_EXECUTE = 1,  // execute graph
+} C_GraphKind;
 #ifdef __cplusplus
 }
 #endif

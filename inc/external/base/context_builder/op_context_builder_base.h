@@ -44,7 +44,9 @@ class OpContextBuilderBase {
    * 默认每个IR原型输入输出的实例个数为1
    * @param input_ir_num 输入IR原型个数
    * @param output_ir_num 输出IR原型个数
-   * @attention 此接口与IOInstanceNum接口互斥。仅需调用2种接口的一种即可。
+   * @attention 若多次调用本接口或IOInstanceNum，输入输出数量配置以最后一次调用为准。
+   * 应先通过IONum或IOInstanceNum确定输入输出数量，再设置Tensor及其描述。
+   * 传入Tensor后，不得再修改输入输出数量配置；如需修改，应创建新的Builder。
    * @return 返回子类对象T类型的引用，用于支持子类链式调用
    */
   T &IONum(size_t input_ir_num, size_t output_ir_num);
@@ -54,7 +56,9 @@ class OpContextBuilderBase {
    * @note 当算子存在dynamic input类型输入时，对应input的instance_num需设置为大于1的值
    * @param input_instance_num 每个IR原型输入的实例个数
    * @param output_instance_num 每个IR原型输出的实例个数
-   * @attention 此接口与IONum接口互斥。仅需调用2种接口的一种即可。
+   * @attention 若多次调用本接口或IONum，输入输出数量配置以最后一次调用为准。
+   * 应先通过IONum或IOInstanceNum确定输入输出数量，再设置Tensor及其描述。
+   * 传入Tensor后，不得再修改输入输出数量配置；如需修改，应创建新的Builder。
    * @return 返回子类对象T类型的引用，用于支持子类链式调用
    */
   T &IOInstanceNum(const std::vector<uint32_t> &input_instance_num, const std::vector<uint32_t> &output_instance_num);

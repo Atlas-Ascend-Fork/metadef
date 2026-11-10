@@ -2,7 +2,7 @@
 
 ## 函数功能
 
-设置算子输入输出IR原型个数，用于构造各子类Context的基类ExtendedKernelContext中ComputeNodeInfo信息。该接口默认每个IR原型输入输出的实例个数为1。
+设置算子输入输出IR原型个数，用于构造各子类Context的ComputeNodeInfo信息。该接口默认每个IR原型输入输出的实例个数为1。
 
 ## 函数原型
 
@@ -23,4 +23,5 @@ T &IONum(size_t input_ir_num, size_t output_ir_num)
 
 ## 约束说明
 
-此接口与[IOInstanceNum](IOInstanceNum.md)接口互斥。仅需调用2种接口的一种即可，以先调用的接口为准。
+- 若多次调用本接口或[IOInstanceNum](IOInstanceNum.md)，输入输出数量配置以最后一次调用为准。
+- 应先通过`IONum()`或`IOInstanceNum()`确定输入输出数量，再设置Tensor及其描述。传入Tensor后，不得再修改输入输出数量配置；如需修改，应创建新的Builder。
