@@ -29,5 +29,5 @@ uint32_t __attribute__((weak)) gert_TilingContextBuilder_SetDeterministicLevel(v
 
 ```cpp
 OpTilingContextBuilder ctx_builder;
-auto ret = gert_TilingContextBuilder_SetDeterministicLevel(reinterprete_cast<void *>(&ctx_builder), 2);
+auto ret = gert_TilingContextBuilder_SetDeterministicLevel(reinterpret_cast<void *>(&ctx_builder), 2);
 ```

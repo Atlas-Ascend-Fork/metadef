@@ -18,7 +18,7 @@ AnchorInstanceInfo *MutableInputInstanceInfo(const size_t ir_index) const
 
 ## 返回值说明
 
-返回的实例化对象的地址。返回对象为非const，在ir_index\>=GetIrInputsNum()时，返回空指针。
+当ir_index小于GetIrInputsNum()时，返回可修改的实例化信息指针；否则返回nullptr。调用方使用前应检查指针是否为空。
 
 ## 约束说明
 

@@ -30,5 +30,5 @@ uint32_t __attribute__((weak)) gert_TilingContextBuilder_SetSimtBlockDim(void *b
 ```cpp
 OpTilingContextBuilder ctx_builder;
 gert::Dim3 block_dim(2, 3);
-ret = gert_TilingContextBuilder_SetSimtBlockDim(reinterpret_cast<void *>(&ctx_builder), &block_dim);
+auto ret = gert_TilingContextBuilder_SetSimtBlockDim(reinterpret_cast<void *>(&ctx_builder), &block_dim);
 ```
