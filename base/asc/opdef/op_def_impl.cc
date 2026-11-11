@@ -193,6 +193,11 @@ OpDef &OpDefImpl::SetInferShapeRange(OpDef *parent_this, gert::OpImplRegisterV2:
   return *parent_this;
 }
 
+OpDef &OpDefImpl::SetInferSymbol(OpDef *parent_this, gert::OpImplRegisterV2::InferSymbolKernelFunc func) {
+  parent_this->impl_->infer_symbol = func;
+  return *parent_this;
+}
+
 OpDef &OpDefImpl::SetInferDataType(OpDef *parent_this, gert::OpImplRegisterV2::InferDataTypeKernelFunc func) {
   parent_this->impl_->infer_data_type = func;
   return *parent_this;
@@ -454,6 +459,7 @@ void OpDefImpl::Construct(OpDef *parent_this, const OpDef &op_def) {
   parent_this->impl_->infer_shape = op_def.impl_->infer_shape;
   parent_this->impl_->infer_shape_range = op_def.impl_->infer_shape_range;
   parent_this->impl_->infer_data_type = op_def.impl_->infer_data_type;
+  parent_this->impl_->infer_symbol = op_def.impl_->infer_symbol;
   parent_this->impl_->op_mc2 = op_def.impl_->op_mc2;
   parent_this->impl_->non_list_len = op_def.impl_->non_list_len;
   parent_this->impl_->category = op_def.impl_->category;

@@ -26,6 +26,7 @@ class OpDefFactoryImpl {
   static OpDefFactoryImpl &GetInstance();
   int OpDefRegister(const char *name, OpDefCreator creator);
   int OpDefRegisterV2(const char *name, OpDefFuncPtr ptr);
+  void OpDefRegisterInferSymbol(OpDef &op, gert::OpImplRegisterV2 &impl);
   OpDef OpDefCreate(const char *name);
   std::vector<ge::AscendString> &GetAllOp(void);
   void OpTilingSinkRegister(const char *opType);
