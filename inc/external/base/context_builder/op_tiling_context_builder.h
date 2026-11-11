@@ -162,7 +162,7 @@ uint32_t __attribute__((weak)) gert_TilingContextBuilder_SetDeterministicLevel(v
                                                                                int32_t deterministic_level);
 
 /**
- * @brief 设置Op的 SimtBlockDim 纯C接口
+ * @brief 设置Op的 SimtBlockDim C linkage 弱符号接口，参数使用 C++ 类型 gert::Dim3
  * @note 为了保障GE和metadef包间前后兼容性，单独为 SimtBlockDim 设置的弱符号接口
  * @param builder OpTilingContextBuilder指针
  * @param block_dim Block Dim 指针
@@ -171,7 +171,7 @@ uint32_t __attribute__((weak)) gert_TilingContextBuilder_SetDeterministicLevel(v
 uint32_t __attribute__((weak)) gert_TilingContextBuilder_SetSimtBlockDim(void *builder, const gert::Dim3 *block_dim);
 
 /**
- * @brief 设置Op的 SimtGridDim 纯C接口
+ * @brief 设置Op的 SimtGridDim C linkage 弱符号接口，参数使用 C++ 类型 gert::Dim3
  * @note 为了保障GE和metadef包间前后兼容性，单独为 SimtGridDim 设置的弱符号接口
  * @param builder OpTilingContextBuilder指针
  * @param grid_dim Grid Dim 指针
