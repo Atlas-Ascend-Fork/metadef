@@ -9,13 +9,48 @@
  */
 
 #include "exe_graph/runtime/runtime_tensor.h"
+#include <cstdlib>
 #include <gtest/gtest.h>
+#include <utility>
 namespace gert {
 class TensorUT : public testing::Test {};
 
 namespace {
 int g_plus_share_count = 0;
 int g_free_count = 0;
+int g_move_old_free_attempts = 0;
+int g_move_old_free_successes = 0;
+int g_move_new_free_successes = 0;
+
+ge::graphStatus MoveOldManager(TensorAddress addr, TensorOperateType operate_type, void **out) {
+  if (operate_type == kGetTensorAddress) {
+    if (out != nullptr) {
+      *out = addr;
+    }
+    return ge::GRAPH_SUCCESS;
+  }
+  if (operate_type == kFreeTensor) {
+    ++g_move_old_free_attempts;
+    if (g_move_old_free_attempts == 1) {
+      return ge::GRAPH_FAILED;
+    }
+    ++g_move_old_free_successes;
+    std::free(addr);
+  }
+  return ge::GRAPH_SUCCESS;
+}
+
+ge::graphStatus MoveNewManager(TensorAddress addr, TensorOperateType operate_type, void **out) {
+  if (operate_type == kGetTensorAddress) {
+    if (out != nullptr) {
+      *out = addr;
+    }
+  } else if (operate_type == kFreeTensor) {
+    ++g_move_new_free_successes;
+    std::free(addr);
+  }
+  return ge::GRAPH_SUCCESS;
+}
 
 ge::graphStatus ShareFailureManager(TensorAddress, TensorOperateType operate_type, void **) {
   if (operate_type == kPlusShareCount) {
@@ -42,6 +77,28 @@ TEST_F(TensorUT, ShareFromRollsBackAfterShareCountFailure) {
     EXPECT_EQ(g_free_count, 0);
   }
   EXPECT_EQ(g_free_count, 1);
+}
+
+TEST_F(TensorUT, MoveAssignmentKeepsOwnershipWhenFreeFails) {
+  g_move_old_free_attempts = 0;
+  g_move_old_free_successes = 0;
+  g_move_new_free_successes = 0;
+  auto *old_addr = std::malloc(16);
+  auto *new_addr = std::malloc(16);
+  ASSERT_NE(old_addr, nullptr);
+  ASSERT_NE(new_addr, nullptr);
+  {
+    TensorData target(old_addr, MoveOldManager, 16U, kOnHost);
+    TensorData source(new_addr, MoveNewManager, 16U, kOnHost);
+    target = std::move(source);
+    EXPECT_EQ(g_move_old_free_attempts, 1);
+    EXPECT_EQ(g_move_old_free_successes, 0);
+    EXPECT_EQ(target.GetAddr(), new_addr);
+    EXPECT_EQ(source.GetAddr(), old_addr);
+  }
+  EXPECT_EQ(g_move_old_free_attempts, 2);
+  EXPECT_EQ(g_move_old_free_successes, 1);
+  EXPECT_EQ(g_move_new_free_successes, 1);
 }
 
 TEST_F(TensorUT, ConstructOk_V2) {

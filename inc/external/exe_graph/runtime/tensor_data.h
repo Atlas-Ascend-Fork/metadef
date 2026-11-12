@@ -89,17 +89,26 @@ class TensorData {
   TensorData &operator=(const TensorData &other) = delete;
   TensorData &operator=(TensorData &&other) noexcept {
     if (this != &other) {
-      static_cast<void>(Free());
+      reserved_0_ = other.reserved_0_;
+      (void)memcpy(reserved_1_, other.reserved_1_, sizeof(reserved_1_));
+      const auto old_addr = addr_;
+      const auto old_manager = manager_;
+      const auto old_size = size_;
+      const auto old_placement = placement_;
       addr_ = other.addr_;
       manager_ = other.manager_;
       size_ = other.size_;
       placement_ = other.placement_;
-      other.addr_ = nullptr;
-      other.manager_ = nullptr;
-      other.size_ = 0U;
-      other.placement_ = kTensorPlacementEnd;
-      reserved_0_ = other.reserved_0_;
-      (void)memcpy(reserved_1_, other.reserved_1_, sizeof(reserved_1_));
+      other.addr_ = old_addr;
+      other.manager_ = old_manager;
+      other.size_ = old_size;
+      other.placement_ = old_placement;
+      if (other.Free() == ge::GRAPH_SUCCESS) {
+        other.addr_ = nullptr;
+        other.manager_ = nullptr;
+        other.size_ = 0U;
+        other.placement_ = kTensorPlacementEnd;
+      }
     }
     return *this;
   }
