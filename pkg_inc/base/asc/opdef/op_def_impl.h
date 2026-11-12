@@ -245,6 +245,7 @@ class OpDefImpl {
   gert::OpImplRegisterV2::InferShapeKernelFunc infer_shape = nullptr;
   gert::OpImplRegisterV2::InferShapeRangeKernelFunc infer_shape_range = nullptr;
   gert::OpImplRegisterV2::InferDataTypeKernelFunc infer_data_type = nullptr;
+  gert::OpImplRegisterV2::InferSymbolKernelFunc infer_symbol = nullptr;
   OpParamTrunk op_params;
   std::vector<OpAttrDef> attrs;
   OpAICoreDef op_aicore;
@@ -266,6 +267,7 @@ class OpDefImpl {
   OpDef &Comment(OpDef *parent_this, CommentSection section, const char *comment);
   OpDef &SetInferShape(OpDef *parent_this, gert::OpImplRegisterV2::InferShapeKernelFunc func);
   OpDef &SetInferShapeRange(OpDef *parent_this, gert::OpImplRegisterV2::InferShapeRangeKernelFunc func);
+  OpDef &SetInferSymbol(OpDef *parent_this, gert::OpImplRegisterV2::InferSymbolKernelFunc func);
   OpDef &SetInferDataType(OpDef *parent_this, gert::OpImplRegisterV2::InferDataTypeKernelFunc func);
 
   OpAttrDef &GetOrCreateAttr(OpDef *parent_this, const char *name);

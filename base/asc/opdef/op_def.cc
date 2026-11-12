@@ -80,6 +80,18 @@ gert::OpImplRegisterV2::InferShapeRangeKernelFunc &OpDef::GetInferShapeRange(voi
 gert::OpImplRegisterV2::InferDataTypeKernelFunc &OpDef::GetInferDataType(void) {
   return this->impl_->infer_data_type;
 }
+
+void OpDef::SetInferSymbolForRegister(gert::OpImplRegisterV2::InferSymbolKernelFunc func) {
+  impl_->SetInferSymbol(this, func);
+}
+#if defined(GE_INFER_SYMBOL_API_EXPORTS) && defined(__GNUC__)
+gert::OpImplRegisterV2::InferSymbolKernelFunc &OpDef::GetInferSymbol(void) {
+  return this->impl_->infer_symbol;
+}
+#endif
+void SetInferSymbolForSo(OpDef &op_def, gert::OpImplRegisterV2::InferSymbolKernelFunc func) {
+  op_def.SetInferSymbolForRegister(func);
+}
 ge::AscendString &OpDef::GetOpType(void) {
   return this->impl_->op_type;
 }

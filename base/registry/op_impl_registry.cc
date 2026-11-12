@@ -66,6 +66,10 @@ void RegisterOpImplToRegistry(const OpImplRegisterV2Impl *rd) {
     ss << "[InferDataType]";
     RegisterFunction(funcs.infer_datatype, rd->functions.infer_datatype, rd->op_type.GetString(), "InferDataType");
   }
+  if (rd->functions.infer_symbol != nullptr) {
+    ss << "[InferSymbol]";
+    RegisterFunction(funcs.infer_symbol, rd->functions.infer_symbol, rd->op_type.GetString(), "InferSymbol");
+  }
   if (rd->functions.tiling != nullptr) {
     ss << "[Tiling]";
     if ((funcs.tiling != nullptr) && ((funcs.tiling != rd->functions.tiling) ||
@@ -339,6 +343,15 @@ OpImplRegisterV2 &OpImplRegisterV2::InferShapeRange(
   }
   return *this;
 }
+void OpImplRegisterV2::SetInferSymbolForRegister(OpImplRegisterV2::InferSymbolKernelFunc infer_symbol_func) {
+  if (impl_ != nullptr) {
+    impl_->functions.infer_symbol = infer_symbol_func;
+  }
+}
+void RegisterInferSymbolForSo(OpImplRegisterV2 &reg, OpImplRegisterV2::InferSymbolKernelFunc fn) {
+  reg.SetInferSymbolForRegister(fn);
+}
+
 OpImplRegisterV2 &OpImplRegisterV2::InferDataType(OpImplRegisterV2::InferDataTypeKernelFunc infer_datatype_func) {
   if (impl_ != nullptr) {
     impl_->functions.infer_datatype = infer_datatype_func;

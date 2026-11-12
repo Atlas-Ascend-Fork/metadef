@@ -21,6 +21,9 @@
     opType op(#opType);                                                                                                \
     gert::OpImplRegisterV2 impl(#opType);                                                                              \
     impl.InferShape(op.GetInferShape()).InferShapeRange(op.GetInferShapeRange()).InferDataType(op.GetInferDataType()); \
+    if (ops::OpDefFactory::OpDefRegisterInferSymbol != nullptr) {                                                      \
+      ops::OpDefFactory::OpDefRegisterInferSymbol(op, impl);                                                           \
+    }                                                                                                                  \
     gert::OpImplRegisterV2 implReg(impl);                                                                              \
     return 0;                                                                                                          \
   }(#opType)
