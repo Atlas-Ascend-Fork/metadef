@@ -204,7 +204,7 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/pkg_inc/base/asc/opdef/op_def_factory_
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/pkg_inc/base/asc/opdef/op_def_impl.h
         DESTINATION ${CMAKE_SYSTEM_PROCESSOR}-linux/pkg_inc/base/asc/opdef
-        COMPONENT metadef 
+        COMPONENT metadef
 )
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/pkg_inc/base/utils/type_utils_impl.h

@@ -2,7 +2,7 @@
 
 ## 函数功能
 
-使用OpTilingContextBuilder构造TilingContext时设置SIMT Grid维度，与OpTilingContextBuilder::SimtGridDim等价。本接口为弱符号桥接接口，使用C linkage（extern "C"）声明，但参数grid_dim为C++类型gert::Dim3，因此仅支持在C++代码中调用。
+使用OpTilingContextBuilder构造TilingContext时设置SIMT Grid维度，与OpTilingContextBuilder::SimtGridDim等价。本接口为弱符号桥接接口，使用C linkage（extern "C"）声明，但参数 `grid_dim` 为C++类型 `gert::Dim3`，因此仅支持在C++代码中调用，不属于可由C源码直接调用的纯C API。
 
 ## 函数原型
 
@@ -28,6 +28,7 @@ uint32_t __attribute__((weak)) gert_TilingContextBuilder_SetSimtGridDim(void *bu
 ## 调用示例
 
 ```cpp
+// C++ 示例：本接口的原型使用 gert::Dim3。
 OpTilingContextBuilder ctx_builder;
 gert::Dim3 grid_dim(4, 5);
 auto ret = gert_TilingContextBuilder_SetSimtGridDim(reinterpret_cast<void *>(&ctx_builder), &grid_dim);
