@@ -23,7 +23,6 @@ class OpDefFactory {
  public:
   static int OpDefRegister(const char *name, OpDefCreator creator);
   static int __attribute__((weak)) OpDefRegisterV2(const char *name, OpDefFuncPtr ptr);
-  static void __attribute__((weak)) OpDefRegisterInferSymbol(OpDef &op, gert::OpImplRegisterV2 &impl);
 
  private:
   friend class AclnnFallBackGenerator;

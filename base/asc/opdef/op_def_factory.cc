@@ -26,10 +26,6 @@ int __attribute__((weak)) OpDefFactory::OpDefRegisterV2(const char *name, OpDefF
   return OpDefFactoryImpl::GetInstance().OpDefRegisterV2(name, ptr);
 }
 
-void __attribute__((weak)) OpDefFactory::OpDefRegisterInferSymbol(OpDef &op, gert::OpImplRegisterV2 &impl) {
-  OpDefFactoryImpl::GetInstance().OpDefRegisterInferSymbol(op, impl);
-}
-
 OpDef OpDefFactory::OpDefCreate(const char *name) {
   return OpDefFactoryImpl::GetInstance().OpDefCreate(name);
 }

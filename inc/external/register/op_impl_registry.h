@@ -28,18 +28,6 @@
 #include "graph/ascend_string.h"
 #include "exe_graph/runtime/exe_res_generation_context.h"
 
-// InferSymbol 注册接口的跨版本弱符号兼容：注册库构建（opp_registry PRIVATE 定义
-// GE_INFER_SYMBOL_API_EXPORTS）时为强符号；外部算子 so 对落表入口
-// RegisterInferSymbolForSo 产生弱引用，老 GE 上置空判空跳过（注册静默降级），
-// dlopen 不因缺符号失败；覆盖点为弱未定义引用的动态解析，so 侧 -Bsymbolic 不影响
-#ifndef GE_INFER_SYMBOL_API
-#if defined(GE_INFER_SYMBOL_API_EXPORTS) || !defined(__GNUC__)
-#define GE_INFER_SYMBOL_API
-#else
-#define GE_INFER_SYMBOL_API __attribute__((weak))
-#endif
-#endif
-
 namespace ge {
 class AnyValue;
 }  // namespace ge
@@ -61,12 +49,7 @@ enum TilingPlacement {
   TILING_ON_AICPU = 1,
 };
 
-class InferSymbolContext;
 class OpImplRegisterV2Impl;
-// 落表入口：libopp_registry 强定义；外部算子 so 弱引用（so 内无定义，动态重定位
-// 不受 -Bsymbolic 影响），老 GE 上解析为空判空跳过
-GE_INFER_SYMBOL_API void RegisterInferSymbolForSo(class OpImplRegisterV2 &reg, UINT32 (*fn)(InferSymbolContext *));
-
 class OpImplRegisterV2 {
  public:
   explicit OpImplRegisterV2(const ge::char_t *op_type);
@@ -80,7 +63,6 @@ class OpImplRegisterV2 {
   using InferShapeRangeKernelFunc = UINT32 (*)(InferShapeRangeContext *);
   using TilingKernelFunc = UINT32 (*)(TilingContext *);
   using InferDataTypeKernelFunc = UINT32 (*)(InferDataTypeContext *);
-  using InferSymbolKernelFunc = UINT32 (*)(InferSymbolContext *);
   using GenSimplifiedKeyKernelFunc = UINT32 (*)(TilingContext *, ge::char_t *);
   // aclnn接口的原型，入参含义：
   // OpExecuteContext：保存算子的Input，Output，Attr信息
@@ -105,20 +87,6 @@ class OpImplRegisterV2 {
   OpImplRegisterV2 &InferShape(InferShapeKernelFunc infer_shape_func);
   OpImplRegisterV2 &InferShapeRange(InferShapeRangeKernelFunc infer_shape_range_func);
   OpImplRegisterV2 &InferDataType(InferDataTypeKernelFunc infer_datatype_func);
-  // 类内 inline 转发器（带 body → stub 生成器跳过不生成 stub）；环境支持与否经
-  // 落表入口弱引用的动态解析判定——老 GE 上置空跳过注册，行为等同未注册
-  OpImplRegisterV2 &InferSymbol(InferSymbolKernelFunc infer_symbol_func) {
-#if defined(__GNUC__) && !defined(GE_INFER_SYMBOL_API_EXPORTS)
-    if (RegisterInferSymbolForSo != nullptr) {
-      RegisterInferSymbolForSo(*this, infer_symbol_func);
-    }
-#else
-    RegisterInferSymbolForSo(*this, infer_symbol_func);
-#endif
-    return *this;
-  }
-  // 库内落表实现入口（RegisterInferSymbolForSo 转调；.cc 定义，访问 OpImplRegisterV2Impl）
-  void SetInferSymbolForRegister(InferSymbolKernelFunc infer_symbol_func);
   /*
    * 一种datatype推导规则，将第一个输入的datatype作为所有输出的datatype。
    * 使用方式：注册此规则，可以不用再注册自定义推导规则。若同时注册了InferDataType和InferOutDataTypeByFirstInput，将使能最后注册的规则。
@@ -176,7 +144,6 @@ class OpImplRegisterV2 {
  private:
   std::unique_ptr<OpImplRegisterV2Impl> impl_;
 };
-
 }  // namespace gert
 
 #define IMPL_OP_COUNTER(op_type, name, counter) \
@@ -189,7 +156,5 @@ class OpImplRegisterV2 {
   gert::OpImplRegisterV2 VAR_UNUSED op_impl_register_infershape_##op_type = gert::OpImplRegisterV2(#op_type)
 #define IMPL_OP_OPTILING(op_type) \
   gert::OpImplRegisterV2 VAR_UNUSED op_impl_register_optiling_##op_type = gert::OpImplRegisterV2(#op_type)
-#define IMPL_OP_INFERSYMBOL(op_type) \
-  gert::OpImplRegisterV2 VAR_UNUSED op_impl_register_infersymbol_##op_type = gert::OpImplRegisterV2(#op_type)
 
 #endif  // INC_EXTERNAL_REGISTER_OP_IMPL_REGISTRY_H_

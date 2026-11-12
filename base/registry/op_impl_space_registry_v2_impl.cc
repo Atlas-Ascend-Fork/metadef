@@ -178,7 +178,6 @@ void OpImplSpaceRegistryImpl::MergeFunctions(OpImplKernelRegistry::OpImplFunctio
                                              const std::string &op_type) const {
   MERGE_FUNCTION(merged_funcs, src_funcs, op_type.c_str(), infer_shape)
   MERGE_FUNCTION(merged_funcs, src_funcs, op_type.c_str(), infer_symbol_shape)
-  MERGE_FUNCTION(merged_funcs, src_funcs, op_type.c_str(), infer_symbol)
   MERGE_FUNCTION(merged_funcs, src_funcs, op_type.c_str(), infer_shape_range)
   MERGE_FUNCTION(merged_funcs, src_funcs, op_type.c_str(), infer_datatype)
   MERGE_FUNCTION(merged_funcs, src_funcs, op_type.c_str(), tiling_parse)
@@ -232,7 +231,6 @@ void OpImplSpaceRegistryImpl::MergeTypesToImpl(OpTypesToImplMap &merged_impl, co
       merged_impl[op_type] = iter.second;
       PRINT_MERGE_FUNCTION_FIRST(merged_impl[op_type], op_type.GetString(), infer_shape);
       PRINT_MERGE_FUNCTION_FIRST(merged_impl[op_type], op_type.GetString(), infer_symbol_shape);
-      PRINT_MERGE_FUNCTION_FIRST(merged_impl[op_type], op_type.GetString(), infer_symbol);
       PRINT_MERGE_FUNCTION_FIRST(merged_impl[op_type], op_type.GetString(), infer_shape_range);
       PRINT_MERGE_FUNCTION_FIRST(merged_impl[op_type], op_type.GetString(), infer_datatype);
       PRINT_MERGE_FUNCTION_FIRST(merged_impl[op_type], op_type.GetString(), tiling_parse);

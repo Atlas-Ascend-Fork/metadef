@@ -483,10 +483,6 @@ class OpMC2Def {
 };
 
 class OpDefImpl;
-// 写入口：libregister 强定义；外部算子 so 弱引用（so 内无定义，动态重定位不受
-// -Bsymbolic 影响），老 GE 上解析为空判空跳过
-GE_INFER_SYMBOL_API void SetInferSymbolForSo(class OpDef &op_def, gert::OpImplRegisterV2::InferSymbolKernelFunc func);
-
 class OpDef {
  public:
   explicit OpDef(const char *type);
@@ -500,27 +496,9 @@ class OpDef {
   OpDef &SetInferShape(gert::OpImplRegisterV2::InferShapeKernelFunc func);
   OpDef &SetInferShapeRange(gert::OpImplRegisterV2::InferShapeRangeKernelFunc func);
   OpDef &SetInferDataType(gert::OpImplRegisterV2::InferDataTypeKernelFunc func);
-  // 类内 inline 转发器（带 body → stub 生成器跳过不生成 stub）
-  OpDef &SetInferSymbol(gert::OpImplRegisterV2::InferSymbolKernelFunc func) {
-#if defined(__GNUC__) && !defined(GE_INFER_SYMBOL_API_EXPORTS)
-    if (SetInferSymbolForSo != nullptr) {
-      SetInferSymbolForSo(*this, func);
-    }
-#else
-    SetInferSymbolForSo(*this, func);
-#endif
-    return *this;
-  }
-  // 库内落表实现入口（SetInferSymbolForSo 转调；.cc 定义，访问 OpDefImpl）
-  void SetInferSymbolForRegister(gert::OpImplRegisterV2::InferSymbolKernelFunc func);
   gert::OpImplRegisterV2::InferShapeKernelFunc &GetInferShape(void);
   gert::OpImplRegisterV2::InferShapeRangeKernelFunc &GetInferShapeRange(void);
   gert::OpImplRegisterV2::InferDataTypeKernelFunc &GetInferDataType(void);
-  // 恒返回可判空 null 引用（OP_ADD 转存读取走库内真实现不受影响）
-  gert::OpImplRegisterV2::InferSymbolKernelFunc &GetInferSymbol(void) {
-    static gert::OpImplRegisterV2::InferSymbolKernelFunc kNullFunc = nullptr;
-    return kNullFunc;
-  }
   OpAICoreDef &AICore(void);
   OpAICPUDef &AICPU(void);
   OpHostCPUDef &HostCPU(void);
@@ -598,7 +576,6 @@ class OpDef {
 
   std::unique_ptr<OpDefImpl> impl_;
 };
-
 }  // namespace ops
 
 #endif

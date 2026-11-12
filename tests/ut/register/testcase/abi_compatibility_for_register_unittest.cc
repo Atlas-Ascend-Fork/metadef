@@ -21,9 +21,7 @@ constexpr const size_t kReservedFieldSize = 8U;
 constexpr const size_t kReservedFieldSize2 = 40U;
 constexpr const size_t kOpImplRegistrySize = 88U + kVirtualTableSize;
 
-// 保留区拆分：reserved_[1]（槽0=PCIe 透传，kPcieThroughFlagIdx 历史语义不变）+
-// infer_symbol（消费槽1）+ reserved2_[498] 尾部保留（总尺寸不变，仍为 kOpImplSize）
-constexpr const size_t kOpImplReservedFieldSize = 498UL * sizeof(void *);
+constexpr const size_t kOpImplReservedFieldSize = 500UL * sizeof(void *);
 constexpr const size_t kOpImplSize = 4304UL;
 
 }  // namespace
@@ -41,10 +39,6 @@ TEST_F(AbiCompatibilityForRegisterUT, OpImplRegistry_CheckMemLayoutNotChanged) {
 TEST_F(AbiCompatibilityForRegisterUT, OpImplFunctionsV2_CheckMemLayoutNotChanged) {
   gert::OpImplKernelRegistry::OpImplFunctionsV2 r;
   ASSERT_EQ(sizeof(r), kOpImplSize);
-  // 布局拆分后分字段守护：reserved_[1]（槽0=PCIe 透传）+ infer_symbol（消费槽1）
-  // + reserved2_[498]（尾部保留），消费区总量维持原 500 槽不变
-  EXPECT_EQ(sizeof(r.reserved_), 1UL * sizeof(void *));
-  EXPECT_EQ(sizeof(r.reserved2_), kOpImplReservedFieldSize);
-  EXPECT_EQ(sizeof(r.reserved_) + sizeof(r.infer_symbol) + sizeof(r.reserved2_), 500UL * sizeof(void *));
+  EXPECT_EQ(sizeof(r.reserved_), kOpImplReservedFieldSize);
 }
 }  // namespace gert

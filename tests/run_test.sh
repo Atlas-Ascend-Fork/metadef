@@ -162,7 +162,7 @@ build_metadef() {
   cmake_generate_make "${BUILD_PATH}" "${CMAKE_ARGS[@]}"
 
   if [[ "X$ENABLE_METADEF_UT" = "Xon" || "X$ENABLE_METADEF_COV" = "Xon" ]]; then
-    make ut_metadef ut_register ut_infer_symbol_weak_fallback ut_exe_meta_device ut_sc_check ${VERBOSE} -j${THREAD_NUM}
+    make ut_metadef ut_register ut_exe_meta_device ut_sc_check ${VERBOSE} -j${THREAD_NUM}
   fi
 
   if [ 0 -ne $? ]; then
