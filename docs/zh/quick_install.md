@@ -125,6 +125,15 @@
   > [!NOTE]说明
   > 对于其他芯片型号，请将 `--chip-type` 参数替换为对应的型号（如 `950`、`A3` ）
 
+  > [!WARNING]关于 `--no-check-certificate` 参数
+  > 脚本下载 CANN 安装包时默认校验 TLS 证书。仅当所在环境因证书问题无法完成下载时，才可在命令末尾追加 `--no-check-certificate` 参数跳过证书校验，例如：
+  >
+  > ```bash
+  > curl -fsSL https://raw.gitcode.com/cann/metadef/raw/master/scripts/init_env.sh | bash -s -- --no-check-certificate
+  > ```
+  >
+  > 该参数会关闭 HTTPS 证书校验，下载内容存在被中间人篡改的风险，可能导致执行任意代码。请仅在可信网络环境中使用，并优先考虑修复证书配置。
+
 ### 方式三：手动安装软件包
 
 **场景1：体验master版本能力或基于master版本进行开发**

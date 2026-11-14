@@ -126,11 +126,7 @@ Subsequently, code formatting and OAT checks will be automatically triggered bef
 After configuring the environment, you can manually run checks:
 
 ```bash
-# Recommended method
 pre-commit run oat-check
-
-# Or directly run script
-bash scripts/oat_check.sh
 ```
 
 #### 3.2.6 Compliance Issues (Prevent Commit)

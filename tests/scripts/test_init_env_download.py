@@ -57,9 +57,11 @@ def test_interrupted_download_is_retried(tmp_path, kind):
     source = SCRIPT.read_text(encoding="utf-8")
     assert source.rstrip().endswith('main "$@"')
     source = source.rsplit('main "$@"', 1)[0]
-    old = 'local download_dir="/tmp/cann_install"'
+    old = "download_dir=$(mktemp -d)"
     assert old in source
-    source = source.replace(old, 'local download_dir="$CASE_ROOT/cann_install"', 1)
+    source = source.replace(
+        old, 'download_dir="$CASE_ROOT/cann_install"; mkdir -p "$download_dir"', 1
+    )
     (tmp_path / "functions.sh").write_text(source, encoding="utf-8")
     result = subprocess.run(
         ["/bin/bash", "-c", HARNESS],
@@ -76,15 +78,15 @@ def test_interrupted_download_is_retried(tmp_path, kind):
     downloads = (tmp_path / "downloads").read_text(encoding="utf-8").splitlines()
     assert downloads.count(kind) == 2
     if kind == "ops":
-        assert downloads.count("toolkit") == 1
+        assert downloads.count("toolkit") == 2
 
 
-def test_completed_existing_package_is_reused(tmp_path):
+def test_existing_package_is_redownloaded(tmp_path):
     source = SCRIPT.read_text(encoding="utf-8").rsplit('main "$@"', 1)[0]
+    old = "download_dir=$(mktemp -d)"
+    assert old in source
     source = source.replace(
-        'local download_dir="/tmp/cann_install"',
-        'local download_dir="$CASE_ROOT/cann_install"',
-        1,
+        old, 'download_dir="$CASE_ROOT/cann_install"; mkdir -p "$download_dir"', 1
     )
     (tmp_path / "functions.sh").write_text(source, encoding="utf-8")
     result = subprocess.run(
@@ -102,9 +104,10 @@ def test_completed_existing_package_is_reused(tmp_path):
     )
     assert result.returncode == 0, result.stderr
     assert "first=0 second=0" in result.stdout
-    assert "Downloading CANN toolkit" not in (tmp_path / "first.log").read_text(
+    assert "Downloading CANN toolkit" in (tmp_path / "first.log").read_text(
         encoding="utf-8"
     )
     assert (tmp_path / "downloads").read_text(encoding="utf-8").splitlines() == [
-        "toolkit"
+        "toolkit",
+        "toolkit",
     ]
