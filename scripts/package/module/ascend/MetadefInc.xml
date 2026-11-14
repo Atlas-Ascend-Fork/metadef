@@ -6,7 +6,6 @@
         <path value="$(TARGET_ENV)/include/exe_graph/runtime" install_mod="555"/>
         <path value="$(TARGET_ENV)/include/graph" install_mod="555"/>
         <path value="$(TARGET_ENV)/include/graph/utils" install_mod="555"/>
-        <path value="$(TARGET_ENV)/include/graph/symbolizer" install_mod="555"/>
         <path value="$(TARGET_ENV)/include/utils" install_mod="555"/>
         <path value="$(TARGET_ENV)/include/register" install_mod="555"/>
         <path value="$(TARGET_ENV)/include/register/asc" install_mod="555"/>
@@ -61,8 +60,6 @@
         <file value="kernel_context.h"/>
         <file value="tiling_data.h"/>
         <file value="extended_kernel_context.h"/>
-        <file value="symbolic_types.h"/>
-        <file value="infer_symbol_context.h"/>
     </file_info>
     <file_info value="include" copy_type="source" dst_path="$(TARGET_ENV)/include/graph" install_path="$(TARGET_ENV)/include/graph" install_type="devel" install_mod="440">
         <file value="tensor.h"/>
@@ -76,9 +73,6 @@
     </file_info>
     <file_info value="include" copy_type="source" dst_path="$(TARGET_ENV)/include/graph/utils" install_path="$(TARGET_ENV)/include/graph/utils" install_type="devel" install_mod="440">
         <file value="type_utils.h"/>
-    </file_info>
-    <file_info value="include" copy_type="source" dst_path="$(TARGET_ENV)/include/graph/symbolizer" install_path="$(TARGET_ENV)/include/graph/symbolizer" install_type="devel" install_mod="440">
-        <file value="symbolic.h"/>
     </file_info>
     <file_info value="include" copy_type="source" dst_path="$(TARGET_ENV)/include/utils" install_path="$(TARGET_ENV)/include/utils" install_type="devel" install_mod="440">
         <file value="extern_math_util.h"/>

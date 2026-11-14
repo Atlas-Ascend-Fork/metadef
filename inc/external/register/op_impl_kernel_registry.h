@@ -25,7 +25,6 @@
 namespace gert {
 class TilingParseContext;
 class InferSymbolShapeContext;
-class InferSymbolContext;
 class ExeResGenerationContext;
 class OpCheckContext;
 #define OP_IMPL_MAIN_VERSION 2
@@ -169,7 +168,6 @@ struct OpImplKernelRegistry {
   };
 
   using InferSymbolShapeKernelFunc = UINT32 (*)(InferSymbolShapeContext *);
-  using InferSymbolKernelFunc = UINT32 (*)(InferSymbolContext *);
   struct OpImplFunctionsV2 : OpImplFunctions {
     OpImplFunctionsV2() = default;
     OpImplFunctionsV2(OpImplFunctions &func);
@@ -224,13 +222,7 @@ struct OpImplKernelRegistry {
     OpImplRegisterV2::OpExecLaunchFunc op_execute_launch_func = nullptr;
     OpImplRegisterV2::ExceptionDumpFunc exception_func = nullptr;
     uint64_t nullable_outputs_ = 0UL;
-    // 保留区槽 0 为 PCIe 透传标记（kPcieThroughFlagIdx，与历史版本同址同语义，
-    // 保留外部 reserved_[kPcieThroughFlagIdx] 既有用法）；槽 1 由 infer_symbol 消费
-    uint64_t reserved_[1] = {0U};
-    // 符号化推导注册落表字段——消费链路（ge compiler 逐节点查询/三态归并/输出回写）按
-    // 阶段二另行合入，合入前注册不产生端到端效果（空值即未注册，行为兼容）
-    InferSymbolKernelFunc infer_symbol = nullptr;
-    uint64_t reserved2_[498] = {0U};
+    uint64_t reserved_[500] = {0U};
   };
 };
 }  // namespace gert
