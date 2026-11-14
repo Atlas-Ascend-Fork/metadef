@@ -214,7 +214,7 @@ stages:
               bucket: "ascend-ci"
               artifact-path: "${{ steps.process_checkout.outputs.path }}/slog.tar.gz"
               object-prefix: ${{ env.obs_smoke_path }}/plog/
-        if: env.TARGET_BRANCH == 'master'
+        if: env.TARGET_BRANCH == 'master' || env.TARGET_BRANCH == 'develop'
         runs-on: ['self-hosted', 'npu=1', 'smoke=204']
         container:
           image: swr.cn-south-1.myhuaweicloud.com/pre_smoke/${{ jobs.JOB_image.outputs.Smoke_A900_npupool }}
@@ -274,7 +274,7 @@ stages:
               bucket: "ascend-ci"
               artifact-path: "${{ steps.process_checkout.outputs.path }}/slog.tar.gz"
               object-prefix: ${{ env.obs_smoke_path }}/plog/A5/
-        if: env.TARGET_BRANCH == 'master'
+        if: env.TARGET_BRANCH == 'master' || env.TARGET_BRANCH == 'develop'
         runs-on: ['self-hosted', 'npu=1', 'smoke=501']
         container:
           image: swr.cn-north-4.myhuaweicloud.com/pre_smoke/${{ jobs.JOB_image.outputs.PreSmoke_A5 }}
