@@ -1,9 +1,9 @@
 # pre-commit使用指导书
 
 [TOC]
---- 
+---
 
-## 1 使用背景git 
+## 1 使用背景git
 
 本指导书主要用于指导如何在本地使用代码仓中部署的pre-commit能力（主要包括代码格式化及OAT扫描能力）。
 
@@ -61,8 +61,8 @@ git commit --allow-empty -m "test pre-commit"
 
 #### 3.2.1 检查内容
 
-**文件类型检查** - 禁止提交二进制文件（.so, .dll, .exe 等）  
-**许可证头检查** - 验证源代码文件包含合规的许可证声明  
+**文件类型检查** - 禁止提交二进制文件（.so, .dll, .exe 等）
+**许可证头检查** - 验证源代码文件包含合规的许可证声明
 
 #### 3.2.2 核心特点
 
@@ -126,11 +126,7 @@ git commit --allow-empty -m "test pre-commit"
 配置好环境后，可以手动运行检查：
 
 ```bash
-# 推荐方式
 pre-commit run oat-check
-
-# 或直接运行脚本
-bash scripts/oat_check.sh
 ```
 
 #### 3.2.6 合规性问题（阻止提交）

@@ -126,6 +126,15 @@ After entering container, execute the following commands to initialize environme
   > [!NOTE]NOTE
   > For other chip models, replace `--chip-type` parameter with corresponding model (such as `950`, `A3`)
 
+  > [!WARNING]About the `--no-check-certificate` Option
+  > By default, the script verifies TLS certificates when downloading CANN packages. Only if downloads fail due to certificate issues in your environment, append `--no-check-certificate` to skip certificate verification, for example:
+  >
+  > ```bash
+  > curl -fsSL https://raw.gitcode.com/cann/metadef/raw/master/scripts/init_env.sh | bash -s -- --no-check-certificate
+  > ```
+  >
+  > This option disables HTTPS certificate verification, so downloads may be tampered with by a man-in-the-middle attacker, potentially leading to arbitrary code execution. Use it only in trusted networks and prefer fixing the certificate configuration.
+
 ### Method 3: Manual Software Package Installation
 
 **Scenario 1: Experience Master Version Capabilities or Develop Based on Master Version**

@@ -19,6 +19,7 @@ NC='\033[0m'
 CHIP_TYPE="910b"
 INSTALL_OPS=false
 INSTALL_PATH="${INSTALL_PATH:-/usr/local/Ascend}"
+WGET_OPTS=()
 
 log_info()  { echo -e "${GREEN}[INFO]${NC} $1"; }
 log_warn()  { echo -e "${YELLOW}[WARN]${NC} $1"; }
@@ -37,7 +38,7 @@ get_arch() {
 
 get_cann_url() {
     local base_url="https://ascend.devcloud.huaweicloud.com/artifactory/cann-run-mirror/software/master"
-    local latest_dir=$(wget -q --no-check-certificate -O - "$base_url/" | \
+    local latest_dir=$(wget -q "${WGET_OPTS[@]}" -O - "$base_url/" | \
                         grep -Eo '>[0-9]{17,}/<' | \
                         tr -d '></' | \
                         sort -r | \
@@ -52,7 +53,7 @@ get_cann_url() {
 download_package() {
     local url="$1" destination="$2" temporary
     temporary=$(mktemp "${destination}.part.XXXXXX") || return 1
-    if wget -q --show-progress --no-check-certificate -O "$temporary" "$url" &&
+    if wget -q --show-progress "${WGET_OPTS[@]}" -O "$temporary" "$url" &&
        mv -f -- "$temporary" "$destination"; then
         return 0
     fi
@@ -65,9 +66,8 @@ install_cann() {
 
     local arch=$(get_arch)
     local cann_url=$(get_cann_url)
-    local download_dir="/tmp/cann_install"
 
-    CANN_VERSION=$(wget -q --no-check-certificate -O - "${cann_url}/" | \
+    CANN_VERSION=$(wget -q "${WGET_OPTS[@]}" -O - "${cann_url}/" | \
                     grep -Eo "Ascend-cann-toolkit_[^_]+_linux-${arch}\.run" | \
                     head -n 1 | \
                     sed -E "s/Ascend-cann-toolkit_([^_]+)_linux-.*/\1/")
@@ -76,7 +76,12 @@ install_cann() {
         return 1
     fi
     log_info "CANN version: ${CANN_VERSION}"
-    mkdir -p "$download_dir"
+
+    local orig_dir="$PWD"
+    local download_dir
+    download_dir=$(mktemp -d) || { log_error "Failed to create temp download dir"; return 1; }
+    chmod 700 "$download_dir"
+    trap 'cd "$orig_dir" >/dev/null 2>&1 || true; rm -rf -- "$download_dir"' RETURN
     cd "$download_dir"
 
     local toolkit_pkg="Ascend-cann-toolkit_${CANN_VERSION}_linux-${arch}.run"
@@ -84,16 +89,14 @@ install_cann() {
     local toolkit_url="${cann_url}/${toolkit_pkg}"
     local ops_url="${cann_url}/${ops_pkg}"
 
-    if [ ! -f "$toolkit_pkg" ]; then
-        log_info "Downloading CANN toolkit (${arch})..."
-        log_info "URL: $toolkit_url"
-        download_package "$toolkit_url" "$toolkit_pkg" || {
-            log_error "Failed to download toolkit"
-            return 1
-        }
-    fi
+    log_info "Downloading CANN toolkit (${arch})..."
+    log_info "URL: $toolkit_url"
+    download_package "$toolkit_url" "$toolkit_pkg" || {
+        log_error "Failed to download toolkit"
+        return 1
+    }
 
-    if [ ! -f "$ops_pkg" ] && [ "$INSTALL_OPS" = true ]; then
+    if [ "$INSTALL_OPS" = true ]; then
         log_info "Downloading CANN ops (${CHIP_TYPE}, ${arch})..."
         log_info "URL: $ops_url"
         download_package "$ops_url" "$ops_pkg" || {
@@ -116,13 +119,6 @@ install_cann() {
             log_warn "Ops installation may have issues (this can be normal on non-NPU systems)"
         }
     fi
-
-    log_info "Cleaning up..."
-    rm -f "$toolkit_pkg"
-    if [ "$INSTALL_OPS" = true ]; then
-        rm -f "$ops_pkg"
-    fi
-    cd - > /dev/null
 
     log_info "CANN installation completed"
 }
@@ -208,6 +204,11 @@ show_help() {
     echo "  --chip-type TYPE         Chip type: 910b, 950, A3 (default: Not install ops)"
     echo "  --install-path PATH      Installation path (default: ${INSTALL_PATH})"
     echo "  --skip-cann              Skip CANN installation (default: Install cann)"
+    echo "  --no-check-certificate   Skip TLS certificate verification when downloading packages."
+    echo "                           WARNING: disables HTTPS certificate checks, exposing the"
+    echo "                           download to man-in-the-middle tampering and arbitrary code"
+    echo "                           execution. Off by default; use only if your environment"
+    echo "                           cannot pass certificate verification."
     echo "  --help                   Show this help"
     echo ""
     echo "Examples:"
@@ -235,6 +236,10 @@ main() {
                 INSTALL_CANN=false
                 shift
                 ;;
+            --no-check-certificate)
+                WGET_OPTS+=(--no-check-certificate)
+                shift
+                ;;
             --help|-h)
                 show_help
                 exit 0
@@ -257,6 +262,7 @@ main() {
     echo "  Install cann:  ${INSTALL_CANN}"
     echo "  Install ops:   ${INSTALL_OPS}"
     echo "  Install Path:  ${INSTALL_PATH}"
+    echo "  TLS verify:    $([ ${#WGET_OPTS[@]} -eq 0 ] && echo enabled || echo "disabled (--no-check-certificate)")"
     echo ""
 
     local work_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

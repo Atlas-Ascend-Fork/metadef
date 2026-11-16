@@ -273,7 +273,7 @@ static ge::Session CreateAndAddGraphToSession(Graph &graph) {
 static Status InitACL(aclrtStream &stream) {
   const char *aclConfigPath = "";
   aclError retInit = aclInit(aclConfigPath);
-  if (retInit != ACL_ERROR_NONE) {
+  if (retInit != ACL_SUCCESS) {
     printf("[ACL run log] - INFO - [XIR]: acl init failed.\n");
     return FAILED;
   }
@@ -281,14 +281,14 @@ static Status InitACL(aclrtStream &stream) {
 
   int32_t deviceId = 0;
   retInit = aclrtSetDevice(deviceId);
-  if (retInit != ACL_ERROR_NONE) {
+  if (retInit != ACL_SUCCESS) {
     printf("[ACL run log] - INFO - [XIR]: acl set deviceid failed\n");
     return FAILED;
   }
   printf("[ACL run log] - INFO - [XIR]: acl set deviceid success\n");
 
   aclError aclRet = aclrtCreateStream(&stream);
-  if (aclRet != ACL_ERROR_NONE) {
+  if (aclRet != ACL_SUCCESS) {
     printf("[ACL run log] - INFO - [XIR]: acl creat stream failed\n");
     return FAILED;
   }
@@ -310,12 +310,12 @@ static Status PrepareInputTensors(const std::vector<ge::Tensor> &input, std::vec
     const uint8_t *input_buffer = input[i].GetData();
     void *inputdevBuffer = nullptr;
     aclError aclRet = aclrtMalloc(&inputdevBuffer, input_size, ACL_MEM_MALLOC_NORMAL_ONLY);
-    if (aclRet != ACL_ERROR_NONE) {
+    if (aclRet != ACL_SUCCESS) {
       printf("[ACL run log] - INFO - [XIR]: malloc input dev buffer fail\n");
       return FAILED;
     }
     aclRet = aclrtMemcpy(inputdevBuffer, input_size, input_buffer, input_size, ACL_MEMCPY_HOST_TO_DEVICE);
-    if (aclRet != ACL_ERROR_NONE) {
+    if (aclRet != ACL_SUCCESS) {
       printf("[ACL run log] - INFO - [XIR]: acl memcpy input to dev failed\n");
       return FAILED;
     }
@@ -356,7 +356,7 @@ static Status ExecuteGraphAndSaveOutput(ge::Session &sess, uint32_t graph_id, ac
   printf("[IR run log] - INFO - [XIR]: GeSessionExecuteGraphWithStreamAsync success\n");
 
   aclError aclRet = aclrtSynchronizeStream(stream);
-  if (aclRet != ACL_ERROR_NONE) {
+  if (aclRet != ACL_SUCCESS) {
     printf("[ACL run log] - INFO - [XIR]: sync stream failed\n");
     return FAILED;
   }
