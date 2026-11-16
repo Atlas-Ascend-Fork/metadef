@@ -125,6 +125,8 @@ set(EXTERNAL_RUNTIME_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/external/exe_graph/runtime/continuous_vector.h
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/external/exe_graph/runtime/exe_res_generation_context.h
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/external/exe_graph/runtime/infer_shape_context.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/external/exe_graph/runtime/symbolic_types.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/external/exe_graph/runtime/infer_symbol_context.h
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/external/exe_graph/runtime/range.h
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/external/exe_graph/runtime/runtime_attrs.h
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/external/exe_graph/runtime/base_type.h
@@ -161,6 +163,11 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/inc/external/graph/utils/type_utils.h
     DESTINATION ${CMAKE_SYSTEM_PROCESSOR}-linux/include/graph/utils
     COMPONENT metadef
 )
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/inc/external/graph/symbolizer/symbolic.h
+        DESTINATION ${CMAKE_SYSTEM_PROCESSOR}-linux/include/graph/symbolizer
+        COMPONENT metadef
+)
+
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/inc/external/utils/extern_math_util.h
     DESTINATION ${CMAKE_SYSTEM_PROCESSOR}-linux/include/utils
     COMPONENT metadef

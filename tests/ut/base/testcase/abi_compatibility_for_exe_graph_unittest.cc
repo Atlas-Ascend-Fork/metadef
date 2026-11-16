@@ -11,6 +11,7 @@
 #include <gtest/gtest.h>
 #include "exe_graph/runtime/runtime_tensor.h"
 #include "exe_graph/runtime/compute_node_info.h"
+#include "exe_graph/runtime/symbolic_types.h"
 #include "base/runtime/runtime_attrs_def.h"
 #include "exe_graph/runtime/infer_shape_range_context.h"
 #include "exe_graph/runtime/infer_shape_context.h"
@@ -47,6 +48,9 @@ constexpr const size_t kKernelRunContextSize = 48U;
 constexpr const size_t kTilingDataSize = 64U;
 constexpr const size_t kCompileTimeTensorDescStorageFormatSize = 97U;
 constexpr const size_t kCompileTimeTensorDescReservedFieldSize = 39U;
+constexpr const size_t kExpressionSize = 8U;
+constexpr const size_t kSymbolShapeSize = 40U;
+constexpr const size_t kSymbolTensorSize = 48U;
 }  // namespace
 constexpr size_t Shape::kMaxDimNum;
 class AbiCompatibilityForExeGraphUT : public testing::Test {};
@@ -327,5 +331,20 @@ TEST_F(AbiCompatibilityForExeGraphUT, TilingData_CheckMemLayoutNotChanged) {
   EXPECT_EQ(sizeof(t->reserved_), kReservedFieldSize);
 
   free(holder);
+}
+
+// SymbolShape/SymbolTensor/Expression：只断言 sizeof 总尺寸。sizeof 编译期求值、
+// 不构造对象——构造会经弱符号 Expression()，本仓不链接 symbolizer 实现时会空指针
+// 崩溃；成员为 private 且含 vector/unique_ptr 非 standard-layout，无法做 offsetof
+TEST_F(AbiCompatibilityForExeGraphUT, Expression_CheckMemLayoutNotChanged) {
+  ASSERT_EQ(sizeof(ge::Expression), kExpressionSize);
+}
+
+TEST_F(AbiCompatibilityForExeGraphUT, SymbolShape_CheckMemLayoutNotChanged) {
+  ASSERT_EQ(sizeof(gert::SymbolShape), kSymbolShapeSize);
+}
+
+TEST_F(AbiCompatibilityForExeGraphUT, SymbolTensor_CheckMemLayoutNotChanged) {
+  ASSERT_EQ(sizeof(gert::SymbolTensor), kSymbolTensorSize);
 }
 }  // namespace gert
