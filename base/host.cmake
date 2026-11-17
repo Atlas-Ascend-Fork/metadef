@@ -59,6 +59,7 @@ target_compile_options(opp_registry PRIVATE
 
 target_compile_definitions(opp_registry PRIVATE
         google=ascend_private
+        GE_INFER_SYMBOL_API_EXPORTS=1
         $<IF:$<STREQUAL:${TARGET_SYSTEM_NAME},Windows>,OS_TYPE=WIN,OS_TYPE=0>
         $<$<STREQUAL:${TARGET_SYSTEM_NAME},Windows>:SECUREC_USING_STD_SECURE_LIB=0 NOMINMAX>
 )
@@ -108,6 +109,7 @@ target_compile_options(rt2_registry_objects PRIVATE
 target_compile_definitions(rt2_registry_objects PRIVATE
         $<IF:$<STREQUAL:${TARGET_SYSTEM_NAME},Windows>,OS_TYPE=WIN,OS_TYPE=0>
         $<$<STREQUAL:${TARGET_SYSTEM_NAME},Windows>:SECUREC_USING_STD_SECURE_LIB=0 NOMINMAX>
+        GE_INFER_SYMBOL_API_EXPORTS=1
         )
 
 target_include_directories(rt2_registry_objects PRIVATE
@@ -194,6 +196,10 @@ target_compile_options(stub_opp_registry PRIVATE
         -Os
         -Werror=return-type
         -Wno-unused-parameter
+)
+
+target_compile_definitions(stub_opp_registry PRIVATE
+        GE_INFER_SYMBOL_API_EXPORTS=1
 )
 
 target_link_libraries(stub_opp_registry
