@@ -2,9 +2,9 @@
 
 ## 函数功能
 
-设置算子计算依赖第几个输入tensor的值。
+设置算子计算依赖第几个输入Tensor的值。
 
-所谓的数据依赖，是指算子的计算不仅依赖于输入tensor的shape，还依赖输入tensor的具体值。
+所谓的数据依赖，是指算子的计算不仅依赖于输入Tensor的shape，还依赖输入Tensor的具体值。
 
 ## 函数原型
 
@@ -20,7 +20,7 @@ OpImplRegisterV2 &InputsDataDependency(std::initializer_list<int32_t> inputs)
 
 ## 返回值说明
 
-返回算子的OpImplRegisterV2 对象，该对象新增设置算子计算依赖第几个输入tensor的值。
+返回算子的OpImplRegisterV2 对象，该对象新增设置算子计算依赖第几个输入Tensor的值。
 
 ## 约束说明
 

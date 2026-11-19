@@ -19,7 +19,7 @@ const Tensor *GetDynamicInputTensor(const size_t ir_index, const size_t relative
 
 ## 返回值说明
 
-指定的输入tensor指针，ir\_index或relative\_index非法时，返回空指针。
+指定的输入Tensor指针，ir\_index或relative\_index非法时，返回空指针。
 
 关于Tensor类型的定义，请参见[Tensor](../tensor/Tensor.md)。
 
