@@ -36,5 +36,8 @@ auto extend_context = reinterpret_cast<ExtendedKernelContext *>(context);
 // Case 1: Assume that the 0th input of an operator's IR prototype is an optional input, and there is actually 1 input.
 auto optional_input_td = extend_context->GetOptionalInputDesc(0); // Obtain the tensor description of the 0th optional input.
 // Case 2: Assume that the 0th input of an operator's IR prototype is an optional input, and there is actually no input.
-auto optional_input_td = extend_context->GetOptionalInputDesc(0); // nullptr
+auto optional_input_td_without_instance = extend_context->GetOptionalInputDesc(0);
+if (optional_input_td_without_instance == nullptr) {
+  // The optional input is not instantiated.
+}
 ```
