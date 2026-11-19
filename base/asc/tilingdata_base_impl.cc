@@ -221,7 +221,11 @@ uint32_t __attribute__((weak)) TilingDataStructBaseImpl::RecordTilingStruct(cons
     if ((strcmp(item.first, file_name) == 0) && item.second == line) {
       return 0;
     }
-    printf("[Warning]: tiling struct [%s] is conflict with one in file %s, line %u\n", name, item.first, item.second);
+#ifndef ASCENDC_DEVICE_REG_STATIC
+    GELOGW("Tiling struct [%s] conflicts with one in file %s, line %u", name, item.first, item.second);
+#else
+    printf("[Warning]: tiling struct [%s] conflicts with one in file %s, line %u\n", name, item.first, item.second);
+#endif
   } else {
     records->emplace(name, std::make_pair(file_name, line));
   }
