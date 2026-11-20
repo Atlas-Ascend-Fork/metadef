@@ -2,7 +2,7 @@
 
 ## 函数功能
 
-根据算子原型定义中的输入索引获取对应的可选输入tensor指针。
+根据算子原型定义中的输入索引获取对应的可选输入Tensor指针。
 
 ## 函数原型
 
@@ -18,7 +18,7 @@ const Tensor *GetOptionalInputTensor(const size_t ir_index) const
 
 ## 返回值说明
 
-指定ir\_index的输入tensor指针，当输入ir\_index非法或该INPUT没有实例化时，返回空指针。
+指定ir\_index的输入Tensor指针，当输入ir\_index非法或该INPUT没有实例化时，返回空指针。
 
 关于Tensor类型的定义，请参见[Tensor](../tensor/Tensor.md)。
 

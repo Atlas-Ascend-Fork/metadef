@@ -33,8 +33,8 @@ None
 ```cpp
 // Assume that KernelContext *context already exists.
 auto extend_context = reinterpret_cast<ExtendedKernelContext *>(context);
-for (size_t idx = 0; idx < extend_context->GetComputeNodeInfo()->GetOutputsNum(); ++idx) {
-  auto output_td = extend_context->GetIrOutputInstanceInfo(idx);
+for (size_t idx = 0; idx < extend_context->GetComputeNodeInfo()->GetIrOutputsNum(); ++idx) {
+  auto output_instance = extend_context->GetIrOutputInstanceInfo(idx);
   ...
 }
 ```

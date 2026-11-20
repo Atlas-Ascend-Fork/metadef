@@ -74,7 +74,7 @@ const char_t *TypeImpl::GetFormatName(Format format) {
       "FRACTAL_NZ_C0_4",
       "FRACTAL_NZ_C0_8",
   };
-  if (format >= FORMAT_END) {
+  if ((format < 0) || (format >= FORMAT_END)) {
     return "UNKNOWN";
   }
   return names[format];

@@ -23,7 +23,7 @@ void Init(const size_t ir_inputs_num, const size_t ir_outputs_num, const size_t 
 |**node_name**|Input|Node name.|
 |**node_type**|Input|Node type (operator prototype name).|
 |**ir_outputs_num**|Input|Number of outputs in the operator prototype.|
-|**attr_size**|Input|Number of attributes.|
+|**attr_size**|Input|Size in bytes of the `RuntimeAttrs` serialization buffer.|
 
 ## Return Value
 

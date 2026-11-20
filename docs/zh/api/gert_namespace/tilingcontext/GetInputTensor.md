@@ -2,7 +2,7 @@
 
 ## 函数功能
 
-根据算子输入索引获取对应的输入tensor指针。这里的输入索引是指算子实例化后实际的索引，不是原型定义中的索引。
+根据算子输入索引获取对应的输入Tensor指针。这里的输入索引是指算子实例化后实际的索引，不是原型定义中的索引。
 
 ## 函数原型
 
@@ -18,7 +18,7 @@ const Tensor *GetInputTensor(const size_t index) const
 
 ## 返回值说明
 
-指定的输入tensor指针，当输入index非法时返回空指针。
+指定的输入Tensor指针，当输入index非法时返回空指针。
 
 关于Tensor类型的定义，请参见[Tensor](../tensor/Tensor.md)。
 

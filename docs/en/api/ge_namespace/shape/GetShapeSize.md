@@ -4,7 +4,8 @@
 
 ## Function
 
-Obtains the product of all **dim**s in the shape.
+Obtains the product of all **dim**s in the shape. Scalar and exceptional cases
+are described in the return value.
 
 ## Function Prototype
 
@@ -18,7 +19,14 @@ None
 
 ## Return Value
 
-Returns the product of all **dim**s.
+Returns the product of all **dim**s, with these special cases:
+
+- If any dimension is `-1` (`ge::UNKNOWN_DIM`) or `-2`
+  (`ge::UNKNOWN_DIM_NUM`), returns `-1` to indicate an unknown shape.
+- If any dimension is `0`, returns `0` to indicate an empty tensor.
+- If the shape has no dimensions, returns `0` to indicate a scalar.
+- If multiplying the dimensions overflows `int64_t`, returns `0`.
+- Otherwise, returns the product of all dimensions.
 
 ## Exception Handling
 

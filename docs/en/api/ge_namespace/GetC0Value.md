@@ -20,7 +20,7 @@ inline int64_t GetC0Value(int32_t format)
 
 ## Return Value
 
-- Returns the C0 format contained in the actual format if the C0 format is included.
+- Returns the corresponding C0 value `2^(x-1)` decoded from the encoding field `x` if the C0 format is included. For example, a field value of `5` returns `16`.
 - Returns **-1** if the C0 format is not included.
 
 ## Exception Handling
@@ -29,4 +29,4 @@ None
 
 ## Constraints
 
-When setting the actual format, the range of the C0 format in the low 4 bits of the first byte supports only x=\(0001\~1111\), and the actually obtained C0 value is 2^x-1.
+When setting the actual format, the C0 format field `x` in the low 4 bits of the first byte ranges from 1 to 15; `GetC0Value` returns `2^(x-1)`. If the C0 format is not set, `-1` is returned.

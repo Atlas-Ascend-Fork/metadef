@@ -27,13 +27,17 @@ ge::graphStatus AppendConvertedAttrVal(const RuntimeAttrs *attrs, const size_t a
 
 |src_type|dst_type|
 |--|--|
-|kInt64|kInt32, kUint32|
-|kListInt64|kListInt32, kListUint32|
-|kInt32|kInt32|
-|kListInt32|kListInt32|
-|kFloat32|kFloat32, kFloat16, kBfloat16, kInt64, kInt32, kInt16, kInt8|
-|kListFloat32|kListFloat32, kListFloat16, kListInt64, kListInt32, kListInt16, kListInt8|
-|kBool|kBool|
+|kBool|kBool, kFloat16, kBfloat16, kFloat32, kInt8, kInt16, kInt32, kInt64, kUint8, kUint16, kUint32, kUint64|
+|kListBool|kListBool, kListFloat16, kListBfloat16, kListFloat32, kListInt8, kListInt16, kListInt32, kListInt64, kListUint8, kListUint16, kListUint32, kListUint64|
+|kFloat32|kBool, kFloat16, kBfloat16, kFloat32, kInt8, kInt16, kInt32, kInt64, kUint8, kUint16, kUint32, kUint64|
+|kListFloat32|kListBool, kListFloat16, kListBfloat16, kListFloat32, kListInt8, kListInt16, kListInt32, kListInt64, kListUint8, kListUint16, kListUint32, kListUint64|
+|kListListFloat32|kListListBool, kListListFloat16, kListListBfloat16, kListListFloat32, kListListInt8, kListListInt16, kListListInt32, kListListInt64, kListListUint8, kListListUint16, kListListUint32, kListListUint64|
+|kInt32|kBool, kFloat16, kBfloat16, kFloat32, kInt8, kInt16, kInt32, kInt64, kUint8, kUint16, kUint32, kUint64|
+|kListInt32|kListBool, kListFloat16, kListBfloat16, kListFloat32, kListInt8, kListInt16, kListInt32, kListInt64, kListUint8, kListUint16, kListUint32, kListUint64|
+|kListListInt32|kListListBool, kListListFloat16, kListListBfloat16, kListListFloat32, kListListInt8, kListListInt16, kListListInt32, kListListInt64, kListListUint8, kListListUint16, kListListUint32, kListListUint64|
+|kInt64|kBool, kFloat16, kBfloat16, kFloat32, kInt8, kInt16, kInt32, kInt64, kUint8, kUint16, kUint32, kUint64|
+|kListInt64|kListBool, kListFloat16, kListBfloat16, kListFloat32, kListInt8, kListInt16, kListInt32, kListInt64, kListUint8, kListUint16, kListUint32, kListUint64|
+|kListListInt64|kListListBool, kListListFloat16, kListListBfloat16, kListListFloat32, kListListInt8, kListListInt16, kListListInt32, kListListInt64, kListListUint8, kListListUint16, kListListUint32, kListListUint64|
 |kString|kString|
 
 ## Return Value

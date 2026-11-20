@@ -72,6 +72,7 @@ TEST_F(UtestTypes, GetFormatName) {
   ASSERT_EQ(strcmp(GetFormatName(FORMAT_ALL), "UNKNOWN"), 0);
   ASSERT_EQ(strcmp(GetFormatName(FORMAT_NULL), "UNKNOWN"), 0);
   ASSERT_EQ(strcmp(GetFormatName(FORMAT_END), "UNKNOWN"), 0);
+  ASSERT_EQ(strcmp(GetFormatName(static_cast<Format>(-1)), "UNKNOWN"), 0);
   ASSERT_EQ(strcmp(GetFormatName(FORMAT_FRACTAL_NZ_C0_2), "FRACTAL_NZ_C0_2"), 0);
   ASSERT_EQ(strcmp(GetFormatName(FORMAT_FRACTAL_NZ_C0_4), "FRACTAL_NZ_C0_4"), 0);
   ASSERT_EQ(strcmp(GetFormatName(FORMAT_FRACTAL_NZ_C0_8), "FRACTAL_NZ_C0_8"), 0);
