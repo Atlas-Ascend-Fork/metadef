@@ -26,4 +26,11 @@ None
 
 ## Constraints
 
-Because the returned **Shape** information is a value copy, modifying the returned **Shape** information does not affect the existing **Shape** information in **TensorDesc**.
+The returned **Shape** shares its underlying dimensions with **TensorDesc**. Calling `Shape::SetDim()` on the returned object also changes the shape stored in **TensorDesc**.
+
+To modify an independent shape, construct a new **Shape** from the dimensions:
+
+```cpp
+ge::Shape shape(desc.GetShape().GetDims());
+shape.SetDim(0, 7);  // Does not change the shape stored in desc.
+```
