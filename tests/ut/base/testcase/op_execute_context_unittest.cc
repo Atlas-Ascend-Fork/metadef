@@ -75,4 +75,22 @@ TEST_F(OpExecuteContextUT, GetWorkspaceAddrsReturnsNullWhenInputSlotIsMissing) {
   ASSERT_NE(context, nullptr);
   EXPECT_EQ(context->GetWorkspaceAddrs(), nullptr);
 }
+
+TEST_F(OpExecuteContextUT, FreeWorkspaceReturnsWhenAllocatorInputIsMissing) {
+  OpKernelContextBuilder ctx_builder;
+  gert::StorageShape shape0 = {{10, 20}, {10, 20}};
+  auto holder = ctx_builder.OpType("Add")
+                    .OpName("add_1")
+                    .IONum(2, 1)
+                    .InputTensorDesc(0, ge::DT_FLOAT16, ge::FORMAT_ND, ge::FORMAT_ND)
+                    .InputTensorDesc(1, ge::DT_FLOAT16, ge::FORMAT_ND, ge::FORMAT_ND)
+                    .OutputTensorDesc(0, ge::DT_FLOAT16, ge::FORMAT_ND, ge::FORMAT_ND)
+                    .Inputs({&shape0, &shape0})
+                    .Outputs({&shape0})
+                    .Build();
+
+  auto context = reinterpret_cast<OpExecuteContext *>(holder.GetContext());
+  ASSERT_NE(context, nullptr);
+  EXPECT_NO_FATAL_FAILURE(context->FreeWorkspace());
+}
 }  // namespace gert
