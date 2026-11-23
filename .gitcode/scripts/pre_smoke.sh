@@ -42,22 +42,34 @@ rm -rf /root/ascend/log
 log "start run test case, please wait ..."
 
 if [ -z "${run_url:-}" ]; then
-    echo "run_url is empty, no need to execute smoke test task"
+    echo "[PreSmoke] run_url is empty (compile stage skipped or no artifact), no need to execute smoke test task"
     exit 0
 fi
 
 DOWNLOAD_FILE=$(basename "${run_url}")
-echo "Starting to download file: ${DOWNLOAD_FILE}"
-wget -nv --no-clobber "${run_url}"
 
-if [ ! -f "${DOWNLOAD_FILE}" ]; then
-    echo "File ${DOWNLOAD_FILE} does not exist, no need to execute smoke test task"
+# compile 阶段跳过时(仅改 md/docs 等文件), 产物为 0 字节的 empty.run 占位包,
+# run_url 指向 .../empty.run。以此区分 "compile 跳过"(打日志后 exit 0)
+# 与 "真实下载失败"(打日志后 exit 1)。
+if [ "${DOWNLOAD_FILE}" = "empty.run" ]; then
+    echo "[PreSmoke] Compile stage skipped (empty.run placeholder), no need to execute smoke test task"
     exit 0
 fi
 
-FILE_SIZE=$(stat -c%s "${DOWNLOAD_FILE}" 2>/dev/null || echo 0)
+echo "Starting to download file: ${DOWNLOAD_FILE}"
+if ! wget -nv --tries=3 --timeout=60 --no-clobber "${run_url}"; then
+    echo "[PreSmoke] ERROR: failed to download ${DOWNLOAD_FILE} from ${run_url}" >&2
+    exit 1
+fi
+
+if [ ! -f "${DOWNLOAD_FILE}" ]; then
+    echo "[PreSmoke] ERROR: ${DOWNLOAD_FILE} does not exist after download (url: ${run_url})" >&2
+    exit 1
+fi
+
+FILE_SIZE=$(stat -c%s "${DOWNLOAD_FILE}")
 if [ "${FILE_SIZE}" -eq 0 ]; then
-    echo "No compiled operators, no need to execute smoke test task"
+    echo "[PreSmoke] No compiled operators (0-byte package from ${run_url}), no need to execute smoke test task"
     rm -f "${DOWNLOAD_FILE}"
     exit 0
 fi
