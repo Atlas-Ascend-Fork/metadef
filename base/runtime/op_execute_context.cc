@@ -38,10 +38,10 @@ void OpExecuteContext::FreeWorkspace() {
       GetOutputPointer<std::vector<GertMemBlock *>>(static_cast<size_t>(OpExecuteOutputIndex::kBlockMemory));
   auto gert_allocator = GetInputValue<GertAllocator *>(GetComputeNodeInputNum() + GetComputeNodeOutputNum() +
                                                        static_cast<size_t>(OpExecuteInputExtendIndex::kAllocate));
-  const auto stream_id = gert_allocator->GetStreamId();
-  if (memory_vec == nullptr) {
+  if (memory_vec == nullptr || gert_allocator == nullptr) {
     return;
   }
+  const auto stream_id = gert_allocator->GetStreamId();
   for (size_t i = 0UL; i < memory_vec->size(); i++) {
     if (memory_vec->at(i) != nullptr) {
       memory_vec->at(i)->Free(stream_id);
