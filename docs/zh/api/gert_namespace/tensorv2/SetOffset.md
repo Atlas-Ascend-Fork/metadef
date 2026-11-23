@@ -12,7 +12,9 @@ void SetOffset(const int64_t offset)
 
 ## 参数说明
 
-Tensor的offset，以Tensor元素为单位。
+|参数|输入/输出|说明|
+|--|--|--|
+|offset|输入|Tensor的offset，以Tensor元素为单位。|
 
 ## 返回值说明
 

@@ -20,7 +20,7 @@ ge::graphStatus SetAicpuNumBlocks(uint32_t num_blocks)
 
 |Parameter|Input/Output|Description|
 |--|--|--|
-|SetAicpuNumBlocks|Input|Number of AI CPU cores that can be scheduled.|
+|num_blocks|Input|Number of AI CPU cores that can be scheduled.|
 
 ## Return Value
 
