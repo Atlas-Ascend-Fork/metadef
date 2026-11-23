@@ -14,7 +14,7 @@ ge::graphStatus SetDynUBufSize(const uint32_t dyn_ubuf_size)
 
 |参数|输入/输出|说明|
 |--|--|--|
-|local_memory_size|输入|Dynamic Unified Buffer大小。|
+|dyn_ubuf_size|输入|Dynamic Unified Buffer大小。|
 
 ## 返回值说明
 

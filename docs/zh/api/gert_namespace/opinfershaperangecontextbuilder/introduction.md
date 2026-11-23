@@ -4,7 +4,7 @@ OpInferShapeRangeContextBuilder用于构建InferShapeRangeContext。构造出的
 
 OpInferShapeRangeContextBuilder继承关系图如下：
 
-![opinfershape_context_builder](../../figures/opinfershape_context_builder.png)
+![opinfershaperange_context_builder](../../figures/opinfershaperange_context_builder.png)
 
 使用步骤如下：
 
