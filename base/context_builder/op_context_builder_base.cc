@@ -83,10 +83,11 @@ T &OpContextBuilderBase<T>::IOInstanceNum(const std::vector<uint32_t> &input_ins
 
 template <typename T>
 ge::DataType &OpContextBuilderBase<T>::MutableInputDataType(size_t index) {
-  if (impl_ == nullptr || index >= impl_->MutableOpInfo().input_tensor_descs.size()) {
-    static ge::DataType default_dtype = ge::DT_MAX;
-    GELOGE(ge::PARAM_INVALID, "Input index %zu is out of range, input tensor desc size is %zu", index,
-           impl_->MutableOpInfo().input_tensor_descs.size());
+  static ge::DataType default_dtype = ge::DT_MAX;
+  GE_CHECK_NOTNULL_EXEC(impl_, return default_dtype);
+  const auto size = impl_->MutableOpInfo().input_tensor_descs.size();
+  if (index >= size) {
+    GELOGE(ge::PARAM_INVALID, "Input index %zu is out of range, input tensor desc size is %zu", index, size);
     return default_dtype;
   }
   return impl_->MutableOpInfo().input_tensor_descs[index].dtype;
@@ -94,10 +95,11 @@ ge::DataType &OpContextBuilderBase<T>::MutableInputDataType(size_t index) {
 
 template <typename T>
 ge::Format &OpContextBuilderBase<T>::MutableInputOriginalFormat(size_t index) {
-  if (impl_ == nullptr || index >= impl_->MutableOpInfo().input_tensor_descs.size()) {
-    static ge::Format default_format = ge::FORMAT_MAX;
-    GELOGE(ge::PARAM_INVALID, "Input index %zu is out of range, input tensor desc size is %zu", index,
-           impl_->MutableOpInfo().input_tensor_descs.size());
+  static ge::Format default_format = ge::FORMAT_MAX;
+  GE_CHECK_NOTNULL_EXEC(impl_, return default_format);
+  const auto size = impl_->MutableOpInfo().input_tensor_descs.size();
+  if (index >= size) {
+    GELOGE(ge::PARAM_INVALID, "Input index %zu is out of range, input tensor desc size is %zu", index, size);
     return default_format;
   }
   return impl_->MutableOpInfo().input_tensor_descs[index].origin_format;
@@ -105,10 +107,11 @@ ge::Format &OpContextBuilderBase<T>::MutableInputOriginalFormat(size_t index) {
 
 template <typename T>
 ge::Format &OpContextBuilderBase<T>::MutableInputStorageFormat(size_t index) {
-  if (impl_ == nullptr || index >= impl_->MutableOpInfo().input_tensor_descs.size()) {
-    static ge::Format default_format = ge::FORMAT_MAX;
-    GELOGE(ge::PARAM_INVALID, "Input index %zu is out of range, input tensor desc size is %zu", index,
-           impl_->MutableOpInfo().input_tensor_descs.size());
+  static ge::Format default_format = ge::FORMAT_MAX;
+  GE_CHECK_NOTNULL_EXEC(impl_, return default_format);
+  const auto size = impl_->MutableOpInfo().input_tensor_descs.size();
+  if (index >= size) {
+    GELOGE(ge::PARAM_INVALID, "Input index %zu is out of range, input tensor desc size is %zu", index, size);
     return default_format;
   }
   return impl_->MutableOpInfo().input_tensor_descs[index].storage_format;
@@ -116,10 +119,11 @@ ge::Format &OpContextBuilderBase<T>::MutableInputStorageFormat(size_t index) {
 
 template <typename T>
 gert::ExpandDimsType &OpContextBuilderBase<T>::MutableInputExpandDimsType(size_t index) {
-  if (impl_ == nullptr || index >= impl_->MutableOpInfo().input_tensor_descs.size()) {
-    static gert::ExpandDimsType default_expand_dims_type;
-    GELOGE(ge::PARAM_INVALID, "Input index %zu is out of range, input tensor desc size is %zu", index,
-           impl_->MutableOpInfo().input_tensor_descs.size());
+  static gert::ExpandDimsType default_expand_dims_type;
+  GE_CHECK_NOTNULL_EXEC(impl_, return default_expand_dims_type);
+  const auto size = impl_->MutableOpInfo().input_tensor_descs.size();
+  if (index >= size) {
+    GELOGE(ge::PARAM_INVALID, "Input index %zu is out of range, input tensor desc size is %zu", index, size);
     return default_expand_dims_type;
   }
   return impl_->MutableOpInfo().input_tensor_descs[index].expand_dims_type;
@@ -127,10 +131,11 @@ gert::ExpandDimsType &OpContextBuilderBase<T>::MutableInputExpandDimsType(size_t
 
 template <typename T>
 DataType &OpContextBuilderBase<T>::MutableOutputDataType(size_t index) {
-  if (impl_ == nullptr || index >= impl_->MutableOpInfo().output_tensor_descs.size()) {
-    static ge::DataType default_dtype = ge::DT_MAX;
-    GELOGE(ge::PARAM_INVALID, "Output index %zu is out of range, output tensor desc size is %zu", index,
-           impl_->MutableOpInfo().output_tensor_descs.size());
+  static ge::DataType default_dtype = ge::DT_MAX;
+  GE_CHECK_NOTNULL_EXEC(impl_, return default_dtype);
+  const auto size = impl_->MutableOpInfo().output_tensor_descs.size();
+  if (index >= size) {
+    GELOGE(ge::PARAM_INVALID, "Output index %zu is out of range, output tensor desc size is %zu", index, size);
     return default_dtype;
   }
   return impl_->MutableOpInfo().output_tensor_descs[index].dtype;
@@ -138,10 +143,11 @@ DataType &OpContextBuilderBase<T>::MutableOutputDataType(size_t index) {
 
 template <typename T>
 ge::Format &OpContextBuilderBase<T>::MutableOutputOriginalFormat(size_t index) {
-  if (impl_ == nullptr || index >= impl_->MutableOpInfo().output_tensor_descs.size()) {
-    static ge::Format default_format = ge::FORMAT_MAX;
-    GELOGE(ge::PARAM_INVALID, "Output index %zu is out of range, output tensor desc size is %zu", index,
-           impl_->MutableOpInfo().output_tensor_descs.size());
+  static ge::Format default_format = ge::FORMAT_MAX;
+  GE_CHECK_NOTNULL_EXEC(impl_, return default_format);
+  const auto size = impl_->MutableOpInfo().output_tensor_descs.size();
+  if (index >= size) {
+    GELOGE(ge::PARAM_INVALID, "Output index %zu is out of range, output tensor desc size is %zu", index, size);
     return default_format;
   }
   return impl_->MutableOpInfo().output_tensor_descs[index].origin_format;
@@ -149,10 +155,11 @@ ge::Format &OpContextBuilderBase<T>::MutableOutputOriginalFormat(size_t index) {
 
 template <typename T>
 ge::Format &OpContextBuilderBase<T>::MutableOutputStorageFormat(size_t index) {
-  if (impl_ == nullptr || index >= impl_->MutableOpInfo().output_tensor_descs.size()) {
-    static ge::Format default_format = ge::FORMAT_MAX;
-    GELOGE(ge::PARAM_INVALID, "Output index %zu is out of range, output tensor desc size is %zu", index,
-           impl_->MutableOpInfo().output_tensor_descs.size());
+  static ge::Format default_format = ge::FORMAT_MAX;
+  GE_CHECK_NOTNULL_EXEC(impl_, return default_format);
+  const auto size = impl_->MutableOpInfo().output_tensor_descs.size();
+  if (index >= size) {
+    GELOGE(ge::PARAM_INVALID, "Output index %zu is out of range, output tensor desc size is %zu", index, size);
     return default_format;
   }
   return impl_->MutableOpInfo().output_tensor_descs[index].storage_format;
@@ -160,10 +167,11 @@ ge::Format &OpContextBuilderBase<T>::MutableOutputStorageFormat(size_t index) {
 
 template <typename T>
 gert::ExpandDimsType &OpContextBuilderBase<T>::MutableOutputExpandDimsType(size_t index) {
-  if (impl_ == nullptr || index >= impl_->MutableOpInfo().output_tensor_descs.size()) {
-    static gert::ExpandDimsType default_expand_dims_type;
-    GELOGE(ge::PARAM_INVALID, "Output index %zu is out of range, output tensor desc size is %zu", index,
-           impl_->MutableOpInfo().output_tensor_descs.size());
+  static gert::ExpandDimsType default_expand_dims_type;
+  GE_CHECK_NOTNULL_EXEC(impl_, return default_expand_dims_type);
+  const auto size = impl_->MutableOpInfo().output_tensor_descs.size();
+  if (index >= size) {
+    GELOGE(ge::PARAM_INVALID, "Output index %zu is out of range, output tensor desc size is %zu", index, size);
     return default_expand_dims_type;
   }
   return impl_->MutableOpInfo().output_tensor_descs[index].expand_dims_type;
