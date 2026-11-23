@@ -10,9 +10,12 @@
 
 #ifndef METADEF_CXX_GERT_TENSOR_DATA_H
 #define METADEF_CXX_GERT_TENSOR_DATA_H
+#include <cstddef>
+#include <cstdint>
 #include <utility>
 #include "exe_graph/runtime/tensor_data.h"
 #include "ge/ge_allocator.h"
+#include "graph/error_codes.h"
 #include "gert_mem_block.h"
 namespace gert {
 /**
