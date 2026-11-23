@@ -85,6 +85,10 @@ int32_t GenOnesData(vector<int64_t> shapes, Tensor &input_tensor, TensorDesc &in
 
 int32_t WriteDataToFile(string bin_file, uint64_t data_size, uint8_t *inputData) {
   FILE *fp = fopen(bin_file.c_str(), "w");
+  if (fp == nullptr) {
+    printf("%s - ERROR - [XIR]: Open file %s failed\n", GetTime().c_str(), bin_file.c_str());
+    return FAILED;
+  }
   fwrite(inputData, sizeof(uint8_t), data_size, fp);
   fclose(fp);
   return SUCCESS;
@@ -98,6 +102,10 @@ int32_t LoadDataFromFile(string bin_file, vector<int64_t> shapes, Tensor &input_
   }
   uint32_t data_size = size * GetDataTypeSize(data_type);
   FILE *fp = fopen(bin_file.c_str(), "r");
+  if (fp == nullptr) {
+    printf("%s - ERROR - [XIR]: Open file %s failed\n", GetTime().c_str(), bin_file.c_str());
+    return FAILED;
+  }
   uint32_t *memory = (uint32_t *)malloc(data_size * sizeof(uint32_t));
   fread(memory, sizeof(uint32_t), data_size, fp);
   fclose(fp);
