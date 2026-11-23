@@ -7,7 +7,7 @@
 ## Header Files to Include
 
 ```cpp
-#include <extern_math_util.h>
+#include <utils/extern_math_util.h>
 ```
 
 ## Public Member Functions
