@@ -25,7 +25,7 @@ const StorageFormat &GetFormat() const
 ## 调用示例
 
 ```cpp
-StorageFormat storageFormat(ge::Format::FORMAT_NC, ge::FORMAT_NCHW, {});
+gert::StorageFormat storageFormat(ge::Format::FORMAT_NC, ge::FORMAT_NCHW, {});
 gert::CompileTimeTensorDesc compileTimeTensorDesc;
 compileTimeTensorDesc.SetStorageFormat(storageFormat.GetStorageFormat());
 auto storage_fmt = compileTimeTensorDesc.GetFormat(); // ge::FORMAT_NCHW
