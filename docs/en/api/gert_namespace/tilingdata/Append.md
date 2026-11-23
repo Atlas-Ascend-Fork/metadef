@@ -46,13 +46,13 @@ struct AppendData{
 AppendData ad;
 auto ret = td->Append<AppendData>(ad); // ge::GRAPH_SUCCESS
 
-// 2
-size_t append_num = 10;
-int32_t *td = new int32_t[append_num];
-auto ret = td->Append<int32_t>(td, append_num); // ge::GRAPH_SUCCESS
+// 2 Append an array with sufficient remaining capacity.
+constexpr size_t kAppendNum = 10U;
+int32_t append_data[kAppendNum] = {0};
+auto append_ret = td->Append<int32_t>(append_data, kAppendNum); // ge::GRAPH_SUCCESS
 
-// 3
-size_t append_num = 50;
-int32_t *td = new int32_t[append_num];
-auto ret = td->Append<int32_t>(td, append_num); // ge::GRAPH_ADD_OVERFLOW
+// 3 Append an array that exceeds the remaining capacity.
+constexpr size_t kOverCapNum = 50U;
+int32_t over_cap_data[kOverCapNum] = {0};
+auto over_cap_ret = td->Append<int32_t>(over_cap_data, kOverCapNum); // ge::GRAPH_ADD_OVERFLOW
 ```

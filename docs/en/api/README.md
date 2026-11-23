@@ -718,6 +718,7 @@
 - [C API](c_api/c_interface.md)
   - [C\_DataType](c_api/C_DataType.md)
   - [C\_Format](c_api/C_Format.md)
+  - [C\_GraphKind](c_api/C_GraphKind.md)
   - [gert\_TilingContextBuilder\_SetDeterministicLevel](c_api/gert_TilingContextBuilder_SetDeterministicLevel.md)
   - [gert\_TilingContextBuilder\_SetSimtBlockDim](c_api/gert_TilingContextBuilder_SetSimtBlockDim.md)
   - [gert\_TilingContextBuilder\_SetSimtGridDim](c_api/gert_TilingContextBuilder_SetSimtGridDim.md)

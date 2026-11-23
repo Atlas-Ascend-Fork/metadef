@@ -4,11 +4,11 @@
 
 ## Function
 
-Sets the SIMT grid dimension when constructing a **TilingContext** with **OpTilingContextBuilder**. This corresponds to the weak-symbol C API and is equivalent to **OpTilingContextBuilder::SimtGridDim**.
+Sets the SIMT grid dimension when constructing a **TilingContext** with **OpTilingContextBuilder**. This corresponds to the weak-symbol C API and is equivalent to **OpTilingContextBuilder::SimtGridDim**. This is a weak-symbol bridging API declared with C linkage (extern "C"), but its parameter `grid_dim` is of the C++ type `gert::Dim3`, so it can only be called from C++ code and is not a pure C API that can be called directly from C source.
 
 ## Function Prototype
 
-```c
+```cpp
 uint32_t __attribute__((weak)) gert_TilingContextBuilder_SetSimtGridDim(void *builder, const gert::Dim3 *grid_dim)
 ```
 

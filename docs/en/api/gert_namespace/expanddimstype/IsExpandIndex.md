@@ -25,7 +25,7 @@ bool IsExpandIndex(const AxisIndex index) const
 
 ## Constraints
 
-None
+The valid range of index is [0, kMaxExpandSize), where kMaxExpandSize is 56. The caller must ensure that index is within the valid range.
 
 ## Example
 
