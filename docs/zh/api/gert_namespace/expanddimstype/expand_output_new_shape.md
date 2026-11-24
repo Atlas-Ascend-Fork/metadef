@@ -30,11 +30,11 @@ ge::graphStatus Expand(const Shape &shape, Shape &out_shape) const
 ## 调用示例
 
 ```cpp
-Shape origin_shape({3, 256, 256}); // 设置原始shape 3x256x256
-Shape out_shape;
-ExpandDimsType type1("1000");
-ExpandDimsType type2("10000");
-ExpandDimsType type3("1001");
+gert::Shape origin_shape({3, 256, 256}); // 设置原始shape 3x256x256
+gert::Shape out_shape;
+gert::ExpandDimsType type1("1000");
+gert::ExpandDimsType type2("10000");
+gert::ExpandDimsType type3("1001");
 auto ret = type1.Expand(origin_shape, out_shape); // ret = ge::GRAPH_SUCCESS, out_shape = 1,3,256,256
 ret = type2.Expand(origin_shape, out_shape); // ret = ge::GRAPH_FAILED
 ret = type3.Expand(origin_shape, out_shape); // ret = ge::GRAPH_SUCCESS, out_shape = 1,3,256,1,256
