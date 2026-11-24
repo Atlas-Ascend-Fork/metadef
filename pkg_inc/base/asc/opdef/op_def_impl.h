@@ -263,9 +263,11 @@ class OpDefImpl {
   OpMC2Def op_mc2;
   FormatCheckOption format_mode = FormatCheckOption::MAX;
   bool enable_fall_back = false;
+  gert::OpImplRegisterV2::InferSymbolKernelFunc infer_symbol = nullptr;
   OpDef &Comment(OpDef *parent_this, CommentSection section, const char *comment);
   OpDef &SetInferShape(OpDef *parent_this, gert::OpImplRegisterV2::InferShapeKernelFunc func);
   OpDef &SetInferShapeRange(OpDef *parent_this, gert::OpImplRegisterV2::InferShapeRangeKernelFunc func);
+  OpDef &SetInferSymbol(OpDef *parent_this, gert::OpImplRegisterV2::InferSymbolKernelFunc func);
   OpDef &SetInferDataType(OpDef *parent_this, gert::OpImplRegisterV2::InferDataTypeKernelFunc func);
 
   OpAttrDef &GetOrCreateAttr(OpDef *parent_this, const char *name);

@@ -105,13 +105,10 @@ class OpImplRegisterV2 {
   // 类内 inline 转发器（带 body → stub 生成器跳过不生成 stub）；环境支持与否经
   // 落表入口弱引用的动态解析判定——老 GE 上置空跳过注册，行为等同未注册
   OpImplRegisterV2 &InferSymbol(InferSymbolKernelFunc infer_symbol_func) {
-#if defined(__GNUC__) && !defined(GE_INFER_SYMBOL_API_EXPORTS)
-    if (RegisterInferSymbolForSo != nullptr) {
-      RegisterInferSymbolForSo(*this, infer_symbol_func);
+    auto register_entry = RegisterInferSymbolForSo;
+    if (register_entry != nullptr) {
+      register_entry(*this, infer_symbol_func);
     }
-#else
-    RegisterInferSymbolForSo(*this, infer_symbol_func);
-#endif
     return *this;
   }
   /*
