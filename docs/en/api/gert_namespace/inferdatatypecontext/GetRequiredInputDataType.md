@@ -20,7 +20,7 @@ ge::DataType GetRequiredInputDataType(const size_t ir_index) const
 
 ## Return Value
 
-Returns the data type of the specified input. If the input **ir\_index** is invalid, **DT\_UNDEFINED** is returned.
+Returns the data type of the specified input. If the input **ir\_index** is invalid or the required input is not instantiated, **DT\_UNDEFINED** is returned.
 
 ## Constraints
 

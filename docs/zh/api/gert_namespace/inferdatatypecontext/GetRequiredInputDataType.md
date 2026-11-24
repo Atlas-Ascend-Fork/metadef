@@ -18,7 +18,7 @@ ge::DataType GetRequiredInputDataType(const size_t ir_index) const
 
 ## 返回值说明
 
-返回指定输入的数据类型，若输入的ir\_index非法，返回DT\_UNDEFINED。
+返回指定输入的数据类型，若输入的ir\_index非法或该必选输入没有实例化，返回DT\_UNDEFINED。
 
 ## 约束说明
 
