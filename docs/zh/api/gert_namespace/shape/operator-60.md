@@ -27,7 +27,7 @@ true：相等；false：不相等。
 ## 调用示例
 
 ```cpp
-Shape shape0({3, 256, 256});
-Shape shape1({1, 3, 256, 256});
+gert::Shape shape0({3, 256, 256});
+gert::Shape shape1({1, 3, 256, 256});
 auto is_same_shape = shape0 == shape1; // 返回值为false，不相等
 ```
