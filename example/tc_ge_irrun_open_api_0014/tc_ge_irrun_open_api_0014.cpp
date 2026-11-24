@@ -305,13 +305,22 @@ static Status InitACL(aclrtStream &stream) {
   return SUCCESS;
 }
 
+static gert::StorageShape ToStorageShape(const ge::Shape &shape) {
+  gert::StorageShape storage_shape;
+  for (const auto dim : shape.GetDims()) {
+    storage_shape.MutableOriginShape().AppendDim(dim);
+    storage_shape.MutableStorageShape().AppendDim(dim);
+  }
+  return storage_shape;
+}
+
 static Status PrepareInputTensors(const std::vector<ge::Tensor> &input, std::vector<gert::Tensor> &input_device,
                                   aclrtStream stream) {
   input_device.resize(input.size());
   for (size_t i = 0; i < input.size(); i++) {
     auto input_size = input[i].GetSize();
     auto input_desc = input[i].GetTensorDesc();
-    gert::StorageShape storage_shape({4, 50, 50, 3}, {4, 50, 50, 3});
+    gert::StorageShape storage_shape = ToStorageShape(input_desc.GetShape());
     auto input_format = input_desc.GetFormat();
     gert::StorageFormat storage_format(input_format, input_format, {});
     auto input_dtype = input_desc.GetDataType();
@@ -349,11 +358,22 @@ static Status ExecuteGraphAndSaveOutput(ge::Session &sess, uint32_t graph_id, ac
     return FAILED;
   }
 
-  size_t output_size = 4 * 48 * 48 * 3;
+  if (input.empty()) {
+    printf("[IR run log] - ERROR - [XIR]: input tensor is empty\n");
+    return FAILED;
+  }
+  auto output_desc = input[0].GetTensorDesc();
+  size_t output_size = input[0].GetSize();
   void *outputdevBuffer = nullptr;
-  aclrtMalloc(&outputdevBuffer, output_size, ACL_MEM_MALLOC_NORMAL_ONLY);
+  aclError allocRet = aclrtMalloc(&outputdevBuffer, output_size, ACL_MEM_MALLOC_NORMAL_ONLY);
+  if (allocRet != ACL_SUCCESS) {
+    printf("[ACL run log] - ERROR - [XIR]: malloc output dev buffer fail\n");
+    return FAILED;
+  }
   output.resize(1);
-  output[0] = {{{4, 48, 48, 3}, {4, 48, 48, 3}}, {}, gert::kOnDeviceHbm, {}, outputdevBuffer};
+  gert::StorageShape output_shape = ToStorageShape(output_desc.GetShape());
+  gert::StorageFormat output_format(output_desc.GetFormat(), output_desc.GetFormat(), {});
+  output[0] = {output_shape, output_format, gert::kOnDeviceHbm, output_desc.GetDataType(), outputdevBuffer};
 
   printf("[IR run log] - INFO - [XIR]: Start to run ir compute graph the second time\n");
   ret = GeSessionExecuteGraphWithStreamAsync(sess, graph_id, stream, input_device, output);
