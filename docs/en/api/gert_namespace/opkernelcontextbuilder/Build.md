@@ -29,7 +29,8 @@ Returns a **ContextHolder<KernelContext\>** object. Call the **GetContext\(\)** 
 
 ```cpp
 #include "base/context_builder/op_kernel_run_context_builder.h"
-OpKernelContextBuilder ctx_builder;
+#include "exe_graph/runtime/compute_node_info.h"
+gert::OpKernelContextBuilder ctx_builder;
 gert::StorageShape shape0 = {{10, 20}, {10, 20}};
 auto holder = ctx_builder.OpType("Add")
                   .OpName("add_1")
@@ -40,7 +41,7 @@ auto holder = ctx_builder.OpType("Add")
                   .Inputs({&shape0, &shape0})
                   .Outputs({&shape0})
                   .Build();
-auto ctx = reinterpret_cast<KernelContext *>(holder.GetContext());
+auto ctx = reinterpret_cast<gert::KernelContext *>(holder.GetContext());
 EXPECT_NE(ctx, nullptr);
 auto ctx_compute_node_info = static_cast<const gert::ComputeNodeInfo *>(ctx->GetComputeNodeExtend());
 EXPECT_NE(ctx_compute_node_info, nullptr);
@@ -50,7 +51,7 @@ EXPECT_EQ(ctx_compute_node_info->GetIrInputsNum(), 2);
 EXPECT_EQ(ctx_compute_node_info->GetIrOutputsNum(), 1);
 EXPECT_EQ(ctx_compute_node_info->GetInputsNum(), 2);
 EXPECT_EQ(ctx_compute_node_info->GetOutputsNum(), 1);
-const CompileTimeTensorDesc *info_input_0 = ctx_compute_node_info->GetInputTdInfo(0);
+const gert::CompileTimeTensorDesc *info_input_0 = ctx_compute_node_info->GetInputTdInfo(0);
 EXPECT_NE(info_input_0, nullptr);
 EXPECT_EQ(info_input_0->GetStorageFormat(), ge::FORMAT_FRACTAL_NZ);
 EXPECT_EQ(info_input_0->GetOriginFormat(), ge::FORMAT_ND);
