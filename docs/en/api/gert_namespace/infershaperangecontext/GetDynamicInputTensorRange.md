@@ -39,8 +39,8 @@ If the input is not set as data-dependent, when calling this API to obtain the t
 const auto infer_shape_range_func = [](gert::InferShapeRangeContext *context) -> graphStatus {
   auto input_shape_range = context->GetDynamicInputTensorRange(0U, 0U);
   auto output_shape_range = context->GetOutputShapeRange(0U);
-  *output_shape_range-->GetMin() = input_shape_range->GetMin()->GetStorageShape();
-  *output_shape_range-->GetMax() = input_shape_range->GetMax()->GetStorageShape();
+  *output_shape_range->GetMin() = input_shape_range->GetMin()->GetStorageShape();
+  *output_shape_range->GetMax() = input_shape_range->GetMax()->GetStorageShape();
   return GRAPH_SUCCESS;
 };
 ```
