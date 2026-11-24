@@ -4,7 +4,7 @@
 
 ## Function
 
-Creates a fusion task. A fusion task refers to a task of the fusion type. Currently, a fusion task can be created by combining an AI Core task and a CCU task.
+Creates a fusion task from a sequence of AI Core and/or CCU tasks.
 
 ## Function Prototype
 
@@ -25,7 +25,7 @@ Returns the created fusion task information.
 
 ## Constraints
 
-Currently, **sub\_tasks**  supports only the sequence combination of AI Core task + CCU task.
+Each subtask must be an AI Core task or a CCU task. The sequence may contain multiple tasks of either supported type, and the serialized order matches the input order.
 
 ## Example
 
