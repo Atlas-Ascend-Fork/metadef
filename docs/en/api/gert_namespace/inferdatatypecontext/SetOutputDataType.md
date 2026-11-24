@@ -16,7 +16,7 @@ ge::graphStatus SetOutputDataType(const size_t index, const ge::DataType datatyp
 
 |Parameter|Input/Output|Description|
 |--|--|--|
-|index|Input|Output index in the operator IR prototype definition, counted from 0.|
+|index|Input|Actual output index after operator instantiation, counted from 0.|
 |datatype|Input|Data type to be set for the output. For details about **DataType**, see **DataType**.|
 
 ## Return Value

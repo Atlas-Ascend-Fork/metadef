@@ -14,7 +14,7 @@ ge::graphStatus SetOutputDataType(const size_t index, const ge::DataType datatyp
 
 |参数|输入/输出|说明|
 |--|--|--|
-|index|输入|算子IR原型定义中的输出索引，从0开始计数。|
+|index|输入|算子实例化后实际的输出索引，从0开始计数。|
 |datatype|输入|需要设置的输出数据类型。关于DataType的说明，请参见DataType。|
 
 ## 返回值说明
