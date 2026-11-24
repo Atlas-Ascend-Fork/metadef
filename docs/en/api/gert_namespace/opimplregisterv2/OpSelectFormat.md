@@ -16,7 +16,7 @@ OpImplRegisterV2 &OpSelectFormat(OP_CHECK_FUNC_V2 op_select_format_func)
 
 |Parameter|Input/Output|Description|
 |--|--|--|
-|**select_format_func**|Input|**OP_CHECK_FUNC_V2** function to be registered. The **OP_CHECK_FUNC_V2** type is defined as follows:<br>`using OP_CHECK_FUNC_V2 = ge::graphStatus (*)(const OpCheckContext *context, ge::AscendString &result);`|
+|**op_select_format_func**|Input|**OP_CHECK_FUNC_V2** function to be registered. The **OP_CHECK_FUNC_V2** type is defined as follows:<br>`using OP_CHECK_FUNC_V2 = ge::graphStatus (*)(const OpCheckContext *context, ge::AscendString &result);`|
 
 ## Return Value
 

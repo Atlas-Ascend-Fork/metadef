@@ -12,8 +12,10 @@
 #include <cstdint>
 #include <memory>
 #include <cmath>
+#include <limits>
 #include "base/context_builder/context_holder.h"
 #include "base/context_builder/op_kernel_run_context_builder.h"
+#include "base/attr/attrs_to_buffer.h"
 #include "base/context_builder/op_infer_datatype_context_builder.h"
 #include "base/context_builder/op_infer_shape_context_builder.h"
 #include "base/context_builder/op_infer_shape_range_context_builder.h"
@@ -1230,6 +1232,26 @@ TEST_F(UtestContextBuilder, GetAttrPointerReturnPointerOK) {
   EXPECT_EQ(data[0], 1);
   EXPECT_EQ(data[1], 2);
   EXPECT_EQ(data[2], 3);
+}
+
+TEST_F(UtestContextBuilder, ContinuousVectorVectorOverheadRejectsSizeOverflow) {
+  const size_t max = std::numeric_limits<size_t>::max();
+  const size_t base = sizeof(gert::ContinuousVectorVector);
+  EXPECT_EQ(gert::ContinuousVectorVector::GetOverHeadLength(0U), base);
+  EXPECT_EQ(gert::ContinuousVectorVector::GetOverHeadLength(1U), base);
+  EXPECT_EQ(gert::ContinuousVectorVector::GetOverHeadLength(2U), base + sizeof(size_t));
+  EXPECT_EQ(gert::ContinuousVectorVector::GetOverHeadLength(max / sizeof(size_t)), 0U);
+  EXPECT_EQ(gert::ContinuousVectorVector::GetOverHeadLength(max), 0U);
+}
+
+TEST_F(UtestContextBuilder, AttrBufferRejectsUnsupportedAnyValue) {
+  std::vector<ge::AnyValue> attrs;
+  attrs.emplace_back(ge::AnyValue::CreateFrom<int64_t>(42));
+  attrs.emplace_back(ge::AnyValue::CreateFrom<std::vector<int32_t>>(std::vector<int32_t>{1, 2, 3}));
+  size_t size = 123U;
+  auto holder = gert::bg::CreateAttrBufferWithAttrs(attrs, size);
+  EXPECT_EQ(holder, nullptr);
+  EXPECT_EQ(size, 0U);
 }
 
 TEST_F(UtestContextBuilder, GetRawTilingDataReturnsNullWhenOutputSlotIsMissing) {

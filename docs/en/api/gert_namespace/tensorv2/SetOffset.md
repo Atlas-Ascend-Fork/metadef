@@ -14,7 +14,9 @@ void SetOffset(const int64_t offset)
 
 ## Parameters
 
-Tensor offset.
+|Parameter|Input/Output|Description|
+|--|--|--|
+|offset|Input|Tensor offset.|
 
 ## Return Value
 

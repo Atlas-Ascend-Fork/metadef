@@ -320,7 +320,10 @@ inline std::unique_ptr<uint8_t[]> CreateAttrBuffer(const std::vector<std::vector
 inline std::unique_ptr<uint8_t[]> CreateAttrBufferWithAttrs(const std::vector<ge::AnyValue> &attrs, size_t &size) {
   std::vector<std::vector<uint8_t>> runtime_attrs;
   for (auto &attr : attrs) {
-    (void)AppendAttr(attr, runtime_attrs);
+    if (!AppendAttr(attr, runtime_attrs)) {
+      size = 0U;
+      return nullptr;
+    }
   }
   return CreateAttrBuffer(runtime_attrs, size);
 }

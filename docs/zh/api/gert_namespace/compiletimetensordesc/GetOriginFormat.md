@@ -26,8 +26,8 @@ CompileTimeTensorDesc所描述Tensor的原始数据排布格式。
 
 ```cpp
 auto dtype_ = ge::DataType::DT_INT32;
-StorageFormat fmt_(ge::Format::FORMAT_NC, ge::FORMAT_NCHW, {});
-ExpandDimsType type_("1001");
+gert::StorageFormat fmt_(ge::Format::FORMAT_NC, ge::FORMAT_NCHW, {});
+gert::ExpandDimsType type_("1001");
 gert::CompileTimeTensorDesc td;
 td.SetDataType(dtype_);
 auto dtype = td.GetDataType(); // ge::DataType::DT_INT32;

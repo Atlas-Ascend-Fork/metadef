@@ -4,11 +4,11 @@
 
 ## Function
 
-Sets the SIMT Block dimension when constructing a **TilingContext** with **OpTilingContextBuilder**. This corresponds to the weak-symbol C API and is equivalent to **OpTilingContextBuilder::SimtBlockDim**.
+Sets the SIMT Block dimension when constructing a **TilingContext** with **OpTilingContextBuilder**. This corresponds to the weak-symbol C API and is equivalent to **OpTilingContextBuilder::SimtBlockDim**. This is a weak-symbol bridging API declared with C linkage (extern "C"), but its parameter `block_dim` is of the C++ type `gert::Dim3`, so it can only be called from C++ code and is not a pure C API that can be called directly from C source.
 
 ## Function Prototype
 
-```c
+```cpp
 uint32_t __attribute__((weak)) gert_TilingContextBuilder_SetSimtBlockDim(void *builder, const gert::Dim3 *block_dim)
 ```
 

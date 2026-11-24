@@ -33,6 +33,13 @@ class OpExecuteLaunchContext : public ExtendedKernelContext {
    * @return 输入tensor指针，index非法时，返回空指针
    */
   const Tensor *GetInputTensor(const size_t index) const {
+    const auto compute_node_info = GetComputeNodeInfo();
+    if (compute_node_info == nullptr) {
+      return nullptr;
+    }
+    if (index >= compute_node_info->GetInputsNum()) {
+      return nullptr;
+    }
     return GetInputPointer<Tensor>(index);
   }
   /**
@@ -68,11 +75,11 @@ class OpExecuteLaunchContext : public ExtendedKernelContext {
   }
 
   /**
-   * 基于算子IR原型定义，获取`DYNAMIC_OUTPUT`类型的输入Tensor指针
+   * 基于算子IR原型定义，获取`DYNAMIC_OUTPUT`类型的输出Tensor指针
    * @param ir_index IR原型定义中的index
    * @param relative_index
-   * 该输入实例化后的相对index，例如某个DYNAMIC_OUTPUT实例化了3个输入，那么relative_index的有效范围是[0,2]
-   * @return tensor指针，index或relative_index非法时，返回空指针
+   * 该输出实例化后的相对index，例如某个DYNAMIC_OUTPUT实例化了3个输出，那么relative_index的有效范围是[0,2]
+   * @return 输出tensor指针，ir_index或relative_index非法时，返回空指针
    */
   const Tensor *GetDynamicOutputTensor(const size_t ir_index, const size_t relative_index) const {
     return GetDynamicOutputPointer<Tensor>(ir_index, relative_index);
@@ -88,9 +95,9 @@ class OpExecuteLaunchContext : public ExtendedKernelContext {
   }
 
   /**
-   * 基于算子IR原型定义，获取`REQUIRED_OUTPUT`类型的输入Tensor指针
+   * 基于算子IR原型定义，获取`REQUIRED_OUTPUT`类型的输出Tensor指针
    * @param ir_index IR原型定义中的index
-   * @return Tensor指针，index非法时，返回空指针
+   * @return 输出Tensor指针，ir_index非法时，返回空指针
    */
   const Tensor *GetRequiredOutputTensor(const size_t ir_index) const {
     return GetDynamicOutputPointer<Tensor>(ir_index, 0);

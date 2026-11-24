@@ -9,14 +9,14 @@
 ## 函数原型
 
 ```cpp
-void SetOriginShape(const Shape &originShape)
+void SetOriginShape(const Shape &origin_shape)
 ```
 
 ## 参数说明
 
 |参数名|输入/输出|描述|
 |--|--|--|
-|originShape|输入|向TensorDesc设置原始的originShape对象。|
+|origin_shape|输入|向TensorDesc设置原始的origin_shape对象。|
 
 ## 返回值
 

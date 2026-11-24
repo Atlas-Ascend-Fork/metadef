@@ -11,14 +11,14 @@ This shape refers to the shape of the original network model.
 ## Function Prototype
 
 ```cpp
-void SetOriginShape(const Shape &originShape)
+void SetOriginShape(const Shape &origin_shape)
 ```
 
 ## Parameters
 
 |Parameter|Input/Output|Description|
 |--|--|--|
-|originShape|Input|Sets the original **originShape** object in **TensorDesc**.|
+|origin_shape|Input|Sets the original **origin_shape** object in **TensorDesc**.|
 
 ## Return Value
 

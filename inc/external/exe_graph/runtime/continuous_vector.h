@@ -187,7 +187,15 @@ class ContinuousVectorVector {
     if (capacity == 0U) {
       return sizeof(ContinuousVectorVector);
     }
-    return sizeof(capacity_) + sizeof(size_) + sizeof(reserved_) + sizeof(size_t) * capacity;
+    size_t offset_size = 0U;
+    if (ge::MulOverflow(sizeof(size_t), capacity, offset_size)) {
+      return 0U;
+    }
+    size_t total_size = sizeof(capacity_) + sizeof(size_) + sizeof(reserved_);
+    if (ge::AddOverflow(total_size, offset_size, total_size)) {
+      return 0U;
+    }
+    return total_size;
   }
 
  private:

@@ -78,6 +78,13 @@ class InferFormatContext : public ExtendedKernelContext {
    * @return 输入shape指针，index非法时，返回空指针
    */
   const Shape *GetInputShape(const size_t index) const {
+    const auto compute_node_info = GetComputeNodeInfo();
+    if (compute_node_info == nullptr) {
+      return nullptr;
+    }
+    if (index >= compute_node_info->GetInputsNum()) {
+      return nullptr;
+    }
     return GetInputPointer<Shape>(index);
   }
 
@@ -116,6 +123,13 @@ class InferFormatContext : public ExtendedKernelContext {
    * @return 输入tensor指针，index非法时，返回空指针
    */
   const Tensor *GetInputTensor(const size_t index) const {
+    const auto compute_node_info = GetComputeNodeInfo();
+    if (compute_node_info == nullptr) {
+      return nullptr;
+    }
+    if (index >= compute_node_info->GetInputsNum()) {
+      return nullptr;
+    }
     return GetInputPointer<Tensor>(index);
   }
 
