@@ -139,7 +139,7 @@ build_metadef() {
   # stamp 会误判三方库已安装而跳过重装, 导致链接失败(如 cannot find libascend_protobuf.so)。
   # 此时删除过期构建目录, 强制全量重建三方库。
   local protobuf_shared_lib="${CANN_3RD_LIB_PATH}/lib_cache/protobuf_shared/lib/libascend_protobuf.so"
-  if [[ -d "${BUILD_PATH}" && ! -f "${protobuf_shared_lib}" && ! -f "${ASCEND_INSTALL_PATH}/lib64/libascend_protobuf.so" ]]; then
+  if [[ -d "${BUILD_PATH}" && ! -f "${protobuf_shared_lib}" ]]; then
     echo "Warning: '${protobuf_shared_lib}' not found, third-party libraries may have been cleaned."
     echo "         Removing stale build directory '${BUILD_PATH}' to force a full rebuild."
     rm -rf "${BUILD_PATH}"
