@@ -53,6 +53,6 @@ EXPECT_EQ(ctx->GetInputDesc(0)->GetOriginFormat(), ge::FORMAT_NCDHW);
 EXPECT_EQ(ctx->GetInputDesc(0)->GetStorageFormat(), ge::FORMAT_RESERVED);
 EXPECT_EQ((void *) ctx->GetPlatformInfo(), (void *) tmp_platform_info);
 EXPECT_EQ((void *) ctx->GetPlatformInfo(), (void *) tmp_platform_info);
-EXPECT_EQ(std::string(ctx->GetCompiledJson()), std::string(json_data.c_str()));
+EXPECT_EQ(std::string(ctx->GetCompiledJson()), std::string(json_data));
 EXPECT_EQ(ctx->GetCompiledInfo<uint8_t>(), tmp_compile_info);
 ```
