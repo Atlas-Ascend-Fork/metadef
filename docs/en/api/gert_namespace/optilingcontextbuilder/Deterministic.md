@@ -24,5 +24,5 @@ OpTilingContextBuilder &Deterministic(int32_t deterministic)
 
 ## Constraints
 
-- This API must be called before calling the **Build** method; otherwise, the constructed **TilingContext** will contain undefined data.
+- If this API is not called, deterministic computation is disabled by default (**0**).
 - For parameters passed by pointers (**void\***), the memory ownership belongs to the caller; the caller must ensure that the pointers remain valid throughout the lifetime of the **ContextHolder** object.
