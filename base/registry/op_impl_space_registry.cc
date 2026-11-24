@@ -107,7 +107,7 @@ const OpImplSpaceRegistryArray &DefaultOpImplSpaceRegistry::GetDefaultSpaceRegis
 
 OpImplSpaceRegistryPtr &DefaultOpImplSpaceRegistry::GetDefaultSpaceRegistry(ge::OppImplVersion opp_impl_version) {
   static OpImplSpaceRegistryPtr null_ptr = nullptr;
-  if (opp_impl_version > ge::OppImplVersion::kVersionEnd) {
+  if (opp_impl_version >= ge::OppImplVersion::kVersionEnd) {
     return null_ptr;
   }
   const auto version = static_cast<gert::OppImplVersionTag>(opp_impl_version);
@@ -129,7 +129,7 @@ OpImplSpaceRegistryPtr &DefaultOpImplSpaceRegistry::GetDefaultSpaceRegistry(OppI
 
 void DefaultOpImplSpaceRegistry::SetDefaultSpaceRegistry(const OpImplSpaceRegistryPtr &space_registry,
                                                          ge::OppImplVersion opp_impl_version) {
-  if (opp_impl_version > ge::OppImplVersion::kVersionEnd) {
+  if (opp_impl_version >= ge::OppImplVersion::kVersionEnd) {
     return;
   }
   (void)DefaultOpImplSpaceRegistryV2::GetInstance().SetSpaceRegistry(
