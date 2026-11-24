@@ -5,7 +5,7 @@ IntegerChecker是一个模板类，带有模板参数T，用于检查一个整�
 ## 需要包含的头文件
 
 ```cpp
-#include <extern_math_util.h>
+#include <utils/extern_math_util.h>
 ```
 
 ## Public成员函数
