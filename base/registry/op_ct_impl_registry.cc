@@ -176,7 +176,7 @@ int32_t GetOpCtImplFunctions(TypesToCtImpl *impl, size_t impl_num) {
       cur_impl->op_type = it.first.GetString();
       const auto mem_ret = memcpy_s(&cur_impl->funcs, copy_size, &it.second, copy_size);
       if (mem_ret != EOK) {
-        GELOGE(ge::FAILED, "Copy func failed with size:%zu.", copy_size);
+        GELOGE(ge::FAILED, "Copy func failed with size: %zu bytes.", copy_size);
         return static_cast<int32_t>(ge::GRAPH_FAILED);
       }
       ++i;

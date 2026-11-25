@@ -172,7 +172,7 @@ std::string GetParentPath(const std::string &path) {
 bool CreateSymlink(const std::string &targetPath, const std::string &linkPath) {
   GELOGD("Running CreateSymlink.");
   if (!FileExist(targetPath)) {
-    GELOGE(ge::FAILED, "The file doesn't exist.");
+    GELOGE(ge::FAILED, "The file doesn't exist: %s", targetPath.c_str());
     return false;
   }
   std::string parentDir = GetParentPath(linkPath);
@@ -183,7 +183,7 @@ bool CreateSymlink(const std::string &targetPath, const std::string &linkPath) {
     }
   }
   if (symlink(targetPath.c_str(), linkPath.c_str()) != 0) {
-    GELOGE(ge::FAILED, "Error creating symlink failed.");
+    GELOGE(ge::FAILED, "Failed to create symlink: %s, target path: %s.", linkPath.c_str(), targetPath.c_str());
     return false;
   }
   GELOGI("Successfully creating symlink: %s", linkPath.c_str());
@@ -227,7 +227,7 @@ bool RemoveDirectoryRecursively(const std::string &path) {
           CheckCloseDir(dir, __FILE__, __LINE__, __FUNCTION__);
           return false;
         }
-        GELOGI("Successfully remove subdirectory: %s", entryPath.c_str());
+        GELOGI("Successfully removed subdirectory: %s", entryPath.c_str());
       }
     } else {
       if (unlink(entryPath.c_str()) != 0) {
@@ -235,7 +235,7 @@ bool RemoveDirectoryRecursively(const std::string &path) {
         CheckCloseDir(dir, __FILE__, __LINE__, __FUNCTION__);
         return false;
       }
-      GELOGI("Successfully remove linkpath: %s", entryPath.c_str());
+      GELOGI("Successfully removed linkpath: %s", entryPath.c_str());
     }
     entry = readdir(dir);
   }

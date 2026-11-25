@@ -31,12 +31,12 @@ template <typename T>
 ge::graphStatus CheckOverFlow(const size_t attr_size, const size_t tiling_data_size, const size_t capacity) {
   size_t append_size;
   if (ge::MulOverflow(sizeof(T), attr_size, append_size)) {
-    GELOGE(ge::GRAPH_FAILED, "Mul over flow. Attr size is %zu", attr_size);
+    GELOGE(ge::GRAPH_FAILED, "Mul overflow. Attr size is %zu", attr_size);
     return ge::GRAPH_FAILED;
   }
   size_t after_size;
   if (ge::AddOverflow(tiling_data_size, append_size, after_size)) {
-    GELOGE(ge::GRAPH_FAILED, "Add over flow. Tiling data size is [%zu], append size is [%zu].", tiling_data_size,
+    GELOGE(ge::GRAPH_FAILED, "Add overflow. Tiling data size is [%zu], append size is [%zu].", tiling_data_size,
            append_size);
     return ge::GRAPH_FAILED;
   }
@@ -88,7 +88,8 @@ ge::graphStatus AppendConvertedAttr(TilingData *tiling_data, const RuntimeAttrs 
   const T1 *attr = attrs->GetAttrPointer<T1>(attr_index);
   GE_CHECK_NOTNULL(attr);
   if (!ge::IntegerChecker<T2>::Compat(*attr)) {
-    GELOGW("[Check][Param] attr[%zu] overflow, larger than max dst type", attr_index);
+    GELOGW("[Check][Param] attr[%zu] value[%s] overflow, larger than max[%s] of dst type", attr_index,
+           std::to_string(*attr).c_str(), std::to_string(std::numeric_limits<T2>::max()).c_str());
   }
   const T2 attr_data = GetValue<T1, T2>(*attr);
   return tiling_data->Append<T2>(attr_data);
@@ -600,7 +601,7 @@ ge::graphStatus TilingData::AppendConvertedAttrVal(const RuntimeAttrs *attrs, co
                                                    const AttrDataType src_type, const AttrDataType dst_type) {
   GE_CHECK_NOTNULL(attrs);
   if (attr_index >= attrs->GetAttrNum()) {
-    GELOGE(ge::GRAPH_FAILED, "Attr index is invalid, out of range %zu.", attrs->GetAttrNum());
+    GELOGE(ge::GRAPH_FAILED, "Attr index[%zu] is invalid, out of range %zu.", attr_index, attrs->GetAttrNum());
     return ge::GRAPH_FAILED;
   }
   auto func = kAttrTable.Find(src_type, dst_type);

@@ -27,7 +27,7 @@ using GetCtImplFunctions = ge::graphStatus (*)(TypesToCtImpl *imp, size_t impl_n
 
 void CloseHandle(void *&handle) {
   if (handle != nullptr) {
-    GELOGI("start close handle, handle[%p].", handle);
+    GELOGI("start to close handle, handle[%p].", handle);
     if (mmDlclose(handle) != 0) {
       const ge::char_t *error = mmDlerror();
       error = (error == nullptr) ? "" : error;

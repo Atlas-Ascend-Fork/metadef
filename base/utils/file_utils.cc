@@ -69,7 +69,7 @@ std::string GetSanitizedName(const std::string &input) {
       sanitized += c;
     }
   }
-  GELOGD("Get regulated name[%s] from [%s]success", sanitized.c_str(), input.c_str());
+  GELOGD("Get regulated name[%s] from [%s] success", sanitized.c_str(), input.c_str());
   return sanitized;
 }
 
@@ -85,7 +85,7 @@ static inline int32_t CheckAndMkdir(const ge::char_t *tmp_dir_path, mmMode_t mod
                                       std::vector<const ge::char_t *>({"filepath", tmp_dir_path, reason.c_str()}));
       GELOGW(
           "[Util][mkdir] Create directory %s failed, reason:%s. Make sure the "
-          "directory exists and writable.",
+          "directory exists and is writable.",
           tmp_dir_path, strerror(errno));
       return ret;
     }
@@ -164,7 +164,8 @@ std::unique_ptr<ge::char_t[]> GetBinDataFromFile(const std::string &path, uint32
   const std::streamoff file_size = static_cast<std::streamoff>(ifs.tellg());
   if ((file_size < 0) || (static_cast<std::uintmax_t>(file_size) > std::numeric_limits<uint32_t>::max())) {
     data_len = 0U;
-    GELOGE(ge::FAILED, "File size is invalid or exceeds uint32_t range, path:%s", path.c_str());
+    GELOGE(ge::FAILED, "File size[%lld] is invalid or exceeds uint32_t range, path:%s", static_cast<int64_t>(file_size),
+           path.c_str());
     ifs.close();
     return nullptr;
   }
@@ -300,7 +301,7 @@ ge::graphStatus SaveBinToFile(const char *const data, size_t length, const std::
   }
   const bool meta_file_exist = (mmAccess(dir_path.c_str()) == EN_OK);
   if ((!dir_path.empty()) && (!meta_file_exist)) {
-    GE_ASSERT_TRUE((CreateDir(dir_path) == kFileSuccess), "Create direct failed, path: %s.", file_path.c_str());
+    GE_ASSERT_TRUE((CreateDir(dir_path) == kFileSuccess), "Create directory failed, path: %s.", file_path.c_str());
   }
   std::string real_path = RealPath(dir_path.c_str());
   GE_ASSERT_TRUE(!real_path.empty(), "Path: %s is empty", file_path.c_str());
