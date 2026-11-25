@@ -98,7 +98,7 @@ Before submitting metadef modifications, ensure:
 
 ### Detailed API Reference
 
-For detailed information about all interfaces in this repository, visit [API Reference](docs/zh/api/README.md).
+For detailed information about all interfaces in this repository, visit [API Reference](docs/en/api/README.md).
 
 ## Related Information
 
