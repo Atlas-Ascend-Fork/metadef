@@ -2,7 +2,7 @@
 
 ## 函数功能
 
-创建一个Fusion类型的Task，Fusion类型的Task指融合类型的Task，目前支持AI Core Task和CCU Task组成一个Fusion Task。
+根据子任务序列创建Fusion Task；子任务可以是AI Core和/或CCU Task。
 
 ## 函数原型
 
@@ -23,7 +23,7 @@ static KernelLaunchInfo CreateFusionTask(const gert::ExeResGenerationContext *co
 
 ## 约束说明
 
-sub\_tasks目前暂时仅支持AI Core Task+CCU Task的序列组合。
+每个 sub_tasks 项必须是 AI Core 或 CCU Task。序列可以包含多个同类子任务，序列化后的顺序与输入顺序一致。
 
 ## 调用示例
 

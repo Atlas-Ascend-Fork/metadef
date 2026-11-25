@@ -26,6 +26,13 @@ int OpDefFactoryImpl::OpDefRegister(const char *name, OpDefCreator creator) {
   return 0;
 }
 
+void OpDefFactoryImpl::OpDefRegisterInferSymbol(OpDef &op, gert::OpImplRegisterV2 &impl) {
+  const gert::OpImplRegisterV2::InferSymbolKernelFunc infer_symbol = op.GetInferSymbol();
+  if (infer_symbol != nullptr) {
+    (void)impl.InferSymbol(infer_symbol);
+  }
+}
+
 int OpDefFactoryImpl::OpDefRegisterV2(const char *name, OpDefFuncPtr ptr) {
   const ge::AscendString op_type(name);
   g_opsdef_creator_v2.emplace(name, ptr);

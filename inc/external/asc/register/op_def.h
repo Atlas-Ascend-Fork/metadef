@@ -483,6 +483,10 @@ class OpMC2Def {
 };
 
 class OpDefImpl;
+// 写入口：libregister 强定义；外部算子 so 弱引用（so 内无定义，动态重定位不受
+// -Bsymbolic 影响），老 GE 上解析为空判空跳过
+GE_INFER_SYMBOL_API void SetInferSymbolForSo(class OpDef &op_def, gert::OpImplRegisterV2::InferSymbolKernelFunc func);
+
 class OpDef {
  public:
   explicit OpDef(const char *type);
@@ -496,9 +500,25 @@ class OpDef {
   OpDef &SetInferShape(gert::OpImplRegisterV2::InferShapeKernelFunc func);
   OpDef &SetInferShapeRange(gert::OpImplRegisterV2::InferShapeRangeKernelFunc func);
   OpDef &SetInferDataType(gert::OpImplRegisterV2::InferDataTypeKernelFunc func);
+  // 类内 inline 转发器（带 body → stub 生成器跳过不生成 stub）
+  OpDef &SetInferSymbol(gert::OpImplRegisterV2::InferSymbolKernelFunc func) {
+    auto set_entry = SetInferSymbolForSo;
+    if (set_entry != nullptr) {
+      set_entry(*this, func);
+    }
+    return *this;
+  }
   gert::OpImplRegisterV2::InferShapeKernelFunc &GetInferShape(void);
   gert::OpImplRegisterV2::InferShapeRangeKernelFunc &GetInferShapeRange(void);
   gert::OpImplRegisterV2::InferDataTypeKernelFunc &GetInferDataType(void);
+  // 新环境读取真实注册值；老环境弱读取入口为空时安全降级为 nullptr
+  gert::OpImplRegisterV2::InferSymbolKernelFunc GetInferSymbol(void) {
+    auto get_entry = GetInferSymbolForSo;
+    if (get_entry != nullptr) {
+      return get_entry(*this);
+    }
+    return nullptr;
+  }
   OpAICoreDef &AICore(void);
   OpAICPUDef &AICPU(void);
   OpHostCPUDef &HostCPU(void);
@@ -516,6 +536,10 @@ class OpDef {
   friend class CfgGenerator;
   friend class OpParamTrunk;
   friend class OpDefImpl;
+  friend void SetInferSymbolForSo(OpDef &op_def, gert::OpImplRegisterV2::InferSymbolKernelFunc func);
+  void SetInferSymbolForRegister(gert::OpImplRegisterV2::InferSymbolKernelFunc func);
+  // 读取入口：库内强定义，外部算子 so 弱引用，老 GE 上解析为空后返回 nullptr
+  GE_INFER_SYMBOL_API static gert::OpImplRegisterV2::InferSymbolKernelFunc GetInferSymbolForSo(OpDef &op_def);
   using ArrParam = std::pair<uint32_t, bool>;
   struct DfsParam {
     std::vector<std::vector<ArrParam>> full_types;

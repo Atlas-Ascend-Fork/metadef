@@ -519,27 +519,6 @@ extern template WEAK_SYMBOL bool Expression::ComputeHint<bool>(bool &) const;
 
 WEAK_SYMBOL std::ostream &operator<<(std::ostream &os, const Expression &e);
 
-// Expression 容器 traits（供 unordered_map / map 以 Expression 为 key 使用）
-struct ExpressionHash {
-  uint64_t operator()(const Expression &k) const {
-    return k.Hash();
-  }
-};
-struct ExpressionKeyEq {
-  bool operator()(const Expression &x, const Expression &y) const {
-    return x == y;
-  }
-};
-struct ExpressionKeyLess {
-  bool operator()(const Expression &x, const Expression &y) const {
-    int64_t xh = x.Hash();
-    int64_t yh = y.Hash();
-    if (xh != yh) return xh < yh;
-    if (x == y) return false;
-    return x.Compare(y) == -1;
-  }
-};
-
 }  // namespace ge
 
 #endif  // GRAPH_SYMBOLIZER_SYMBOLIC_H_

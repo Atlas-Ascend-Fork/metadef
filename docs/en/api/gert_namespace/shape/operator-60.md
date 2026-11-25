@@ -29,7 +29,7 @@ None
 ## Example
 
 ```cpp
-Shape shape0({3, 256, 256});
-Shape shape1({1, 3, 256, 256});
+gert::Shape shape0({3, 256, 256});
+gert::Shape shape1({1, 3, 256, 256});
 auto is_same_shape = shape0 == shape1; // The return value is false (not equal).
 ```

@@ -32,6 +32,8 @@ class OpDefFactoryImpl {
   bool OpIsTilingSink(const char *opType);
 
  private:
+  friend class OpDefFactory;
+  void OpDefRegisterInferSymbol(OpDef &op, gert::OpImplRegisterV2 &impl);
   std::map<ge::AscendString, OpDefCreator> g_opsdef_creator;
   std::map<ge::AscendString, OpDefFuncPtr> g_opsdef_creator_v2;
   std::vector<ge::AscendString> g_ops_list;

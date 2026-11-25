@@ -31,7 +31,7 @@ None
 ## Example
 
 ```cpp
-Shape shape({3, 256, 256}); // Set the original shape to 3,256,256.
-ExpandDimsType type1("1000");
+gert::Shape shape({3, 256, 256}); // Set the original shape to 3,256,256.
+gert::ExpandDimsType type1("1000");
 auto ret = type1.Expand(shape); // ret = ge::GRAPH_SUCCESS, shape = 1,3,256,256
 ```

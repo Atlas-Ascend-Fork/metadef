@@ -29,7 +29,7 @@ ge::graphStatus Expand(Shape &shape) const
 ## 调用示例
 
 ```cpp
-Shape shape({3, 256, 256}); // 设置原始shape 3,256,256
-ExpandDimsType type1("1000");
+gert::Shape shape({3, 256, 256}); // 设置原始shape 3,256,256
+gert::ExpandDimsType type1("1000");
 auto ret = type1.Expand(shape); // ret = ge::GRAPH_SUCCESS, shape = 1,3,256,256
 ```

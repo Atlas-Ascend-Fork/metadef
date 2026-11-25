@@ -19,6 +19,8 @@
 #include "exe_graph/runtime/symbolic_types.h"
 #include "graph/symbolizer/symbolic.h"
 #include "exe_graph/runtime/base_type.h"
+#include "register/op_def.h"
+#include "register/op_def_registry.h"
 
 namespace {
 constexpr size_t kReservedSize = 498UL;
@@ -98,6 +100,39 @@ TEST(SymbolicOpInterfaceTest, RegisterInferSymbolDefault) {
   // 未注册 InferSymbol 的算子，infer_symbol 应为默认 nullptr
   gert::OpImplRegisterV2 register_obj = gert::OpImplRegisterV2("TestOpNoInferSymbolDefault").InferShape(nullptr);
   auto *funcs = gert::OpImplRegistry::GetInstance().GetOpImpl("TestOpNoInferSymbolDefault");
+  ASSERT_NE(funcs, nullptr);
+  ASSERT_EQ(funcs->infer_symbol, nullptr);
+}
+
+TEST(SymbolicOpInterfaceTest, OpDefInferSymbolSetGetAndCopy) {
+  ops::OpDef op("TestOpDefInferSymbol");
+  ASSERT_EQ(op.GetInferSymbol(), nullptr);
+  ASSERT_EQ(&op.SetInferSymbol(TestInferSymbolFunc), &op);
+  ASSERT_EQ(op.GetInferSymbol(), TestInferSymbolFunc);
+
+  ops::OpDef copied(op);
+  ASSERT_EQ(copied.GetInferSymbol(), TestInferSymbolFunc);
+}
+
+TEST(SymbolicOpInterfaceTest, OpDefFactoryTransfersInferSymbol) {
+  ops::OpDef op("TestOpDefFactoryInferSymbol");
+  op.SetInferSymbol(TestInferSymbolFunc);
+  gert::OpImplRegisterV2 impl("TestOpDefFactoryInferSymbol");
+  ops::OpDefFactory::OpDefRegisterInferSymbol(op, impl);
+  gert::OpImplRegisterV2 register_obj(impl);
+
+  auto *funcs = gert::OpImplRegistry::GetInstance().GetOpImpl("TestOpDefFactoryInferSymbol");
+  ASSERT_NE(funcs, nullptr);
+  ASSERT_EQ(funcs->infer_symbol, TestInferSymbolFunc);
+}
+
+TEST(SymbolicOpInterfaceTest, OpDefFactorySkipsMissingInferSymbol) {
+  ops::OpDef op("TestOpDefFactoryNoInferSymbol");
+  gert::OpImplRegisterV2 impl("TestOpDefFactoryNoInferSymbol");
+  ops::OpDefFactory::OpDefRegisterInferSymbol(op, impl);
+  gert::OpImplRegisterV2 register_obj(impl);
+
+  auto *funcs = gert::OpImplRegistry::GetInstance().GetOpImpl("TestOpDefFactoryNoInferSymbol");
   ASSERT_NE(funcs, nullptr);
   ASSERT_EQ(funcs->infer_symbol, nullptr);
 }
