@@ -128,7 +128,7 @@ class ExtendedKernelContext : protected KernelContext {
   }
   /**
    * 获取计算节点的属性，仅IR原型中定义的属性可被获取到
-   * @return 计算节点的属性
+   * @return 计算节点属性的指针；若当前Context未关联计算节点信息，返回nullptr
    */
   const RuntimeAttrs *GetAttrs() const {
     const auto compute_node_info = GetComputeNodeInfo();
