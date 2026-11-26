@@ -430,6 +430,50 @@ TEST_F(AnyValueUt, SetGetValueOk) {
   EXPECT_EQ(value, std::vector<int64_t>({1, 2, 3, 4}));
 }
 
+TEST_F(AnyValueUt, SetRvalueOk_Inline) {
+  AnyValue av;
+  InlineFuncCounter fc;
+  fc.a = 7;
+
+  FuncCounter::Clear();
+  EXPECT_EQ(av.SetValue(std::move(fc)), GRAPH_SUCCESS);
+  EXPECT_EQ(FuncCounter::GetClearMoveConstructTimes(), 1);
+  EXPECT_EQ(FuncCounter::GetClearCopyConstructTimes(), 0);
+
+  const InlineFuncCounter *stored = av.Get<InlineFuncCounter>();
+  ASSERT_NE(stored, nullptr);
+  EXPECT_EQ(stored->a, 7);
+}
+
+TEST_F(AnyValueUt, SetRvalueOk_Allocate) {
+  AnyValue av;
+  AllocatedFuncCounter fc;
+  fc.a = 11;
+
+  FuncCounter::Clear();
+  EXPECT_EQ(av.SetValue(std::move(fc)), GRAPH_SUCCESS);
+  EXPECT_EQ(FuncCounter::GetClearMoveConstructTimes(), 1);
+  EXPECT_EQ(FuncCounter::GetClearCopyConstructTimes(), 0);
+
+  const AllocatedFuncCounter *stored = av.Get<AllocatedFuncCounter>();
+  ASSERT_NE(stored, nullptr);
+  EXPECT_EQ(stored->a, 11);
+}
+
+TEST_F(AnyValueUt, CreateFromRvalueOk_Inline) {
+  InlineFuncCounter fc;
+  fc.a = 9;
+
+  FuncCounter::Clear();
+  AnyValue av = AnyValue::CreateFrom(std::move(fc));
+  EXPECT_GE(FuncCounter::GetClearMoveConstructTimes(), 1);
+  EXPECT_EQ(FuncCounter::GetClearCopyConstructTimes(), 0);
+
+  const InlineFuncCounter *stored = av.Get<InlineFuncCounter>();
+  ASSERT_NE(stored, nullptr);
+  EXPECT_EQ(stored->a, 9);
+}
+
 TEST_F(AnyValueUt, SetGetValueOk_Inline) {
   AnyValue av;
 

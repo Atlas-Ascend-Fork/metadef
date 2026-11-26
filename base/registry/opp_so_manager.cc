@@ -72,7 +72,8 @@ void GetOppSoList(const std::string &opp_so_path, const std::vector<std::string>
   // 合并到so_list到package_to_opp_so_desc对应的值中
   std::string package_name = metadef::PluginManager::GetSoPackageName(opp_so_path);
   if (opp_version_tag >= gert::OppImplVersionTag::kVersionEnd) {
-    GELOGE(ge::FAILED, "Invalid opp_impl_version: %d", static_cast<int32_t>(opp_version_tag));
+    GELOGE(ge::FAILED, "Invalid opp_impl_version: %d, valid range is [0, %d).", static_cast<int32_t>(opp_version_tag),
+           static_cast<int32_t>(gert::OppImplVersionTag::kVersionEnd));
     return;
   }
   std::vector<ge::AscendString> new_so_path_vector;
@@ -165,7 +166,7 @@ void OppSoManager::LoadOppPackage() const {
         return true;
       });
       for (const auto &so_name : so_paths) {
-        GELOGI("[LoadOppPackage]load so, so_name is %s", so_name.GetString());
+        GELOGD("[LoadOppPackage]load so, so_name is %s", so_name.GetString());
       }
       so_list_opp = gert::OppSoDesc(so_paths, AscendString(package_name.c_str()));
       LoadSoAndInitDefault(so_list_opp.GetSoPaths(), version, package_name);

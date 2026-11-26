@@ -270,7 +270,8 @@ void AnyValue::InlineOperations<T>::Construct(const T &value, AnyValue *const av
 }
 template <typename T>
 void AnyValue::InlineOperations<T>::Construct(T &&value, AnyValue *const av) {
-  Construct(value, av);
+  (void)::new (&(av->holder_.inline_buf)) T(std::move(value));
+  av->operate_ = AnyValue::InlineOperations<T>::Operate;
 }
 template <typename T>
 void AnyValue::InlineOperations<T>::Operate(const AnyValue::OperateType ot, const AnyValue *const av, void *const out) {

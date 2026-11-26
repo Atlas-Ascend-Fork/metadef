@@ -20,7 +20,7 @@ OpImplRegisterV2Impl &OpImplRegisterV2Impl::InferSymbolShape(OpImplKernelRegistr
   auto funcs = space_registry->CreateOrGetOpImpl(op_type.GetString());
   GELOGI("Register infer symbol shape for %s.", op_type.GetString());
   if (funcs->infer_symbol_shape != nullptr) {
-    GELOGW("[%s] infer_symbol_shape already registered, will using new function.", op_type.GetString());
+    GELOGW("[%s] infer_symbol_shape already registered, will use the new function.", op_type.GetString());
   }
   funcs->infer_symbol_shape = func;
   return *this;

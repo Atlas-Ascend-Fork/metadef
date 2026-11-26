@@ -39,9 +39,11 @@ __attribute__((visibility("default"))) uint32_t RunAicpuRpcSrvLaunch(void *args)
     if (ret != 0) {
       GELOGW("Failed to set CPU kernel context workspace for op %s, ret = %d, workspace = %lu, workspaceSize = %lu",
              opType.c_str(), ret, task->workspaceAddr, task->workspaceSize);
+    } else {
+      GELOGI(
+          "set up the CPU kernel context workspace for op %s succeed, ret = %d, workspace = %lu, workspaceSize = %lu",
+          opType.c_str(), ret, task->workspaceAddr, task->workspaceSize);
     }
-    GELOGI("set up the CPU kernel context workspace for op %s succeed, ret = %d, workspace = %lu, workspaceSize = %lu",
-           opType.c_str(), ret, task->workspaceAddr, task->workspaceSize);
   }
 
   optiling::SinkTilingFunc func = optiling::DeviceOpImplRegistry::GetSingleton().GetSinkTilingFunc(opType);

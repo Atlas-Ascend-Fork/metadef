@@ -75,7 +75,8 @@ bool IsVersionWithInRequiredRange(const uint32_t effective_version,
     }
   }
 
-  GELOGW("[InvalidVersion] Effective version:%u not within the required range.", effective_version);
+  GELOGW("[InvalidVersion] Effective version:%u not within the required range:%s.", effective_version,
+         TransRequiredOppAbiVersionToString(required_version).c_str());
   return false;
 }
 
@@ -104,7 +105,7 @@ int32_t FilterSoFiles(const mmDirent *entry) {
     return 1;
   }
   if (name != "." && name != "..") {
-    GELOGI("Skipping file: %s", name.c_str());
+    GELOGD("Skipping file: %s", name.c_str());
   }
   return 0;
 }
@@ -133,7 +134,7 @@ void ProcessSubdirectoryAndSoFiles(const std::string &directory, const mmDirent 
     }
     const std::string path = custom_fusion_passes_dir + "/" + std::string(so_dir_ent->d_name);
     so_files.push_back(path);
-    GELOGI("Found custom pass library file: %s", path.c_str());
+    GELOGD("Found custom pass library file: %s", path.c_str());
   }
   mmScandirFree(so_entries, so_dir_num);
 }
@@ -363,7 +364,7 @@ bool PluginManager::GetEffectiveVersion(const std::string &opp_version, uint32_t
     split_version[1].append(c_effective_version_max_num - c_effective_version_size, '0');
   } else {
     GELOGW(
-        "c_effective_version_size:%zu, will reach or over max num:%zu, Ensure that the range of valid version is not "
+        "c_effective_version_size:%zu, will reach or exceed max num:%zu, Ensure that the range of valid version is not "
         "empty",
         c_effective_version_size, c_effective_version_max_num);
   }
@@ -432,7 +433,7 @@ bool PluginManager::CheckOppAndCompilerVersions(const std::string &opp_version, 
       return false;
     }
     if (!IsVersionWithInRequiredRange(effective_opp_version, required_version)) {
-      GELOGW("opp_version:%s is not with in required_opp_abi_version:%s", opp_version.c_str(),
+      GELOGW("opp_version:%s is not within required_opp_abi_version:%s", opp_version.c_str(),
              TransRequiredOppAbiVersionToString(required_version).c_str());
       return false;
     }
@@ -446,7 +447,7 @@ bool PluginManager::CheckOppAndCompilerVersions(const std::string &opp_version, 
         return false;
       }
       if (!IsVersionWithInRequiredRange(effective_compiler_version, required_version)) {
-        GELOGW("compiler version:%s is not with in required_opp_abi_version:%s", opp_version.c_str(),
+        GELOGW("compiler version:%s is not within required_opp_abi_version:%s", it.c_str(),
                TransRequiredOppAbiVersionToString(required_version).c_str());
         return false;
       }
@@ -685,7 +686,8 @@ ge::Status PluginManager::LoadSoWithFlags(const std::string &path, const int32_t
   SplitPath(path, path_vec);
   for (const auto &single_path : path_vec) {
     GE_IF_BOOL_EXEC(single_path.length() >= static_cast<ULONG>(MMPA_MAX_PATH),
-                    GELOGE(ge::PARAM_INVALID, "The shared library file path is too long!");
+                    GELOGE(ge::PARAM_INVALID, "The shared library file path is too long! path:%s, len:%zu, max:%d",
+                           single_path.c_str(), single_path.length(), static_cast<int32_t>(MMPA_MAX_PATH));
                     continue);
     // load break when number of loaded so reach maximum
     if (num_of_loaded_so >= static_cast<uint32_t>(kMaxNumOfSo)) {
@@ -715,7 +717,7 @@ ge::Status PluginManager::LoadSoWithFlags(const std::string &path, const int32_t
     const auto start = std::chrono::high_resolution_clock::now();
     const auto handle = mmDlopen(file_path_dlopen.c_str(), flags);
     const auto end = std::chrono::high_resolution_clock::now();
-    GELOGI("[GEPERFTRACE] The time cost of PluginManager::Dlopen[%s] is [%lu] micro seconds.",
+    GELOGD("[GEPERFTRACE] The time cost of PluginManager::Dlopen[%s] is [%lu] micro seconds.",
            (file_path_dlopen.c_str()), std::chrono::duration_cast<std::chrono::microseconds>(end - start).count());
     if (handle == nullptr) {
       const ge::char_t *error = mmDlerror();
