@@ -86,7 +86,7 @@ class Range {
 
   /**
    * 获取最大的T对象指针
-   * @return
+   * @return 最大T对象指针；若最大值指针为空，返回nullptr
    */
   const T *GetMax() const {
     return max_;
