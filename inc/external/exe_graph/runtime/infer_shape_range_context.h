@@ -32,7 +32,7 @@ class InferShapeRangeContext : public ExtendedKernelContext {
   }
 
   /**
-   * 根据输入index，获取输出tensor指针
+   * 根据输入index，获取输入tensor range指针
    * 若算子被配置为'data'数据依赖，则返回的Tensor对象中保存了Host内存地址；反之，内存地址为nullptr。
    * @param index 输入index
    * @return 输入tensor指针，index非法时，返回空指针
@@ -61,7 +61,7 @@ class InferShapeRangeContext : public ExtendedKernelContext {
   }
 
   /**
-   * 根据输入index，获取输出tensor指针
+   * 根据输入index，获取输入tensor range指针
    * 若算子被配置为'data'数据依赖，则返回的Tensor对象中保存了Host内存地址；反之，内存地址为nullptr。
    * @param ir_index IR原型定义中的index
    * @return 输入tensor range指针，ir_index非法时，返回空指针

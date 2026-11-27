@@ -18,16 +18,23 @@ None
 
 ## Return Value
 
-A **const**-type object containing all attribute values defined by the IR prototype, with the attribute values stored in the order defined by the IR prototype.
+Returns a pointer to a **const RuntimeAttrs** object containing all attribute values defined by the IR prototype, with the attribute values stored in the order defined by the IR prototype. If the underlying **KernelContext** does not contain compute-node information, returns **nullptr**.
 
 ## Constraints
 
-None
+Check the returned pointer for **nullptr** before dereferencing it. The pointer is owned by the underlying context and remains valid only while that context remains valid.
 
 ## Example
 
 ```cpp
-// Assume that KernelContext *context already exists.
-auto extend_context = reinterpret_cast<ExtendedKernelContext *>(context);
-auto rt_attrs = extend_context->GetAttrs();
+#include <exe_graph/runtime/extended_kernel_context.h>
+
+void ReadAttrs(gert::KernelContext *context) {
+  auto extend_context = reinterpret_cast<gert::ExtendedKernelContext *>(context);
+  const auto *rt_attrs = extend_context->GetAttrs();
+  if (rt_attrs == nullptr) {
+    return;
+  }
+  // Use rt_attrs while context remains valid.
+}
 ```

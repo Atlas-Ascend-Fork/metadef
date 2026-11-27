@@ -29,7 +29,7 @@ static Format DataFormatToFormat(const std::string &str)
 
 ## 约束说明
 
-只支持以下几种格式：
+支持以下主格式名称，且每种主格式可带十进制子格式后缀`:<value>`，取值范围为0至65535（例如，`NCHW:1`）：
 
 "NCHW": FORMAT\_NCHW
 

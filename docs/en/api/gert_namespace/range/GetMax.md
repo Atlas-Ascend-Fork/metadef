@@ -19,18 +19,18 @@ None
 
 ## Return Value
 
-Returns the pointer to the largest **T** object.
+Returns the pointer to the largest **T** object. If the maximum-value pointer is null, such as after default construction or **SetMax(nullptr)**, returns **nullptr**.
 
 ## Constraints
 
-None
+The caller must check for **nullptr** before dereferencing the returned pointer.
 
 ## Example
 
 ```cpp
 int min = -1;
 int max = 1024;
-Range<int> range(&min, &max);
+gert::Range<int> range(&min, &max);
 
 auto ret = range.GetMax(); // The ret pointer points to max.
 ```

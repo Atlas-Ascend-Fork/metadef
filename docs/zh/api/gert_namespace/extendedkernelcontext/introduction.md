@@ -9,5 +9,5 @@ ExtendedKernelContext继承关系图如下：
 ## 需要包含的头文件
 
 ```cpp
-#include <extended_kernel_context.h>
+#include <exe_graph/runtime/extended_kernel_context.h>
 ```
