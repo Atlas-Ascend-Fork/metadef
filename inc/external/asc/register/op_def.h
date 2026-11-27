@@ -144,18 +144,16 @@ struct ScalarVar {
     }
   }
   ScalarVar(ScalarType type, float num) : scalar_type(type), scalar_num(num) {
-    if (type != ScalarType::FLOAT32 && type != ScalarType::FLOAT16) {
-      if (type == ScalarType::UINT64) {
-        scalar_num = ScalarNum(static_cast<uint64_t>(num));
-      }
+    if (type == ScalarType::UINT64) {
+      scalar_num = ScalarNum(static_cast<uint64_t>(num));
+    } else if (type != ScalarType::FLOAT32 && type != ScalarType::FLOAT16) {
       scalar_num = ScalarNum(static_cast<int64_t>(num));
     }
   }
   ScalarVar(ScalarType type, double num) : scalar_type(type), scalar_num(static_cast<float>(num)) {
-    if (type != ScalarType::FLOAT32 && type != ScalarType::FLOAT16) {
-      if (type == ScalarType::UINT64) {
-        scalar_num = ScalarNum(static_cast<uint64_t>(num));
-      }
+    if (type == ScalarType::UINT64) {
+      scalar_num = ScalarNum(static_cast<uint64_t>(num));
+    } else if (type != ScalarType::FLOAT32 && type != ScalarType::FLOAT16) {
       scalar_num = ScalarNum(static_cast<int64_t>(num));
     }
   }

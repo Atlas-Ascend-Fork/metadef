@@ -39,6 +39,15 @@ class OpDefUT : public testing::Test {
   void TearDown() {}
 };
 
+TEST_F(OpDefUT, ScalarVarUint64FloatingPointConversion) {
+  constexpr float float_value = 9223372036854775808.0f;
+  constexpr double double_value = 9223372036854775808.0;
+  const ScalarVar float_scalar(ScalarType::UINT64, float_value);
+  const ScalarVar double_scalar(ScalarType::UINT64, double_value);
+  EXPECT_EQ(float_scalar.scalar_num.value_u64, static_cast<uint64_t>(float_value));
+  EXPECT_EQ(double_scalar.scalar_num.value_u64, static_cast<uint64_t>(double_value));
+}
+
 TEST_F(OpDefUT, Construct) {
   OpDef opDef("Test");
   opDef.Input("x1")
